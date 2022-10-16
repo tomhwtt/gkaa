@@ -12,8 +12,8 @@ server {
   listen 443 ssl;
   server_name imagecrazy.com;
 
-  ssl_certificate       /etc/letsencrypt/live/${DOMAIN}/fullchain.pem;
-  ssl_certificate_key   /etc/letsencrypt/live/${DOMAIN}/privkey.pem;
+  ssl_certificate       /etc/letsencrypt/live/imagecrazy.com/fullchain.pem;
+  ssl_certificate_key   /etc/letsencrypt/live/imagecrazy.com/privkey.pem;
 
   location /static {
     alias /vol/static;
