@@ -1,0 +1,30 @@
+
+body{
+  font-family: 'Ubuntu', sans-serif;
+}
+
+/* mobile first */
+
+
+
+.bg-black{
+  background-color: #000;
+  color: #f8f9fa;
+}
+
+.bg-gold{
+  background-color: #febe24;
+}
+
+.thumbnail{
+  border-width: 1px;
+}
+
+.btn-gold{
+  background-color: #febe24;
+  border-color: #e0a720;
+}
+
+.btn-gold a{
+  color: #FFF;
+}

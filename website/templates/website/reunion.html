@@ -1,0 +1,166 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block stylesheets %}
+<link rel="stylesheet" type="text/css" href="{% static 'website/style.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container mt-3" style="max-width:768px; margin-bottom:50px;">
+  <div class="row">
+
+    <div class="col-12 reunion-header">
+      <h3 class="text-center">The United States Army Parachute Team</h3>
+      <h3 class="text-center golden-knights">"Golden Knights"</h3>
+      <h4 class="text-center">
+        & The Golden Knights’ <span class="d-block d-sm-none"></span>Alumni Association
+      </h4>
+      <p class="text-center">Celebrating 60 Years of Excellence</p>
+      <p class="text-center">5-8 December 2019</p>
+      <hr/>
+    </div>
+
+    <div class="col-12">
+      <div class="alert alert-danger">
+        <p class="my-0 text-center">
+          Click here to download the most up to date reunion schedule:
+          <a href="https://gkaa.us/2019-reunion-schedule/">Reunion Schedule</a>
+        </p>
+      </div>
+    </div>
+
+    <div class="col-12">
+      <h3>Registration Info</h3>
+      <a href="{% url 'website:registration' %}">Click Here to purchase event tickets:</a>
+
+      <hr/>
+
+      <h4 class="mt-3 font-weight-bold">Friday Night Hangar Party:</h4>
+      <p>Party will be held at Paraclete XP (Raeford DZ). Free Shuttles from hotels listed below to the Party will be available.  More info to come.</p>
+      <ul>
+        <li>Alumni: You +1 = Free w/ annual dues</li>
+        <li>Current Team Members: You +1 = Free</li>
+        <li>Honorary GKs & Friends of the Team: $35 per person</li>
+        <li>Additional Tickets are $35 per person</li>
+      </ul>
+
+      <h4 class="mt-3 font-weight-bold">Saturday Night Event:</h4>
+      <p class="mb-1">Event will be held at Embassy Suites. Guest Speaker will be Sean Tucker.  More info to come.</p>
+      <p class="mb-1">Tickets are $100 per person.</p>
+      <p class="mt-0">** This event is reserved for Alumni, Current Team Members, Honorary GKs and their guests. </p>
+
+      <hr/>
+    </div>
+
+    <div class="col-12">
+      <h3>Lodging Info</h3>
+      <hr/>
+    </div>
+
+    <div class="col-sm-6">
+      <p style="font-size:1.25em;">
+        <span class="font-weight-bold">Embassy Suites by Hilton</span> <br/>
+        4760 Lake Valley Dr. <br/>
+        Fayetteville, NC 28303 <br/>
+        910-826-3600 <br/>
+        www.embassysuites.com
+      </p>
+    </div>
+
+    <div class="col-sm-6">
+      <p class="mb-2">
+        <span class="font-weight-bold">Room Rates:</span> <br/>
+        1 King Bed, 2 Room Suite: $169 <br/>
+        2 Queen Beds, 2 Room Suite: $179 <br/>
+      </p>
+      <p>
+        <span class="font-weight-bold">To make reservations online, use this link:</span> <br/>
+        <a href="https://embassysuites.hilton.com/en/es/groups/personalized/F/FAYFBES-GKR-20191204/index.jhtml?WT.mc_id=POG" target="_blank">Reservation Link. Click Here</a>
+      </p>
+      <p class="mt-0">
+        <span class="font-weight-bold">To make reservations by phone:</span> <br/>
+        910-779-1416<br/>
+        Use Reservation Code: GKR
+      </p>
+    </div>
+
+    <div class="col-12">
+      <hr/>
+    </div>
+
+    <div class="col-sm-6">
+      <p style="font-size:1.25em;">
+        <span class="font-weight-bold">Spring Hill Suites</span><br/>
+        4750 Lake Valley Dr. <br/>
+        Fayetteville, NC 28303 <br/>
+        910-860-3000 <br/>
+        www.marriot.com
+      </p>
+    </div>
+
+    <div class="col-sm-6">
+      <p class="mb-2">
+        <span class="font-weight-bold">Room Rates:</span> <br/>
+        1 King Bed Room Suite: $159 <br/>
+        2 Double Beds Room Suite: $169 <br/>
+      </p>
+      <p>
+        <span class="font-weight-bold">To make reservations online, use this link:</span> <br/>
+        <a href="https://www.marriott.com/events/start.mi?id=1561737916204&key=GRP" target="_blank">Reservation Link. Click Here</a>
+      </p>
+      <p class="mt-0">
+        <span class="font-weight-bold">To make reservations by phone:</span> <br/>
+        910-860-3000<br/>
+        Use Reservation Code: GKRGKR
+      </p>
+    </div>
+
+
+    <div class="col-12">
+      <hr/>
+      <h3>Event Info</h3>
+      <p>
+        Click here to download the most up to date reunion schedule:
+        <a href="https://gkaa.us/2019-reunion-schedule/">Reunion Schedule</a>
+      </p>
+      <hr/>
+    </div>
+
+    <div class="col-sm-4">
+      <h4 class="font-weight-bold">5 December:</h4>
+      <ul>
+        <li>Skydiving</li>
+        <li>Hospitality Suite</li>
+      </ul>
+    </div>
+
+    <div class="col-sm-4">
+      <h4 class="font-weight-bold">6 December:</h4>
+      <ul>
+        <li>Golf</li>
+        <li>Sun Path Tour</li>
+        <li>Skydiving</li>
+        <li>Tunnel Meet</li>
+        <li>GK HQ & Aviation Tours</li>
+        <li>GKAA Membership Meeting</li>
+        <li>Hangar Party at Skydive Paraclete XP</li>
+        <li>Hospitality Suite</li>
+      </ul>
+    </div>
+
+    <div class="col-sm-4">
+      <h4 class="font-weight-bold">7 December:</h4>
+      <ul>
+        <li>Paver Dedication @ the Airborne & Special Operations Museum</li>
+        <li>GK HQ & Aviation Tours</li>
+        <li>Skydiving</li>
+        <li>Tunnel Time</li>
+        <li>Reunion Banquet</li>
+        <li>Hospitality Suite</li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+{% endblock %}

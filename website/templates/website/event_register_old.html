@@ -1,0 +1,88 @@
+{% extends "website_base.html" %}
+
+{% block content %}
+<div class="container" style="margin-top:100px;max-width:450px;">
+  <div class="row">
+
+    <div class="col-12">
+
+      <h1 style="font-size:32px;">
+        {{ event }}
+      </h1>
+
+      <hr>
+
+    </div>
+
+    <div class="col-12">
+      <form id="SubEventForm"
+        action="{% url 'website:eventregistration-new' event.short_code %}"
+        method="post"> {% csrf_token %}
+
+        <div class="form-group">
+          <label for="">Name</label>
+          <input class="form-control" id="registerName"
+            type="text" name="registration_name" required >
+        </div>
+
+        {% if email_error %}
+        <div class="alert alert-danger mt-3">
+          <span class="text-danger d-block">
+            Email Error. Please try again
+          </span>
+        </div>
+        {% endif %}
+
+        <div class="form-group">
+          <label for="">Email Address</label>
+          <input class="form-control" id="registerEmail"
+            type="email" name="registration_email" required >
+        </div>
+
+        <div class="form-group">
+          <label for="">I Am an:</label>
+          <select class="form-control" name="registration_type">
+            <option value="1">Alumnus/Alumnae</option>
+            <option value="2">Current Team Member</option>
+            <option value="3">Honorary GK</option>
+            <option value="4">Friend of the Team</option>
+          </select>
+        </div>
+
+        <p>
+          Number of Tickets:
+        </p>
+
+        <div class="btn-group btn-group-lg d-flex mt-3" role="group" aria-label="Quantity">
+
+          <button type="button"
+            class="btn btn-light border font-weight-bold">QTY:
+            <span id="quantityText">1</span>
+          </button>
+
+          <button id="subtractQuantity" type="button"
+            class="btn btn-light border">
+            <i class="fas fa-minus"></i>
+          </button>
+
+          <button id="addQuantity" type="button"
+            class="btn btn-light border">
+            <i class="fas fa-plus"></i>
+          </button>
+
+        </div>
+
+        <button type="submit"
+          class="btn btn-lg btn-block btn-gold my-4">
+          Register for Event
+        </button>
+
+        <input type="hidden" id="registrationQuantity"
+          name="registration_quantity" value="1">
+
+      </form>
+    </div>
+
+  </div>
+</div>
+{% endblock %}

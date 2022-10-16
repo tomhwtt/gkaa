@@ -1,0 +1,51 @@
+{% extends "appbase.html" %}
+
+{% block content %}
+<div class="container">
+  <div class="row">
+
+
+    <div class="d-none d-md-block col-6">
+      <form method="post">{% csrf_token %}
+        <div class="mb-3">
+          <input class="form-control" type="text" name="text">
+        </div>
+        <div class="mb-3">
+          <div class="d-grid">
+            <button class="btn btn-secondary" type="submit">
+              Add Entry
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div class="col-md-6">
+      <ul class="list-group">
+
+        {% for h in old_list %}
+          <li class="list-group-item">
+            <div class="row d-flex align-items-center">
+              <div class="col-12">
+                <a class="text-danger"
+                  href="{% url 'account:oldhighlight-delete' profile.uuid h.id %}">
+                  <i class="fas fa-trash"></i>
+                </a>
+                <strong>{{ h.title }}:</strong>
+              </div>
+              <div class="col-12 dont-break-out">
+                <hr>
+                <p>
+                  {{ h.text }}
+                </p>
+              </div>
+            </div>
+          </li>
+        {% endfor %}
+
+      </ul>
+    </div>
+
+  </div>
+</div>
+{% endblock %}

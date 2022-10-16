@@ -1,0 +1,154 @@
+{% extends "accountbase.html" %}
+
+{% block content %}
+<div class="container mb-5" style="max-width:568px;">
+
+  <div class="row">
+
+    <div class="col-12">
+
+      <a href="{% url 'account:profile-detail' profile.uuid %}">
+        &laquo Back to Profile Home
+      </a>
+
+      <hr>
+
+    </div>
+
+  </div>
+
+  <div class="row">
+
+    <div class="col-12">
+
+      <h1 class="fw-bold h3">
+        How It Works
+      </h1>
+
+      <p class="mb-1">
+        A Basic Profile has the following info:
+      </p>
+
+      <ul>
+        <li>Name, Rank, Hometown, etc</li>
+        <li>Dates Assigned (Team & Army)</li>
+        <li>Profile Image</li>
+      </ul>
+
+      <p class="mb-1">
+        <em>Additional (optional) info:</em>
+      </p>
+
+
+      <ul>
+        <li>Jobs & Highlights</li>
+        <li>Awards & Badges</li>
+        <li>Licenses & Ratings</li>
+        <li>Stories</li>
+        <li>More Images (up to 12)</li>
+      </ul>
+
+      <p>
+        Click the button below to update your Profile.
+        <span class="d-md-block"></span>
+        Or keep reading to learn more.
+      </p>
+
+      <div class="d-grid">
+        <a class="btn btn-dark btn-lg mb-3"
+          href="{% url 'account:profile-detail' profile.uuid %}">
+          Update My Profile Info
+        </a>
+      </div>
+
+
+      <p>
+        <strong>Basic Info:</strong>
+        This is where you update your Name, Rank, Nicknames, Hometown,
+        MOS, License Number and GKAS Year.
+      </p>
+
+      <p>
+        You even have the option of using one image for your
+        Profile and a different image for the Roster. The Roster
+        is where people search for you on the website.
+      </p>
+
+      <p>
+        <strong>Team and Army Dates:</strong>
+        The dates you were assigned to the Team and the dates you were
+        in the Army.
+      </p>
+
+      <p>
+        <strong>Profile Picture:</strong>
+        The Image you want shown on the website. A lot of members
+        use their "Hero Shot".
+      </p>
+
+
+      <div class="bg-gold py-2 my-3">
+        <p class="text-center my-0">
+          Additional Information you can add
+        </p>
+      </div>
+
+      <p>
+        <strong>Jobs & Highlights:</strong>
+        Jobs you held and career highlights you want to share.
+      </p>
+
+      <p class="mb-1">
+        Individual Categories are:
+      </p>
+
+      <ul>
+        <li>Team Jobs & Highlights</li>
+        <li>Army Jobs & Highlights</li>
+        <li>Civilian Jobs & Highlights</li>
+      </ul>
+
+      <p>
+        <strong>Awards & Badges</strong>
+      </p>
+
+      <p>
+        <strong>Licenses & Ratings</strong>
+      </p>
+
+      <p>
+        <strong>Current Status:</strong>
+        What are you up to these days?
+      </p>
+
+      <p>
+        <strong>Public Comment:</strong>
+        Shown next to your image on the website.
+        Most members say something about their time on the team.
+      </p>
+
+      <p>
+        <strong>Stories:</strong>
+        Do you have a story you want to tell? This is the place to add it.
+        Add as many as you would like.
+      </p>
+
+      <p>
+        <strong>More Images:</strong>
+        Add up to 12 images. Most members add pictures from their
+        time on the team.
+      </p>
+
+      <div class="d-grid">
+        <a class="btn btn-dark btn-lg mb-2"
+          href="{% url 'account:profile-detail' profile.uuid %}">
+          Update My Profile Info
+        </a>
+      </div>
+
+    </div>
+  </div>
+
+
+</div>
+{% endblock %}

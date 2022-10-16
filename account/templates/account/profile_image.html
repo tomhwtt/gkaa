@@ -1,0 +1,110 @@
+{% extends "accountbase.html" %}
+
+{% block content %}
+<div class="container" style="max-width:668px;">
+  <div class="row">
+
+    <div class="col-12">
+
+      <a href="{% url 'account:profile-detail' profile.uuid %}">
+        &laquo Back to Profile Home
+      </a>
+
+      <hr>
+
+    </div>
+
+    <div class="col-12">
+
+      <h4 class="fw-bold">
+        Your Current Roster & Profile Pictures
+      </h4>
+
+      <hr>
+
+      <p class="fw-bold mb-1">
+        To replace an image:
+      </p>
+
+      <ol>
+        <li>Click Choose File button</li>
+        <li>Choose a new image</li>
+        <li>Click Change Profile or Roster Picture</li>
+      </ol>
+
+    </div>
+
+  </div>
+</div>
+
+<!-- profile image containe -->
+<div class="container py-3" style="max-width:668px;">
+
+  <div class="row d-flex align-items-center">
+
+    <div class="col-md-6">
+      <img class="img-fluid d-block mx-auto" src="{{ profile_image.profile_src }}">
+    </div>
+
+    <div class="col-md-6">
+
+      <h4 class="fw-bold">
+        Current Profile Picture.
+      </h4>
+
+      <form method="post" enctype="multipart/form-data">{% csrf_token %}
+        <div class="mb-3">
+          <input class="form-control" type="file" name="imagefile">
+          <input type="hidden" name="imageid" value="{{ profile_image.id }}">
+        </div>
+        <div class="mb-3">
+          <div class="d-grid">
+            <button class="btn btn-primary" type="submit">
+              Change Profile Picture
+            </button>
+          </div>
+        </div>
+      </form>
+
+    </div>
+
+  </div>
+
+</div>
+
+<!-- roster image container -->
+<div class="container py-3" style="max-width:668px;">
+
+  <div class="row d-flex align-items-center">
+
+    <div class="col-md-6">
+      <img class="img-fluid d-block mx-auto" src="{{ roster_image.profile_src }}">
+    </div>
+
+    <div class="col-md-6">
+
+      <h4 class="fw-bold">
+        Current Roster Picture.
+      </h4>
+
+      <form method="post" enctype="multipart/form-data">{% csrf_token %}
+        <div class="mb-3">
+          <input class="form-control" type="file" name="imagefile">
+          <input type="hidden" name="imageid" value="{{ roster_image.id }}">
+        </div>
+        <div class="mb-3">
+          <div class="d-grid">
+            <button class="btn btn-primary" type="submit">
+              Change Roster Picture
+            </button>
+          </div>
+        </div>
+      </form>
+
+
+    </div>
+
+  </div>
+
+</div>
+{% endblock %}

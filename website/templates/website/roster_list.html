@@ -1,0 +1,210 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block stylesheets %}
+<link rel="stylesheet" type="text/css" href="{% static 'website/style.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid mb-3 mt-sm-3">
+
+  <div class="row">
+
+    <!--- roster menu column (non mobile) --->
+    <div class="d-none d-sm-block col-md-5 col-lg-3 pr-sm-0">
+
+      {% include "website/includes/roster_menu.html" %}
+
+    </div><!--- end roster menu column --->
+
+    <!--- mobile only menu --->
+    <div class="col-12 d-sm-none mx-0 px-0 mb-2">
+
+      <div class="bg-black p-3 mx-0 d-flex justify-content-between align-items-center">
+
+        <h4 class="my-0">GKAA Roster</h4>
+
+        <a class="btn btn-gold text-dark"
+          href="{% url 'website:roster-menu' %}">
+          <i class="fas fa-filter mx-1"></i>
+          Filter
+          <i class="fas fa-search mx-1"></i>
+          Search
+        </a>
+
+      </div>
+
+    </div><!--- end mobile only menu --->
+
+    <div class="col-md-7 col-lg-9">
+
+      <div class="row">
+
+        {% if search %}
+        <div class="col-12">
+          <div class="bg-white border rounded px-3 py-2 mt-2">
+            <p class="mb-0 mt-1">{{ results_text }} <strong>({{ search }})</strong></p>
+            <a href="{% url 'website:roster' %}">Reset Search</a>
+            <a class="text-muted"> | Detailed Search (coming soon)</a>
+          </div>
+        </div>
+        {% endif %}
+
+        {% for profile in profile_array %}
+        <div class="col-lg-6 py-2">
+
+          <div class="row d-flex align-items-center">
+
+            <div class="col-4 d-flex justify-content-center">
+              <img class="img-fluid" src="{{ profile.roster_image }}" alt="">
+            </div>
+
+            <div class="col-8 pl-3 pl-lg-0">
+
+              {% if profile.filter_text %}
+              <span class="text-black-50 text-sm">
+                {{ profile.filter_text }}
+              </span>
+              {% endif %}
+
+              <h4 class="font-weight-bold mb-0">
+                {{ profile.name }}
+              </h4>
+
+              {% if profile.home_origin %}
+                <p class="my-0">
+                  {{ profile.home_origin }}
+                </p>
+              {% endif %}
+
+
+              {% if profile.teamdates_string %}
+              <p class="my-0">
+                {{ profile.team_dates_string }}
+              </p>
+              {% endif %}
+
+              <!--- deceased -->
+              {% if profile.deceased_date %}
+                <p class="my-0">Deceased: {{ profile.deceased_date }}</p>
+              {% endif %}
+
+              <!--- show profile link -->
+
+              {% if search and show_profile_link %}
+              <a class="mt-2"
+                href="{% url 'website:profile' profile.profile_code %}?q={{ search }}">
+                View Full Profile
+              </a>
+              {% elif show_profile_link %}
+              <a class="mt-2"
+                href="{% url 'website:profile' profile.profile_code %}">
+                View Full Profile
+              </a>
+              {% endif %}
+
+            </div>
+
+          </div>
+
+        </div>
+        {% endfor %}<!--- end for Profile -->
+
+      </div>
+
+      {% if paginate %}
+      <div class="row mt-2">
+
+        <div class="col-12">
+          <nav aria-label="Page navigation example">
+            <ul class="pagination pagination-md justify-content-center mb-0">
+
+              <!--- previous --->
+              {% if prev_page %}
+              <li class="page-item">
+                <a class="page-link" href="#" aria-label="Previous">
+                  <span aria-hidden="true">&laquo;</span>
+                </a>
+              </li>
+              {% else %}
+              <li class="page-item disabled">
+                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">
+                  <span aria-hidden="true">&laquo;</span>
+                </a>
+              </li>
+              {% endif %}
+
+              {% for page in pagination_array %}
+              <li class="page-item {{ page.active }}">
+                <a class="page-link" href="{% url 'website:roster' %}{{ page.query_string }}">
+                  {{ page.number }}
+                </a>
+              </li>
+              {% endfor %}
+
+              <!--- next --->
+              {% if next_page %}
+                <li class="page-item">
+                  <a class="page-link" href="{{ next_page }}" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                  </a>
+                </li>
+              {% else %}
+                <li class="page-item disabled">
+                  <a class="page-link" href="#" tabindex="-1" aria-disabled="true">
+                    <span aria-hidden="true">&raquo;</span>
+                  </a>
+                </li>
+              {% endif %}
+
+            </ul>
+          </nav>
+        </div>
+
+      </div>
+      {% endif %}
+
+      <!---
+      {% if show_pagination %}
+      <div class="row mt-3">
+        <div class="col-12">
+          <h4 class="text-center">
+            Page {{ alumni.number }} of {{ alumni.paginator.num_pages }}
+          </h4>
+        </div>
+        <div class="col-12">
+          <nav aria-label="Page navigation example">
+            <ul class="pagination pagination-lg justify-content-center">
+              <li class="page-item">
+                {% if alumni.has_previous %}
+                <a class="page-link" href="{{ prev_page }}" aria-label="Previous">
+                  <span aria-hidden="true">&laquo; Prev</span>
+                </a>
+                {% elif alumni.has_next %}
+                <a class="page-link" aria-label="Previous">
+                  <span aria-hidden="true">&laquo; Prev</span>
+                </a>
+                {% endif %}
+              </li>
+
+
+              {% if alumni.has_next %}
+              <li class="page-item">
+                <a class="page-link" href="{{ next_page }}" aria-label="Next">
+                  <span aria-hidden="true">Next &raquo;</span>
+                </a>
+              </li>
+              {% endif %}
+            </ul>
+          </nav>
+        </div>
+      </div>
+      {% endif %}
+      end pagination row-->
+
+    </div><!--- end profiles column --->
+
+  </div><!--- end first row --->
+
+</div><!--- end container --->
+{% endblock %}

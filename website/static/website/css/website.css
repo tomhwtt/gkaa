@@ -1,0 +1,515 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;700;900&display=swap');
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body{
+  font-family: 'Source Sans Pro', sans-serif;
+  margin-bottom: 65px; /* Margin bottom by footer height */
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 65px; /* Set the fixed height of the footer here */
+  background-color: #000;
+}
+
+.navbar-dark .navbar-nav .nav-link{
+  color: #FFF;
+  font-size:1.25rem;
+}
+
+@media (max-width:769px) {
+  .navbar-brand img{
+    max-width: 275px;
+  }
+}
+
+
+/* custom containers */
+@media (min-width:767px) {
+
+  .container-sm{
+    max-width: 568px;
+  }
+
+  .container .md{
+    max-width: 668px;
+  }
+
+  .container-his{
+    max-width: 568px;
+  }
+
+}
+
+@media (min-width:1024px) {
+
+  .container-sm{
+    max-width: 668px;
+  }
+
+  .container-md{
+    max-width: 996px;
+  }
+
+  .container-his{
+    max-width: 996px;
+  }
+
+}
+
+
+/* text */
+p{
+  font-size: 1.125rem;
+}
+
+.list-none{
+  list-style: none;
+  padding-left: 0;
+}
+
+.text-sm{
+  font-size:.925em;
+}
+
+.text-md{
+  font-size: 1.125em;
+}
+
+.text-lg{
+  font-size: 1.25em;
+}
+
+.text-xl{
+  font-size: 1.5em;
+}
+
+a{
+  text-decoration: none;
+}
+
+
+@media (max-width: 767px) {
+
+  ul{
+    padding-left: 15px;
+  }
+
+}
+
+@media (min-width: 768px) {
+
+  ul{
+    padding-left: 30px;
+  }
+
+}
+
+.pointer{
+  cursor: pointer;;
+}
+
+.carousel-control-next,
+.carousel-control-prev{
+  opacity: 1;
+}
+
+.hero-home{
+  background-color: #000;
+  background-image: url("/static/static/website/images/freefall-cover.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  height: calc(100vh - 100px);
+  color: #FFF;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  text-shadow: 2px 2px 8px #000;
+}
+
+.hero-home h1{
+  font-size:2.6rem;
+  font-weight:900;
+}
+
+.hero-home h2{
+  font-size: 2rem;
+  font-weight: 700;
+  color: #FFCC01;
+}
+
+@media (min-width:768px) {
+
+  .hero-home{
+    height:350px;
+  }
+
+  .hero-home h1{
+    font-size:3rem;
+    font-weight:900;
+  }
+
+  .hero-home h2{
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: #FFCC01;
+  }
+
+
+}
+
+@media (min-width:1024px) {
+
+  .hero-home{
+    height:550px;
+  }
+
+  .hero-home h1{
+    font-size:3.6rem;
+  }
+
+  .hero-home h2{
+    font-size: 3rem;
+  }
+
+}
+
+
+/* hero gallery */
+
+.hero-gallery{
+  background-color: #000;
+  background-image: url("/static/website/images/freefall-cover.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  height: calc(100vh - 85px);
+  display: flex;
+  align-items: center;
+  text-align: center;
+  text-shadow: 2px 2px 8px #000;
+}
+
+.hero-gallery h1{
+  font-size:2.6rem;
+  font-weight:900;
+  color: #FFCC01;
+}
+
+.hero-gallery h2{
+  font-size: 2rem;
+  font-weight: 700;
+  color: #FFF;
+}
+
+@media (min-width:768px) {
+
+  .hero-gallery{
+    height:350px;
+  }
+
+  .hero-gallery h1{
+    font-size:3rem;
+    font-weight:900;
+  }
+
+  .hero-gallery h2{
+    font-size: 3.5rem;
+    font-weight: 700;
+  }
+
+
+}
+
+
+
+
+
+@media (min-width: 768px) {
+
+  .gallery-btn{
+    width: 60%;
+    display: block;
+    margin: auto;
+  }
+
+}
+
+
+/* backgrounds and colors */
+
+.bg-black{
+  background-color: #000;
+  color: #f8f9fa;
+}
+
+.bg-gold{
+  background-color: #febe24;
+}
+
+.thumbnail{
+  border-width: 1px;
+}
+
+.btn-gold{
+  background-color: #febe24;
+  border-color: #e0a720;
+}
+
+.btn-gold a{
+  color: #FFF;
+}
+
+
+
+
+
+
+
+
+
+
+/* Pay Dues Styles */
+/* clean up below */
+.dues-container h3{
+  font-size: 1.75em;
+}
+
+.credit-card-container h3{
+  font-size: 1.75em;
+}
+
+@media (min-width: 768px) {
+
+
+  .dues-container h3{
+    font-size: 2.25em;
+  }
+
+  .credit-card-container h3{
+    font-size: 2.25em;
+  }
+
+}
+
+.dues-container .form-control.stripe-element::placeholder{
+  color: #ccc;
+}
+
+/* lighten up the placeholders */
+.form-control:-ms-input-placeholder,
+.form-control::-ms-input-placeholder {
+    color: #b1c2d9;
+    opacity: 1
+}
+
+.form-control::placeholder {
+    color: #b1c2d9;
+    opacity: 1
+}
+
+
+/* receipt container */
+.receipt-container .img-fluid{
+  max-width: 200px;
+  margin: auto;
+  display: block;
+}
+
+@media (min-width: 768px) {
+
+  .receipt-container{
+    margin-top: 75px;
+  }
+
+  .receipt-container p{
+    font-size: 1.125em;
+  }
+
+}
+
+/* contact us container */
+.contact-container h3{
+  font-size: 1.75em;
+}
+
+@media (min-width: 768px) {
+
+  .contact-container h3{
+    font-size: 2.5em;
+  }
+
+  .contact-container p{
+    font-size: 1.125em;
+  }
+
+}
+
+
+/* cart styles */
+.StripeElement {
+  box-sizing: border-box;
+
+  height: 40px;
+
+  padding: 10px 12px;
+
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: white;
+
+  box-shadow: 0 1px 3px 0 #e6ebf1;
+  -webkit-transition: box-shadow 150ms ease;
+  transition: box-shadow 150ms ease;
+}
+
+.StripeElement--focus {
+  box-shadow: 0 1px 3px 0 #cfd7df;
+}
+
+.StripeElement--invalid {
+  border-color: #fa755a;
+}
+
+.StripeElement--webkit-autofill {
+  background-color: #fefde5 !important;
+}
+
+
+.btn-group.full-width {
+  display: flex;
+}
+
+.full-width .btn {
+  flex: 1
+}
+
+
+/* Reunion Info */
+/* Mobile First */
+
+.reunion-header h3{
+  font-size: 1.75em;
+}
+
+.reunion-header h3.golden-knights{
+  font-size: 2em;
+}
+
+.reunion-header h4{
+  font-size: 1.25em;
+  margin-top: 15px;
+
+}
+
+.reunion-header p{
+  font-size: 1.125em;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+
+@media (min-width: 768px) {
+
+  .reunion-header h3{
+    font-size: 2em;
+  }
+
+  .reunion-header h3.golden-knights{
+    font-size: 2.5em;
+  }
+
+  .reunion-header h4{
+    font-size: 1.5em;
+
+  }
+
+  .reunion-header p{
+    font-size: 1.25em;
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+
+}
+
+/* roster card */
+.roster-card{
+  min-height: 175px;
+}
+
+.roster-card .roster-image{
+  min-height: 175px;
+}
+
+.roster-card h4{
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+/* profile container */
+@media (max-width: 768px) {
+
+  .profile-container{
+    max-width:768px;
+  }
+
+  .profile-image{
+    margin-bottom: 15px;
+  }
+
+}
+
+.profile-image{
+  max-height:600px;
+}
+
+
+.pagination-md .page-link {
+  padding: .65rem 1.25rem;
+  font-size: 1.125rem;
+  line-height: 1.25;
+}
+
+
+/* Loading / Waiting For */
+#cover-spin {
+    position:fixed;
+    width:100%;
+    left:0;right:0;top:0;bottom:0;
+    background-color: rgba(255,255,255,0.7);
+    z-index:9999;
+}
+
+@-webkit-keyframes spin {
+	from {-webkit-transform:rotate(0deg);}
+	to {-webkit-transform:rotate(360deg);}
+}
+
+@keyframes spin {
+	from {transform:rotate(0deg);}
+	to {transform:rotate(360deg);}
+}
+
+#cover-spin::after {
+    content:'';
+    display:block;
+    position:absolute;
+    left:48%;top:40%;
+    width:40px;height:40px;
+    border-style:solid;
+    border-color:black;
+    border-top-color:transparent;
+    border-width: 4px;
+    border-radius:50%;
+    -webkit-animation: spin .8s linear infinite;
+    animation: spin .8s linear infinite;
+}

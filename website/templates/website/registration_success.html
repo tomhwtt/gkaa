@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block stylesheets %}
+<link rel="stylesheet" type="text/css" href="{% static 'website/style.css' %}">
+{% endblock %}
+
+{% block content %}
+<!-- Main jumbotron for a primary marketing message or call to action -->
+<div class="receipt-container">
+  <div class="container" style="max-width:450px;">
+
+    <div class="row">
+      <div class="col-12 bg-black">
+        <img class="img-fluid" src="{% static 'website/images/roster/auls_head.jpg' %}" class="" alt="...">
+      </div>
+    </div>
+
+    <div class="row bg-white border pb-3">
+      <div class="col-12 mt-4">
+        <div class="alert bg-gold pt-3 pb-2">
+
+          {% if registration.total > 0 %}
+            <h3 class="text-center font-weight-bold">Paid!</h3>
+          {% else %}
+            <h3 class="text-center font-weight-bold">Confirmed!</h3>
+          {% endif %}
+
+          <p class="text-center">See you at the reunion!</p>
+
+
+        </div>
+
+        <div class="alert alert-danger">
+          <p class="my-0 text-center">
+            Click here to download the most up to date reunion schedule:
+            <a href="https://gkaa.us/2019-reunion-schedule/">Reunion Schedule</a>
+          </p>
+        </div>
+
+        <p class="my-0"><strong>Date:</strong> {{ registration.date }}</p>
+        <p class="my-0"><strong>Total:</strong> ${{ registration.total }}</p>
+        <p class="my-0"><strong>Email:</strong> {{ registration.email_address }}</p>
+
+        <hr/>
+
+        {% if registration.total > 0 %}
+
+          <p>
+            Please check your email for a paid receipt. Also, be on the
+            lookout for more info via email and the Facebook Group as we get
+            closer to the reunion.
+          </p>
+
+        {% else %}
+
+          <p>
+            Be on the lookout for more info via email and the Facebook Group
+            as we get closer to the reunion.
+          </p>
+
+        {% endif %}
+
+        <p>
+          Blue Skies!! <br/>
+          GKAA Support Team
+        </p>
+
+      </div>
+    </div>
+
+  </div>
+
+</div>
+{% endblock %}

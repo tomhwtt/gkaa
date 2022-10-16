@@ -1,0 +1,80 @@
+{% extends "appbase.html" %}
+
+{% block content %}
+<div class="container" style="max-width:768px;">
+  <div class="row">
+    <div class="col-12">
+
+      <a href="{% url 'app:profile-detail' profile.id %}">
+        &laquo Back to Profile Home
+      </a>
+
+      <br>
+
+      <h4>{{ profile }}</h4>
+
+      <hr>
+    </div>
+  </div>
+
+  <div class="row d-flex align-items-center">
+    <div class="col-6">
+      <h1 class="fw-bold">
+        Images
+      </h1>
+    </div>
+    <div class="col-6 text-center">
+      <a href="{% url 'app:profileimage-new' profile.id %}">
+        + Add Image
+      </a>
+    </div>
+  </div>
+
+  <div class="row mt-3">
+    {% for image in image_set %}
+    <div class="col-6 col-md-4">
+      <div class="row">
+
+        <!-- image column -->
+        <div class="col-12">
+          <a href="{% url 'app:profileimage-detail' profile.id image.id %}">
+            <img class="img-fluid mx-auto d-block" src="{{ image.profile_src }}">
+          </a>
+        </div>
+
+        {% if image.profile_image %}
+        <div class="col-12 text-center">
+          Profile Image
+        </div>
+        {% endif %}
+
+        {% if image.roster_image %}
+        <div class="col-12 text-center">
+          Roster Image
+        </div>
+        {% endif %}
+
+        <!-- button column -->
+        <div class="col-12 text-center py-3">
+          <div class="row">
+            <div class="col-6">
+              <a href="{% url 'app:profileimage-detail' profile.id image.id %}">
+                <i class="fas fa-edit text-lg"></i>
+              </a>
+            </div>
+            <div class="col-6">
+              <a class="text-danger"
+                href="{% url 'app:profileimage-delete' profile.id image.id %}">
+                <i class="fas fa-trash text-lg"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+</div>
+{% endblock %}

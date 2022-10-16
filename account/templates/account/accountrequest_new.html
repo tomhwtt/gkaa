@@ -1,0 +1,57 @@
+{% extends "accountbase.html" %}
+
+{% block content %}
+<div class="container my-4" style="max-width:568px;">
+
+  <div class="row">
+
+    <div class="col-12">
+
+      <h3 class="fw-bold text-center">
+        New Account Request
+      </h3>
+
+      <p class="text-sm">
+        Before we set up your account, we need to verify your identity.
+      </p>
+
+      <hr>
+
+    </div>
+
+    <div class="col-12">
+      <form method="post">{% csrf_token %}
+
+        <div class="mb-3">
+          <label for="">Full Name</label>
+          <input class="form-control" type="text" name="name" required>
+        </div>
+
+        <div class="mb-3">
+          <label for="">Email Address</label>
+          <input class="form-control" type="email" name="email_address" required>
+        </div>
+
+        <div class="mb-3">
+          <label class="fw-bold">Tell us about yourself:</label>
+          <ul class="text-sm">
+            <li class="text-sm">What years were you on the team?</li>
+            <li class="text-sm">What section(s) were you assigned to?</li>
+          </ul>
+          <textarea class="form-control" name="info" rows="5"></textarea>
+        </div>
+
+        <div class="d-grid">
+          <button class="btn btn-dark" type="submit">
+            Request Account
+          </button>
+        </div>
+
+
+      </form>
+    </div>
+
+  </div>
+</div>
+
+{% endblock %}

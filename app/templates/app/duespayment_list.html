@@ -1,0 +1,65 @@
+{% extends "appbase.html" %}
+
+{% block content %}
+<div class="container mb-3" style="max-width:568px;">
+
+  <div class="row py-3 d-flex align-items-center px-2">
+    <div class="col-8">
+      <h3 class="fw-bold mb-0">Dues Payments</h3>
+    </div>
+
+    {% if not title %}
+    <div class="col-4">
+      <div class="d-grid">
+        <a class="btn btn-outline-secondary"
+          href="{% url 'app:duespayment-list' %}">
+          <i class="fas fa-sync-alt"></i>
+          Reset
+        </a>
+      </div>
+    </div>
+    {% endif %}<!-- if not title. aka no search was done -->
+
+  </div>
+
+  <div class="row">
+
+    <div class="col-12">
+      <div class="mb-3">
+      <form  method="post">{% csrf_token %}
+        <input class="form-control" type="text" name="q"
+          placeholder="Enter Search Terms">
+      </form>
+      </div>
+    </div>
+
+    {% if title %}
+    <div class="col-12">
+      <span class="fw-bold">{{ title }}</span>
+    </div>
+    {% endif %}
+
+    <div class="col-12">
+      <ul class="list-group">
+        {% for dues in payment_list %}
+          <li class="list-group-item">
+
+            {{ dues.name }}
+            <span class="d-block d-md-none"></span>
+            ({{ dues.email }})
+
+            <br>
+
+            <span class="text-sm text-muted">
+              {{ dues.text_date }}
+            </span>
+
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+
+  </div>
+
+</div>
+{% endblock %}

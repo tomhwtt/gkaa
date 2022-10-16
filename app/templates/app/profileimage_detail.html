@@ -1,0 +1,102 @@
+{% extends "appbase.html" %}
+
+{% block content %}
+<div class="container" style="max-width:668px;">
+
+  <div class="row">
+    <div class="col-12">
+
+      <a href="{% url 'app:profile-detail' profile.id %}">
+        &laquo Profile Home
+      </a>
+
+      <a class="ms-3" href="{% url 'app:profileimage-list' profile.id %}">
+        &laquo Image List
+      </a>
+
+      <hr>
+
+    </div>
+  </div>
+
+  {% if notify %}
+  <div class="row">
+    <div class="col-12">
+      <div class="alert alert-info text-center">
+          Image Details Updated <br>
+          <a class="ms-3" href="{% url 'app:profileimage-list' profile.id %}">
+            &laquo Back to Image List
+          </a>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+
+</div><!-- end nav container -->
+
+
+<div class="container" style="max-width:668px;">
+  <div class="row d-flex align-items-center">
+    <div class="col-md-6">
+      <img class="img-fluid mx-auto d-block" src="{{ image.profile_src }}">
+    </div>
+    <div class="col-md-6 py-3 py-md-0">
+      <p>
+        Caption: {{ image.caption }}<br>
+        Year: {{ image.year }}<br>
+        Credit: {{ image.credit }}
+      </p>
+      <a href="{% url 'app:profileimage-edit' profile.id image.id %}">
+        Edit Image Details &raquo;
+      </a>
+    </div>
+  </div>
+</div><!-- end image container -->
+
+<div class="container py-3" style="max-width:568px;">
+  <div class="row d-flex align-items-center">
+
+    <div class="col-12">
+      <div class="d-grid">
+
+        {% if image.profile_image %}
+          <a class="btn btn-success my-2"
+            href="{% url 'app:profileimage-profile-image' profile.id image.id %}">
+            Turn off as Profile Image
+          </a>
+        {% else %}
+          <a class="btn btn-outline-secondary my-2"
+            href="{% url 'app:profileimage-profile-image' profile.id image.id %}">
+            Set as Profile Image
+          </a>
+        {% endif %}
+
+        {% if image.roster_image %}
+          <a class="btn btn-success my-2"
+            href="{% url 'app:profileimage-roster-image' profile.id image.id %}">
+            Turn off as Roster Image
+          </a>
+        {% else %}
+          <a class="btn btn-outline-secondary my-2"
+            href="{% url 'app:profileimage-roster-image' profile.id image.id %}">
+            Set as Roster Image
+          </a>
+        {% endif %}
+
+        <a class="btn btn-outline-secondary my-2"
+          href="{% url 'app:profileimage-edit' profile.id image.id %}">
+          Add/Edit Details
+        </a>
+
+        <a class="btn btn-danger my-2"
+          href="{% url 'app:profileimage-delete' profile.id image.id %}">
+          Delete Image
+        </a>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+{% endblock %}

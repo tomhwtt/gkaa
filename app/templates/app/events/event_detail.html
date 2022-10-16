@@ -1,0 +1,56 @@
+{% extends "app_base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+  <div class="row">
+
+    <div class="col-12">
+      {{ event }}
+
+      <ul>
+        {% for sub in event.subevent_set.all %}
+          <li>
+
+            {{ sub }} | {{ sub.date }}
+
+              <ul>
+                {% for price in sub.subeventpricing_set.all %}
+                  <li>
+                    ${{ price }} | {{ price.cutoff_date }} {{ price.get_type_display}}
+                  </li>
+                {% endfor %}
+              </ul>
+
+          </li>
+        {% endfor %}
+      </ul>
+
+    </div>
+
+    <div class="col-12">
+      <hr>
+    </div>
+
+    <div class="col-12">
+
+      <h3>
+        {{ registration }} ({{ registration.get_type_display }})
+      </h3>
+
+      <p>
+        Each: ${{ registration.each }}
+      </p>
+
+      <ul>
+        {% for attendee in registration.subeventattendee_set.all %}
+          <li>
+            {{ attendee }} | ${{ attendee.get_each }}
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+
+  </div>
+</div>
+{% endblock %}

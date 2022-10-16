@@ -1,0 +1,65 @@
+{% extends "websitebase.html" %}
+
+{% block content %}
+<div class="container mt-4" style="max-width:768px;">
+
+  <div class="row">
+    <div class="col-12">
+
+      <a class="h5 me-3" href="{% url 'website:gallery-index' %}">
+        &laquo; Gallery Home
+      </a>
+
+      <a class="h5" href="{% url 'website:gallery-detail' gallery.slug %}">
+        &laquo; {{ gallery.name }}
+      </a>
+
+    </div>
+  </div>
+
+  <div class="row">
+
+    <div class="col-12">
+      <img class="img-fluid mx-auto d-block mt-3" src="{{ image.detail_src }}">
+    </div>
+
+  </div>
+</div>
+
+<div class="container" style="max-width:668px">
+  <div class="row">
+    <div class="col-12">
+
+      <p class="pt-3 text-center my-0" style="font-size:1.4rem;">
+        {{ image.caption }}
+
+        {% if image.year %}
+          <br>
+          <strong><em>Year: </em></strong>{{ image.year }}
+        {% endif %}
+
+        {% if image.credit %}
+          <br>
+          <strong><em>Credit: </em></strong>{{ image.credit }}
+        {% endif %}
+
+      </p>
+
+    </div>
+  </div>
+</div>
+
+<div class="bg-black mt-5">
+  <div class="container gallery py-5">
+    <div class="row gx-0">
+      {% for image in image_list %}
+      <div class="col-6 col-md-4 col-lg-3 p-2">
+        <a href="{% url 'website:galleryimage-detail' image.slug image.uuid %}">
+          <img class="img-fluid" src="{{ image.src }}">
+        </a>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endblock %}

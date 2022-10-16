@@ -1,0 +1,86 @@
+{% extends "accountbase.html" %}
+
+{% block content %}
+<div class="container" style="max-width:668px;margin-bottom:50px;">
+
+  <div class="row">
+
+    {% if update_notice %}
+    <div class="col-12">
+      <div class="alert alert-info text-center">
+        Profile Updated
+        <br>
+        <a href="{% url 'account:profile-detail' profile.uuid %}">
+          &laquo Go Back to Home Page
+        </a>
+      </div>
+    </div>
+
+    {% else %}
+
+    <div class="col-12">
+      <a href="{% url 'account:profile-detail' profile.uuid %}">
+        &laquo Back to Profile Home Page
+      </a>
+    </div>
+    {% endif %}
+
+  </div>
+
+  <div class="row">
+
+    <div class="col-12">
+      <div class="alert alert-danger my-3">
+        <h4 class="fw-bold text-center">STOP AND READ</h4>
+        <p class="mb-0 text-center">
+          This is not a private comment.
+          It is shown on the public Alumni Association website.
+          Everyone in the world can read it.
+        </p>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="row">
+    <div class="col-12">
+      <form method="post">{% csrf_token %}
+
+        <div class="row">
+          <div class="col-12">
+
+            <p>
+              What is your current status? <br>
+              aka. What are you up to these days?
+            </p>
+
+            <p>
+              <strong>Reminder:</strong>
+              This is a public comment. Leave it blank if you don't
+              want it shown on the website
+            </p>
+
+            <textarea class="form-control" name="text"
+              rows="3"
+              placeholder="Your Current Status">{{ profile.current_status }}</textarea>
+
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12">
+            <div class="d-grid py-3">
+              <button id="updateProfileBtn" type="submit"
+                class="btn btn-primary mb-3">
+                Update Current Status
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </form>
+    </div><!--- end form column --->
+  </div>
+
+</div>
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends "appbase.html" %}
+
+{% block content %}
+<div class="container" style="max-width:568px;">
+  <div class="row">
+    <div class="col-12">
+      <ul class="list-group">
+        {% for update in update_list %}
+          <li class="list-group-item">
+            <a href="{% url 'app:profile-detail' update.profile.id %}">
+              {{ update.profile }}
+            </a> | {{ update.action }}
+
+            <br>
+            <span class="text-sm text-muted">
+              {{ update.date }}
+            </span>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+</div>
+{% endblock %}

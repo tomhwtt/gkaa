@@ -1,0 +1,42 @@
+{% extends "appbase.html" %}
+
+{% block content %}
+<div class="container mb-5" style="max-width:568px;">
+
+  <div class="row">
+    <div class="row">
+      <div class="col-12">
+        <form method="post">{% csrf_token %}
+          <div class="mb-3">
+            <label class="h4" for="">Search Profiles</label>
+            <input class="form-control" type="text" name="query">
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+    {% if recent_list %}
+    <div class="row">
+      <div class="col-12">
+        <p class="text-lg mb-1">Recently Viewed Profiles</p>
+      </div>
+      <div class="col-12">
+        <ul class="list-group">
+          {% for r in recent_list %}
+          <li class="list-group-item">
+            <a href="{% url 'app:profile-detail' r.profile.id %}">
+              {{ r.profile }}
+            </a><br>
+            <span class="text-sm text-muted">
+              {{ r.date_text }}
+            </span>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+    {% endif %}
+
+</div>
+{% endblock %}

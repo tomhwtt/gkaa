@@ -1,0 +1,186 @@
+{% extends "websitebase.html" %}
+
+{% block content %}
+<div class="bg-white py-4">
+  <div class="container profile-container">
+
+    <!--- navigation row -->
+    <div class="row mb-2">
+      <div class="col-6">
+
+        {% if search %}
+        <p class="my-0">
+          <a href="{% url 'website:roster' %}?q={{ search }}">
+            <i class="fas fa-angle-double-left"></i>
+            Back to Roster
+          </a>
+        </p>
+        {% else %}
+        <p class="my-0">
+          <a href="{% url 'website:roster' %}">
+            <i class="fas fa-angle-double-left"></i>
+            Back to Roster
+          </a>
+        </p>
+        {% endif %}
+
+      </div>
+
+      <div class="col-6">
+        <p class="text-end my-0">
+          {% if show_edit_link %}
+          <a href="{% url 'account:profile-detail' profile.uuid %}">
+            Edit Your Profile
+            <i class="fas fa-angle-double-right"></i>
+          </a>
+          {% endif %}
+        </p>
+
+      </div>
+    </div><!--- end navigation row --->
+
+    <div class="row">
+
+      {% if profile.profile_image_src %}
+      <div class="col-sm-6">
+
+        <img class="img-fluid d-block mx-auto mt-sm-3 mb-3 mb-sm-0"
+          src="{{ profile.profile_image_src }}"
+          alt="{{ profile.first_name }} {{ profile.last_name }}">
+
+      </div>
+      {% endif %}
+
+      <div class="col-sm-6">
+
+        <h1 class="fw-bold">
+          {{profile.first_name }} {{ profile.last_name }}
+        </h1>
+
+        {% if profile.nickname %}
+          <p class="my-1"><strong>Nickname:</strong> {{ profile.nickname }}</p>
+        {% endif %}
+
+        {% if profile.aka %}
+          <p class="my-1"><strong>AKA:</strong> {{ profile.aka }}</p>
+        {% endif %}
+
+        {% if profile.rank %}
+          <p class="my-1"><strong>Rank on team:</strong> {{ profile.rank }}</p>
+        {% endif %}
+
+        {% if profile.show_home_origin %}
+          <p class="my-1">
+            <strong>Hometown:</strong>
+            {{ profile.show_home_origin }}
+          </p>
+        {% endif %}
+
+        {% if profile.show_deceased_date %}
+          <p class="my-1"><strong>Deceased: </strong>{{ profile.show_deceased_date }}</p>
+        {% endif %}
+
+        {% if profile.teamdate_string %}
+        <p class="my-1">
+          <strong>Assigned:</strong>
+          {{ profile.teamdate_string }}
+        </p>
+        {% endif %}
+
+        <!--- home highlights and extended profile -->
+        <ul style="padding-left:1rem;">
+
+          {% if profile.home_highlights %}
+
+            {% for highlight in profile.home_highlights %}
+              <li class="my-2">{{ highlight }}</li>
+            {% endfor %}
+
+          {% endif %}<!-- endif home highlights -->
+
+          {% if profile.extended_profile %}
+           <li>
+             <a
+               href="{% url 'website:extended-profile' profile.url_code %}">
+               Read more about {{ profile.first_name }} &raquo;
+             </a>
+           </li>
+         {% endif %}
+
+        </ul>
+
+        {% if profile_comments %}
+          <h4 class="fw-bold">Comments</h4>
+          <p>
+            {{ profile_comments }}
+
+              {% if extended_comments %}
+                <a href="{% url 'website:extended-profile' profile.url_code %}">
+                  ...read more
+                </a>
+              {% endif %}
+          </p>
+        {% endif %}
+
+      </div><!--- end info column --->
+    </div>
+
+  </div><!--- end container --->
+</div><!--- end bg white--->
+
+<div class="border-bottom bg-white">
+  {% if profileimage_list %}
+  <!-- IF after the top div so we still get the bottom border -->
+  <div class="container pb-4">
+    <div class="row">
+
+      {% if show_more_images %}
+      <div class="col-12">
+        <p class="text-end">
+          <a href="{% url 'website:extended-profile' profile.url_code %}">
+            See More Pictures of {{ profile.first_name }}
+            <i class="fas fa-angle-double-right"></i>
+          </a>
+        </p>
+      </div>
+      {% endif %}
+
+      {% for image in profileimage_list %}
+      <div class="col-6 col-md-3">
+        <img class="img-fluid" src="{{ image.profile_src }}">
+      </div>
+      {% endfor %}
+    </div>
+
+  </div>
+  {% endif %}
+</div>
+
+
+<!-- more GKs container -->
+{% if more_knights %}
+<div class="container mt-3">
+  <div class="row">
+    <div class="col-12">
+      <h4 class="fw-bold">
+        Know any of these GKs?
+      </h4>
+      <hr/>
+    </div>
+  </div>
+  <div class="row">
+    {% for knight in more_knights %}
+    <div class="col-6 col-sm-4 col-lg-3">
+      <p>
+        <a href="{% url 'website:profile' knight.url_code %}">
+          {{ knight.last_name }}, {{ knight.first_name }} <br/>
+          {{ knight.start_year }}-{{ knight.end_year }}
+        </a>
+      </p>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endif %}<!-- endif more_knights -->
+
+{% endblock %}

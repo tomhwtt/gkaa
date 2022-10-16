@@ -1,0 +1,38 @@
+
+User-agent: *
+crawl-delay: 10
+Disallow: /?memberid=*
+Disallow: /?aphotoid=*
+Disallow: /roster/?page=*
+Disallow: /gallery/*/*/
+
+#Bots
+User-agent: AspiegelBot
+Disallow: /
+
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: dataprovider
+Disallow: /
+
+User-agent: DAUM
+Disallow: /
+
+User-agent: DotBot
+Disallow: /
+
+User-agent: panscient.com
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: Sogou+web+spider
+Disallow: /
+
+User-agent: Yandex
+Disallow: /
+
+User-agent: ZoominfoBot
+Disallow: /

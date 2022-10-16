@@ -1,0 +1,31 @@
+.trix-content{
+  min-height:300px;
+  background-color: #FFF;
+  border: 1px solid #ced4da;
+  padding-bottom: 25px;
+  font-size: 1rem;
+}
+
+
+
+@media (min-width:768px){
+
+  .trix-content{
+    min-height:450px;
+  }
+
+}
+
+
+
+/* hide some trix buttons */
+.trix-button-group-spacer,
+.trix-button--icon-heading-1,
+.trix-button--icon-quote,
+.trix-button--icon-link,
+.trix-button--icon-code,
+.trix-button--icon-strike,
+.trix-button--icon-increase-nesting-level,
+.trix-button--icon-decrease-nesting-level{
+  display: none;
+}

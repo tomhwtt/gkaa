@@ -1,0 +1,75 @@
+{% extends "appbase.html" %}
+
+{% block content %}
+<div class="container" style="max-width:668px;">
+
+  <div class="row">
+
+    <div class="col-12">
+
+      <a href="{% url 'app:profile-detail' profile.id %}">
+        &laquo Profile Home
+      </a>
+
+      <a class="ms-3" href="{% url 'app:profilestory-list' profile.id %}">
+        &laquo My Stories
+      </a>
+
+    </div>
+
+    <div class="col-12">
+      <h4>{{ profile }}</h4>
+    </div>
+
+  </div>
+
+  <div class="row py-3">
+    <div class="col-12">
+
+      <form method="post">{% csrf_token %}
+
+        <div class="row">
+          <div class="col-12 mb-3">
+            <label for="title">
+              Story Title
+              <span class="text-sm text-muted">(optional)</span>
+            </label>
+            <input class="form-control mt-1" type="text" name="title"
+              value="{{ story.title}}" placeholder="Optional Title">
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12">
+            <div class="col-12">
+              <input id="x" type="hidden" name="text" value="{{ story.text }}">
+              <trix-editor class="trix-content" input="x"></trix-editor>
+            </div>
+          </div>
+        </div>
+
+        <div class="row gx-1 gx-md-3">
+          <div class="col-6 my-3">
+            <div class="d-grid">
+              <a class="btn btn-danger"
+                href="{% url 'app:profilestory-delete' profile.id story.id %}">
+                Delete
+              </a>
+            </div>
+          </div>
+          <div class="col-6 my-3">
+            <div class="d-grid">
+              <button class="btn btn-primary" type="submit">
+                Update
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+
+</div>
+{% endblock %}

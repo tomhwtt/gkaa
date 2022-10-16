@@ -1,0 +1,125 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block stylesheets %}
+<link rel="stylesheet" type="text/css" href="{% static 'website/style.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="contact-container">
+
+  <div class="container bg-white border pt-4 pb-3 mt-sm-5" style="max-width:600px;">
+    <div class="row">
+
+      <div class="col-12">
+        <h1 class="font-weight-bold">Registration</h1>
+        <hr/>
+      </div>
+
+      {% if error and error == 'duplicate' %}
+      <div class="col-12">
+        <p class="text-danger">
+          You have already registered.
+        </p>
+      </div>
+      {% endif %}
+
+      <div class="col-12">
+        <form id="startRegisterForm" class="form" role="form" method="post"
+          action="{% url 'website:registration-start' %}">
+          {% csrf_token %}
+
+          <div class="form-group">
+            <label for="exampleInputEmail1">Name</label>
+            <input class="form-control" id="registerName" type="text" name="name" required >
+            <div class="name-error"></div>
+          </div>
+
+          <div class="form-group">
+            <label for="exampleInputEmail1">Email address</label>
+            <input class="form-control" id="registerEmail" type="email" name="email_address" required >
+            {% if error and error == 'email' %}<p class="text-danger mt-2">Please Enter Valid Email Address</p>{% endif %}
+          </div>
+
+          <div class="row">
+            <div class="col-12">
+              <button type="button"
+                class="attendee-type btn btn-lg btn-block btn-gold my-3"
+                data-type="1">I am an Alumnus/Alumnae
+              </button>
+
+              <button type="button"
+                class="attendee-type btn btn-lg btn-block btn-dark my-3"
+                data-type="2">I am a Current Team Member
+              </button>
+
+              <button type="button"
+                class="attendee-type btn btn-lg btn-block btn-gold my-3"
+                data-type="3">I am an Honorary GK
+              </button>
+
+              <button type="button"
+                class="attendee-type btn btn-lg btn-block btn-dark my-3"
+                data-type="4">I am a Friend of the Team
+              </button>
+            </div>
+          </div>
+
+          <input type="hidden" id="url" name="url" value="">
+          <input type="hidden" id="attendeeType" name="attendee_type" value="" required>
+        </form>
+      </div>
+
+      <div class="col-12">
+
+        <div class="alert alert-danger">
+          <p class="my-0">If you are an Alumnus/Alumnae and have already paid your dues,
+            be sure to use the same email address so we can apply them.
+            If you have not paid your dues, they will be automatically added
+            to the reunion costs.
+          </p>
+        </div>
+
+        <div class="alert alert-danger">
+          <p class="my-0">
+            Not sure if you have registered yet?  Enter your name and email
+            address in the form below, click the appropriate button and we will
+            check for you.
+          </p>
+        </div>
+
+        <div class="alert alert-danger">
+          <p class="my-0">If you are a family member of a deceased Alumnus/Alumnae, please
+            register as an Honorary GK.
+          </p>
+        </div>
+
+        <p class="text-center mt-4">
+          <a href="{% url 'website:contact' %}">
+            Please contact us if we can be of any assistance.
+          </a>
+        </p>
+
+      </div>
+
+    </div>
+  </div>
+
+</div>
+{% endblock %}
+
+{% block pagejs %}
+<script src="{% static 'website/registration.js' %}"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  $('.form').mousemove(function() {
+  	var url = $('#url').val();
+  		if(url == ''){
+  			$('#url').val(1);
+  			$('.form').unbind('mousemove');
+  		}
+  });
+});
+</script>
+{% endblock %}

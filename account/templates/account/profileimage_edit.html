@@ -1,0 +1,98 @@
+{% extends "accountbase.html" %}
+
+{% block content %}
+
+<!-- nav container -->
+<div class="container" style="max-width:668px;">
+
+  <div class="row">
+
+    <!--- updated notification column -->
+    {% if update_notice %}
+    <div class="col-12">
+      <div class="alert alert-info text-center">
+        Image Updated
+        <br>
+        <a href="{% url 'account:profileimage-detail' profile.uuid image.id %}">
+          &laquo Back to Image
+        </a>
+      </div>
+    </div>
+    {% endif %}
+
+    <div class="row">
+      <div class="col-12">
+
+        <a href="{% url 'account:profile-detail' profile.uuid %}">
+          &laquo Profile Home
+        </a>
+
+        <a class="ms-3" href="{% url 'account:profileimage-detail' profile.uuid  image.id %}">
+          &laquo Back to Image
+        </a>
+
+        <hr>
+
+      </div>
+    </div>
+
+    {% if image.profile_image %}
+    <div class="row">
+      <div class="col-12">
+        <div class="alert alert-warning text-center">
+            This is your current Profile Image<br>
+            <a href="{% url 'website:profile' profile.url_code %}" target="_blank">
+              View Profile on Website
+            </a>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+
+  </div>
+
+</div>
+
+<div class="container" style="max-width:668px;">
+
+  <div class="row">
+    <div class="col-12">
+      <form method="post">{% csrf_token %}
+
+        <div class="row">
+          <div class="col-12 mb-3">
+            <label for="caption">Caption</label>
+            <textarea class="form-control" name="caption" rows="4">{{ image.caption }}</textarea>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="year">Year (YYYY)</label>
+            <input class="form-control" type="text" name="year"
+              placeholder="YYYY" value="{{ image.year }}">
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="credit">Credit</label>
+            <input class="form-control" type="text" name="credit" value="{{ image.credit }}">
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12">
+            <div class="d-grid">
+              <button class="btn btn-primary" type="submit" >
+                Edit Image Details
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </form>
+    </div>
+  </div>
+
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,46 @@
+{% extends "blankbase.html" %}
+
+{% block content %}
+<div class="container" style="max-width:450px;">
+  <div class="row">
+
+    <div class="col-12">
+      <ul class="list-group">
+
+        <li class="list-group-item">
+          <a href="{% url 'website:checkin-event-detail' event.short_code %}">
+            &laquo; {{ event }}
+          </a>
+        </li>
+
+        <li class="list-group-item bg-dark text-light">
+          {{ subevent }} ({{ num_reg }})
+        </li>
+
+        <li class="list-group-item bg-light">
+          <div class="row">
+            <div class="col-6">
+              <strong>Checked In:</strong> {{ total_checked_in }}
+            </div>
+            <div class="col-6">
+              <strong>Left:</strong> {{ total_not_checked_in }}
+            </div>
+          </div>
+        </li>
+
+        {% for reg in reg_list %}
+          <li class="list-group-item rounded-0 py-3">
+            <div class="row gx-1 d-flex align-items-center">
+              <div class="col-10">
+                <a href="{% url 'website:checkin-subeventregistration-detail' reg.id %}">
+                  {{ reg.full_name }} ({{ reg.quantity}}) &raquo;
+                </a>
+              </div>
+            </div>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+</div>
+{% endblock %}

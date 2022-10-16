@@ -1,0 +1,87 @@
+{% extends "accountbase.html" %}
+
+{% block content %}
+<div class="container" style="max-width:668px;">
+
+  <div class="row">
+    <div class="col-12">
+
+      <a href="{% url 'account:profile-detail' profile.uuid %}">
+        &laquo Profile Home
+      </a>
+
+      <a class="ms-3" href="{% url 'account:profileimage-list' profile.uuid %}">
+        &laquo Image List
+      </a>
+
+      <hr>
+
+    </div>
+  </div>
+
+  {% if notify %}
+  <div class="row">
+    <div class="col-12">
+      <div class="alert alert-info text-center">
+          Image Details Updated <br>
+          <a class="ms-3" href="{% url 'account:profileimage-list' profile.uuid %}">
+            &laquo Back to Image List
+          </a>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+
+</div><!-- end nav container -->
+
+
+<div class="container" style="max-width:668px;">
+  <div class="row d-flex align-items-center">
+    <div class="col-md-6">
+      <img class="img-fluid mx-auto d-block" src="{{ image.profile_src }}">
+    </div>
+    <div class="col-md-6 pt-3 pt-md-0">
+      <p>
+
+        {% if image.caption %}
+          Caption: {{ image.caption }}<br>
+        {% endif %}
+
+        {% if image.year %}
+          Year: {{ image.year }}<br>
+        {% endif %}
+
+        {% if image.credit %}
+          Credit: {{ image.credit }}<br>
+        {% endif %}
+
+      </p>
+
+      <a class="d-none d-md-block"
+        href="{% url 'account:profileimage-edit' profile.uuid image.id %}">
+        Add/Edit Image Details
+      </a>
+
+    </div>
+  </div>
+</div><!-- end image container -->
+
+<div class="container py-3" style="max-width:568px;">
+  <div class="row d-flex align-items-center">
+
+    <div class="col-12">
+      <div class="d-grid">
+
+        {% for btn in button_list %}
+          <a class="btn {{ btn.color }} my-2" href="{{ btn.url }}">
+            {{ btn.text }}
+          </a>
+        {% endfor %}
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,56 @@
+{% extends "websitebase.html" %}
+
+{% block content %}
+<div class="container py-3 py-lg-5" style="max-width:468px;">
+  <div class="row">
+
+    <div class="col-12">
+      <h1 class="fw-bold">
+        Have a Question?
+      </h1>
+    </div>
+
+    {% if message_id %}
+    <div class="col-12">
+      <div class="bg-gold rounded p-2">
+        <p class="mb-0 text-center">
+          Your message has been received!
+          <br>
+          We will respond within 72 hours.
+        </p>
+      </div>
+    </div>
+
+    {% else %}
+
+    <!-- form column -->
+    <div class="col-12">
+      <form class="form" method="post">{% csrf_token %}
+        <div class="mb-3">
+          <label for="name" style="font-size:1.25rem;">Name</label>
+          <input class="form-control" type="text" name="name" required >
+        </div>
+        <div class="mb-3" style="font-size:1.25rem;">
+          <label for="email_address">Email address</label>
+          <input class="form-control" type="email" name="email_address" required >
+        </div>
+        <div class="mb-3" style="font-size:1.25rem;">
+          <label for="message">How can we help you?</label>
+          <textarea class="form-control" name="message" rows="7"  required ></textarea>
+        </div>
+
+        <div class="d-grid">
+          <button type="submit" class="btn btn-gold btn-lg">
+            Send Us Your Message
+          </button>
+          <input class="form-control" type="hidden" name="date" value="{{ date_text }}">
+        </div>
+      </form>
+    </div>
+
+    {% endif %}<!-- end if message_id -->
+
+  </div>
+</div>
+
+{% endblock %}

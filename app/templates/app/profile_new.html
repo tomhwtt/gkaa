@@ -1,0 +1,98 @@
+{% extends "appbase.html" %}
+
+{% block content %}
+<div class="container" style="max-width:668px;">
+  <div class="row">
+    <div class="col-12">
+      <form  method="post">{% csrf_token %}
+
+        <div class="row">
+          <div class="col-12">
+            <h1 class="h2">New Profile</h1>
+            <hr>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="type">Profile Type</label>
+            <select class="form-control" name="type">
+              <option value="1">Alumnus</option>
+              <option value="2">Current Team</option>
+              <option value="3">Honorary GK</option>
+              <option value="4">Strac Team</option>
+              <option value="5">Other</option>
+            </select>
+          </div>
+          <div class="col-12">
+            <hr>
+          </div>
+        </div>
+
+        <div class="row">
+
+          <div class="col-6 mb-3">
+            <label for="first_name">First Name</label>
+            <input class="form-control" type="text" name="first_name">
+          </div>
+          <div class="col-6 mb-3">
+            <label for="last_name">Last Name</label>
+            <input class="form-control" type="text" name="last_name">
+          </div>
+          <div class="col-6 mb-3">
+            <label for="rank">Rank (on team)</label>
+            <input class="form-control" type="text" name="rank">
+          </div>
+          <div class="col-6 mb-3">
+            <label for="middle_name">Middle Name</label>
+            <input class="form-control" type="text" name="middle_name">
+          </div>
+        </div>
+
+        <hr>
+
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="nicknames">Nicknames</label>
+            <input class="form-control" type="text" name="nickname">
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="aka">AKA (married name, etc)</label>
+            <input class="form-control" type="text" name="aka">
+          </div>
+          <div class="col-6 mb-3">
+            <label for="home_city">Home City</label>
+            <input class="form-control" type="text" name="home_city">
+          </div>
+          <div class="col-6 mb-3">
+            <label for="home_state">Home State</label>
+            <input class="form-control" type="text" name="home_state">
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-6 mb-3">
+            <label for="start_year">Start Year</label>
+            <input class="form-control" type="text" name="start_year">
+          </div>
+          <div class="col-6 mb-3">
+            <label for="end_year">End Year</label>
+            <input class="form-control" type="text" name="end_year">
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12">
+            <div class="d-grid">
+              <button class="btn btn-primary mb-5" type="submit">
+                Add Profile
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

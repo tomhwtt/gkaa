@@ -1,0 +1,89 @@
+{% extends "accountbase.html" %}
+
+{% block content %}
+<div id="cover-spin" class="invisible"></div>
+<div class="container" style="max-width:568px;">
+
+  <div class="row">
+
+    <div class="col-12">
+
+      <a href="{% url 'account:profile-detail' profile.uuid %}">
+        &laquo Back to Profile Home
+      </a>
+
+      <hr>
+
+    </div>
+
+  </div>
+
+  <div class="row">
+
+    <div class="col-12">
+      {% if type %}
+        <h1 class="fw-bold">
+          Add Profile Picture
+        </h1>
+      {% else %}
+        <h1 class="fw-bold">
+          Add New Image
+        </h1>
+      {% endif %}
+    </div>
+
+    <div class="col-12">
+      <p class="mb-1">
+        To add an image:
+      </p>
+
+      <p>
+        <strong>1. Click Choose File:</strong>
+        This will open a box to choose an image
+        from your computer or phone.
+      </p>
+
+      <p>
+        <strong>2. Click Add Image:</strong>
+        After you have chosen the image from you computer or phone,
+        click the blue button.
+      </p>
+
+      <p>
+        Depending on the size of your file, it can take a minute
+        for your image to upload to the server. Please be patient.
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <div class="row">
+    <div class="col-12">
+      <form id="imageForm" method="post" enctype="multipart/form-data">{% csrf_token %}
+
+        <div class="row">
+          <div class="col-12 mb-3">
+            <input class="form-control" type="file" name="image"
+              onclick="enableButton('newImageBtn')">
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12 mb-3">
+            <div class="d-grid">
+              <button id="newImageBtn" class="btn btn-primary mt-2 mb-5 disabled"
+              type="button" onclick="submitForm('imageForm')">
+                Click Choose File First
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </form>
+    </div>
+  </div>
+
+</div>
+{% endblock %}

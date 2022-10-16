@@ -1,0 +1,75 @@
+{% extends "appbase.html" %}
+
+{% block content %}
+<div class="container" style="max-width:450px;">
+
+
+  <div class="row">
+    <div class="col-12">
+      <h1 style="font-size:32px;font-weight:bold;">
+        {{ event }}
+      </h1>
+    </div>
+  </div>
+
+  <div class="row">
+
+
+    <div class="col-12">
+      <div class="mb-3">
+        <ul class="list-group">
+          {% for sub in subevent_set %}
+            <li class="list-group-item">
+              <div class="row d-flex align-items-center">
+                <div class="col-8 col-md-9">
+                    {{ sub }}
+                </div>
+                <div class="col-4 col-md-3">
+                  <input class="form-control text-center subevent" type="text"
+                    placeholder="QTY" data-id="{{ sub.id }}">
+                </div>
+              </div>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+
+
+
+    <div class="col-12">
+      <form id="newRegistrationForm" method="post">{% csrf_token %}
+
+        <div class="mb-3">
+          <label for="">Registrant Type</label>
+          <select class="form-control" name="type">
+            <option value="0">Registration Type</option>
+            <option value="1">Alumnus</option>
+            <option value="2">Current Team</option>
+            <option value="3">Honorary GK</option>
+            <option value="4">Other</option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label for="">Full Name</label>
+          <input class="form-control" type="text" name="name">
+        </div>
+
+        <div class="mb-3">
+          <label for="">Email Address</label>
+          <input class="form-control" type="text" name="email" placeholder="optional">
+        </div>
+
+        <div class="d-grid mb-3">
+          <button class="btn btn-dark" type="button" onclick="createNewRegistration()">
+            Add New Registration
+          </button>
+            <input id="subeventString" type="hidden" name="subevent_string">
+        </div>
+
+      </form>
+    </div>
+  </div>
+
+</div>
+{% endblock %}

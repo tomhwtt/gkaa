@@ -1,0 +1,35 @@
+{% extends "appbase.html" %}
+
+{% block content %}
+<div class="container" style="max-width:568px;">
+
+  <div class="row">
+    <div class="col-12">
+      <span class="fw-bold">Search Terms:</span> {{ query }}
+      <hr>
+    </div>
+  </div>
+
+
+    {% if profile_set %}
+    <div class="row">
+      <div class="col-12">
+        <ul class="list-group">
+          {% for profile in profile_set %}
+          <li class="list-group-item">
+            <a href="{% url 'app:profile-detail' profile.id %}">
+              {{ profile }}
+            </a><br>
+            <span class="text-sm text-muted">
+              {{ profile.date_text }}
+            </span>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+    {% endif %}
+
+  </div>
+</div>
+{% endblock %}

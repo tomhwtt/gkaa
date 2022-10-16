@@ -1,0 +1,159 @@
+{% extends "account_base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container-fluid bg-light non-mobile-border">
+
+  <div class="row">
+
+    <div class="d-none d-sm-block col-sm-4 col-lg-3 profile-nav">
+      {% include "account/includes/profile_list_menu.html" %}
+    </div>
+
+    <!--- content container --->
+    <div class="col-sm-8 col-lg-9 pt-3 profile-content">
+
+      <div class="d-flex align-items-center justify-content-between">
+        <h3 class="font-weight-bold my-0">Licenses & Ratings</h3>
+        <a class="btn btn-gold d-sm-none"
+          href="{% url 'account:profile-menu' profile.uuid %}">
+          Menu
+        </a>
+      </div>
+
+      <div class="row my-3">
+
+        {% if entry_list %}
+        <div class="col-12 px-0">
+
+          <ul class="list-group striped-list no-sides">
+            {% for entry in entry_list %}
+              <li class="list-group-item">
+
+                <div class="row d-flex align-items-center">
+
+                  <div class="col-12 col-sm-8">
+                    {{ entry }}
+                  </div>
+
+                  <div class="col-12 col-sm-4 mt-3 mt-sm-0">
+                    <div class="text-xl d-flex justify-content-around">
+
+                      {% if forloop.first %}
+
+                        <i class="fas fa-arrow-up icon-muted"></i>
+
+                      {% else %}
+
+                        <a href="{% url 'account:entry-reorder-action' entry.id 'up' %}">
+                          <i class="fas fa-arrow-up"></i>
+                        </a>
+
+                      {% endif %}
+
+                      {% if forloop.last %}
+
+                        <i class="fas fa-arrow-down icon-muted"></i>
+
+                      {% else %}
+
+                        <a href="{% url 'account:entry-reorder-action' entry.id 'down' %}">
+                          <i class="fas fa-arrow-down"></i>
+                        </a>
+
+                      {% endif %}
+
+                      <a href="{% url 'account:entry-delete-action' entry.id %}">
+                        <i class="fas fa-times text-danger"></i>
+                      </a>
+
+                    </div>
+                  </div>
+
+                </div>
+
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+
+        {% else %}
+
+        <div class="col-12">
+          <div class="alert alert-info">
+            You have no Licenses or Ratings to display. Add some below
+          </div>
+        </div>
+
+        {% endif %}
+      </div><!--- end highlights row--->
+
+      <!--- add highlight form --->
+      <div class="row">
+
+        <div class="col-12">
+
+          <p class="text-md font-weight-bold">
+            Add License or Rating
+          </p>
+
+          <form method="post" action="{% url 'account:entry-new-action' profile.uuid %}">
+            {% csrf_token %}
+
+            <div class="form-group">
+              <input class="form-control" type="text" name="entry_text" required>
+            </div>
+
+            <div class="d-flex justify-content-end">
+              <button type="submit" class="btn btn-gold mobile-btn">
+                Add License or Rating
+              </button>
+            </div>
+
+            <input type="hidden" name="entry_type" value="{{ entry_type }}">
+            <input type="hidden" name="entry_link" value="">
+
+          </form>
+
+        </div>
+
+      </div><!--- end highlights form row --->
+
+      <!--- highlights instruction row --->
+      {% if entry_list %}
+      <div class="row">
+
+        <div class="col-12">
+
+        <hr>
+
+        <h4 class="font-weight-bold">
+          Reorder License or Rating
+        </h4>
+
+        <p>
+          If you want your License or Rating to be displayed in a different order,
+          click on the up/or down arrow to reorder them.
+        </p>
+
+        <h4 class="font-weight-bold">
+          Delete a License or Rating
+        </h4>
+
+        <p>
+          Click on the
+          (<i class="fas fa-times text-danger"></i>)
+          to delete your License or Rating
+        </p>
+
+        </div>
+
+      </div>
+      {% endif %}
+
+    </div><!--- end content container --->
+
+  </div><!--- end row --->
+
+</div><!--- end container --->
+{% endblock %}

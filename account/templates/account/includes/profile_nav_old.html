@@ -1,0 +1,47 @@
+<!-- navigation row-->
+<div class="row">
+
+  <div class="col-12">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'account:index' %}">Account Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Profile</li>
+        <li class="breadcrumb-item"><a href="{% url 'account:logout' %}">Logout</a></li>
+      </ol>
+    </nav>
+  </div>
+
+  <div class="col-12">
+    <ul id="profileNav" class="nav">
+      <li class="nav-item extended">
+        <a class="nav-link" href="{% url 'account:highlights' profile.uuid %}">Highlights</a>
+      </li>
+      <li class="nav-item images">
+        <a class="nav-link" href="{% url 'account:profileimages' profile.uuid %}">Images</a>
+      </li>
+
+      {% if profile.oldhighlight_set.all %}
+      <li class="nav-item previous">
+        <a class="nav-link" href="{% url 'account:previous-info' profile.uuid %}">Previous</a>
+      </li>
+      {% endif %}
+    </ul>
+  </div>
+
+  <div class="col-12">
+    <hr/>
+  </div>
+
+  <div class="col-8">
+    <h4 class="font-weight-bold">Edit Your Profile</h4>
+    <a href="{% url 'website:profile' profile.short_code %}">View Profile on Website</a>
+    <hr/>
+  </div>
+
+  <div class="col-4 d-flex justify-content-end">
+    <i class="fas fa-ellipsis-v mr-3" style="font-size:2em;"></i>
+  </div>
+
+
+
+</div>

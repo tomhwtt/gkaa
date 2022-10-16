@@ -1,0 +1,130 @@
+{% extends "accountbase.html" %}
+
+{% block content %}
+<div class="container mb-5" style="max-width:668px;">
+
+  <div class="row">
+    <div class="col-12">
+
+      <a href="{% url 'account:profile-detail' profile.uuid %}">
+        &laquo Profile Home
+      </a>
+
+      <h1 class="fw-bold">
+        {{ title }}
+      </h1>
+
+      <hr>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12">
+
+      <p class="text-sm text-muted">
+        Enter your {{ title }}.
+        <br>
+        These are short entries.
+        <span class="d-block d-md-none"></span>
+        (100 characters or less)
+        <br>
+        Add multiple short entries instead of one long entry.
+
+        {% if example_list %}
+          <span class="d-md-block"></span>
+          See examples below.
+        {% endif %}
+
+      </p>
+
+    </div>
+  </div>
+
+  {% if length_error %}
+  <div class="row">
+    <div class="col-12">
+      <div class="alert alert-danger text-sm">
+        <h4 class="text-center">Entry is too long.</h4>
+        <p class="text-center mb-0">
+          Max length is 100 words.
+          <br>
+          Add multiple short entries instead of one long entry.
+        </p>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+
+  <div class="row">
+    <div class="col-12">
+      <div class="bg-light border p-3 mb-3">
+        <form method="post">{% csrf_token %}
+          <div class="mb-3">
+            <label for="">{{ singular }}</label>
+            <input class="form-control" type="text" name="text"
+              placeholder="100 characters or less">
+          </div>
+          <div class="mb-3">
+            <div class="d-grid">
+              <button class="btn btn-primary" type="submit">
+                Add {{ singular }}
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  {% if entry_list %}
+  <div class="row">
+    <div class="col-12">
+
+      <ul class="list-group mb-3">
+        {% for entry in entry_list %}
+          <li class="list-group-item">
+
+            <div class="row d-flex align-items-center">
+              <div class="col-10">
+                <a href="{% url 'account:entry-detail' profile.uuid entry.id %}">
+
+                  {% if entry.show_on_home %}
+                    <i class="fas fa-home"></i>
+                  {% endif %}
+
+                  {{ entry.text }}
+
+                </a>
+              </div>
+              <div class="col-2 text-center">
+                <a href="{% url 'account:entry-detail' profile.uuid entry.id %}">
+                  <i class="fas fa-edit"></i>
+                </a>
+              </div>
+
+            </div>
+
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+  {% endif %}
+
+  {% if example_list %}
+  <div class="row">
+    <div class="col-12 text-muted">
+      <p class="mb-0 fw-bold">
+        {{ singular }} Examples:
+      </p>
+      <ul>
+        {% for example in example_list %}
+          <li>{{ example }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+  {% endif %}
+
+</div>
+{% endblock %}

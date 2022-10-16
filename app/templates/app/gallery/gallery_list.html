@@ -1,0 +1,19 @@
+{% extends "appbase.html" %}
+
+{% block content %}
+<div class="container" style="max-width:568px;">
+  <div class="row">
+    <div class="col-12">
+      <ul class="list-group">
+        {% for gallery in gallery_set %}
+          <li class="list-group-item">
+            <a href="{% url 'app:gallery-detail' gallery.id %}">
+              {{ gallery }}
+            </a>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+</div>
+{% endblock %}

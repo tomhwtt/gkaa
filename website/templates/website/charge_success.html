@@ -1,0 +1,70 @@
+{% extends "website_base.html" %}
+{% load static %}
+
+
+{% block content %}
+<div class="container mb-3" style="margin-top:100px;max-width:400px;">
+  <div class="row">
+
+    <div class="col-12 text-md">
+
+      <img class="img-fluid d-block mx-auto my-3"
+          src="{% static 'website/images/roster/auls_head.jpg' %}"
+          style="max-width:225px;">
+
+        <h3 class="font-weight-bold text-center">
+          {{ charge_heading }}
+        </h3>
+
+        <p class="text-center">
+          {{ charge_subheading|safe }}
+        </p>
+
+        <hr>
+
+        <p class="my-0">
+          <strong>Name:</strong> {{ name }}
+        </p>
+
+        <p class="my-0">
+          <strong>Email:</strong> {{ email }}
+        </p>
+
+        <p class="my-0">
+          <strong>Date:</strong> {{ date }}
+        </p>
+
+        <ul class="list-group my-3">
+          {% for lineitem in lineitem_array %}
+            <li class="list-group-item">
+
+              <div class="row">
+                <div class="col-8">
+                  {{ lineitem.name }}
+                </div>
+                <div class="col-4">
+                  ${{ lineitem.amount }}
+                </div>
+              </div>
+
+            </li>
+          {% endfor %}
+            <li class="list-group-item">
+
+              <div class="row">
+                <div class="col-8 text-right">
+                  <strong>Total:</strong>
+                </div>
+                <div class="col-4">
+                  ${{ total }}
+                </div>
+              </div>
+
+            </li>
+        </ul>
+
+    </div>
+
+  </div>
+</div>
+{% endblock %}

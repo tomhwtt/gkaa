@@ -1,0 +1,34 @@
+{% extends "accountbase.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container login-container">
+  <div class="row">
+
+    <div class="col-12 pb-3">
+      <a href="{% url 'website:index' %}">
+        <img class="img-fluid d-block mx-auto"
+          src="{% static 'account/gray_owls_head.png' %}" alt="Golden Knights Logo">
+      </a>
+    </div>
+
+    <div class="col-12">
+
+      <h3 class="fw-bold text-center">
+        Request Confirmed
+      </h3>
+
+      <p class="text-center">
+        Your account request has been received.
+        One of us will be in touch within 72 hours.
+      </p>
+
+      <p class="text-center">
+        Thank you!
+      </p>
+
+    </div>
+
+  </div>
+</div>
+{% endblock %}

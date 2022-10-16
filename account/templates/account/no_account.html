@@ -1,0 +1,32 @@
+{% extends "accountbase.html" %}
+
+{% block content %}
+<div class="container login-container" style="max-width:568px;">
+
+  <div class="row">
+    <div class="col-12">
+
+      <h1 class="mb-0">
+        {{ user.first_name }} {{ user.last_name}}
+      </h1>
+
+
+      <p>
+        There is no profile attached to your account.
+        <span class="d-md-block"></span>
+        <a href="{% url 'website:contact' %}">
+          Contact us
+        </a>
+        so we can fix this.
+      </p>
+
+      <a href="{% url 'account:logout' %}">
+        Logout
+      </a>
+
+    </div>
+
+  </div>
+
+</div>
+{% endblock %}

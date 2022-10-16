@@ -1,0 +1,33 @@
+{% extends "accountbase.html" %}
+
+{% block content %}
+<div class="container login-container">
+
+  <div class="row w-100">
+
+    <div class="col-12">
+
+      <ul class="list-group">
+        <li class="list-group-item">
+          <a href="{% url 'app:app-index' %}">
+            Login to Admin App &raquo
+          </a>
+        </li>
+        <li class="list-group-item">
+          <a href="{% url 'account:profile-detail' profile.uuid %}">
+            Login to Your Account &raquo;
+          </a>
+        </li>
+        <li class="list-group-item">
+          <a class="text-danger" href="{% url 'account:logout' %}">
+            Logout &raquo;
+          </a>
+        </li>
+      </ul>
+
+    </div>
+
+  </div>
+
+</div>
+{% endblock %}

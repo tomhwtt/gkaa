@@ -1,0 +1,8 @@
+{% extends 'admin/change_form.html' %}
+
+{% block after_field_sets %}
+  {{ block.super }}
+    <div class="submit-row">
+      <input type="submit" value="View Profile" name="_view_profile">
+    </div>
+{% endblock %}

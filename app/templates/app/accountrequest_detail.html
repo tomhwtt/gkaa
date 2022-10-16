@@ -1,0 +1,178 @@
+{% extends "appbase.html" %}
+
+{% block content %}
+<div class="container" style="max-width:568px;">
+
+
+  <div class="row mb-3">
+
+    <div class="col-4">
+      <a href="{% url 'app:accountrequest-list' %}">
+        &laquo; Requests
+      </a>
+    </div>
+
+    <div class="col-8 d-flex justify-content-around">
+
+      {% if status == 'new' %}
+      <a href="{% url 'app:accountrequest-set-pending' r.id %}">
+        + Vetting
+      </a>
+
+      <a href="{% url 'app:accountrequest-set-later' r.id %}">
+        + Later
+      </a>
+      {% else %}
+
+      <h4 class="fw-bold text-danger my-0">
+        {{ status }}
+      </h4>
+      {% endif %}
+
+    </div>
+
+  </div>
+
+  <div class="row">
+
+    {% if r.complete %}
+    <div class="col-12">
+      <span class="text-danger">
+        Complete: {{ r.complete }}
+      </span>
+    </div>
+    {% endif %}
+
+    <div class="col-12">
+      {{ r.name }}
+
+        <br>
+
+        {{ r.email_address }}<br>
+        <span class="text-sm text-muted">
+          {{ r.text_date }}
+        </span>
+    </div>
+
+    <div class="col-12">
+      <p>
+        {{ r.info }}
+      </p>
+    </div>
+
+    <div class="col-6">
+
+      {% if customuser %}
+
+        <a href="{% url 'app:customuser-detail' customuser.id %}">
+          User Exists &raquo;
+        </a>
+
+        <br>
+
+        {% if profile %}
+          <span class="text-success">& Connected to Profile</span>
+        {% else %}
+          <span class="text-danger">& Not Connected to Profile</span>
+        {% endif %}
+
+      {% else %}
+        <a href="{% url 'app:customuser-new' r.id %}">
+          + Create New User
+        </a>
+      {% endif %}
+
+    </div>
+
+    <div class="col-6">
+      {% if not r.complete %}
+      <a class="text-danger"
+        href="{% url 'app:accountrequest-complete' r.id %}">
+        Complete Request
+      </a>
+      {% endif %}
+    </div>
+
+    <div class="col-12">
+      <hr>
+    </div>
+
+  </div>
+
+  <!-- form row -->
+  <div class="row">
+    <div class="col-12">
+      <form method="post">{% csrf_token %}
+       <div class="mb-3">
+         <input class="form-control" type="text" name="text"
+           placeholder="Enter Note">
+       </div>
+     </form>
+    </div>
+  </div>
+
+  <!-- notes row -->
+  <div class="row">
+    <div class="col-12 py-3">
+      <ul class="list-group">
+        {% for note in note_set %}
+          <li class="list-group-item">
+            {{ note }}<br>
+
+            <span class="text-muted text-sm">
+              {{ note.text_date }}
+
+              {% if note.user %}
+                ({{ note.user.name }})
+              {% endif %}
+
+            </span>
+
+          </li>
+        {% endfor %}
+      </ul>
+    </div><!-- end notes row -->
+  </div><!-- end notes row -->
+
+  <div class="row">
+    <div class="col-12">
+
+      <h4 class="my-2">
+        Email Activity List
+      </h4>
+
+      <ul class="list-group">
+        {% for email in email_activity_list %}
+          <li class="list-group-item">
+            {{ email.type }}<br>
+            <span class="text-sm text-muted">{{ email.date }}</span>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+
+  {% if not profile and profile_list %}
+  <div class="row">
+    <div class="col-12">
+
+      <h4 class="py-3">Possible Profiles List</h4>
+
+      <ul class="list-group">
+        {% for profile in profile_list %}
+          <li class="list-group-item">
+            <a href="{% url 'app:profile-detail' profile.id %}">
+              {{ profile }}<br>
+              <span class="text-sm text-muted">
+                {{ profile.teamdate_string }}
+              </span>
+            </a>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+  {% endif %}<!-- end if profile list -->
+
+</div>
+{% endblock %}

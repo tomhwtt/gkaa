@@ -1,0 +1,80 @@
+{% extends "appbase.html" %}
+
+{% block content %}
+<div class="container mb-5" style="max-width:768px;">
+  <div class="row">
+
+    <div class="col-12">
+      <a href="{% url 'app:app-index' %}">
+        &laquo Back to Home Page
+      </a>
+    </div>
+
+    <div class="col-12">
+
+      <h1 class="h3 mt-2">
+        {{ profile }}
+      </h1>
+
+      <a href="{% url 'website:profile' profile.url_code %}" target="_blank">
+        View Profile on Website
+      </a>
+
+    </div>
+
+
+    <div class="col-12 pt-3">
+
+      <ul class="list-group" style="max-width:500px;">
+
+        <li class="list-group-item">
+          <a href="{% url 'app:profile-edit' profile.id %}">
+            Edit Profile
+          </a>
+        </li>
+
+        <li class="list-group-item">
+          <a href="{% url 'app:profile-dates' profile.id %}">
+            Add/Edit Dates
+          </a>
+        </li>
+
+
+        {% for entry in entry_list %}
+          <li class="list-group-item">
+
+            <a href="{% url 'app:profile-entries' profile.id entry.id %}">
+              {{ entry.title }} ({{ entry.count }})
+            </a>
+
+          </li>
+        {% endfor %}<!-- end for entry list -->
+
+        <li class="list-group-item">
+
+          <a href="{% url 'app:profilestory-list' profile.id %}">
+            Stories ({{ story_set.count }})
+          </a>
+
+        </li>
+
+        <li class="list-group-item">
+
+          <a href="{% url 'app:profileimage-list' profile.id %}">
+            Images ({{ image_set.count }})
+          </a>
+
+        </li>
+
+        <li class="list-group-item">
+          <a href="{% url 'app:profile-split-entry' profile.id %}">
+            Old Info / Split Entry
+          </a>
+        </li>
+
+      </ul>
+
+    </div>
+  </div>
+</div>
+{% endblock %}

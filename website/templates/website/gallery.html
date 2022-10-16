@@ -1,0 +1,188 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block stylesheets %}
+<link rel="stylesheet" type="text/css" href="{% static 'website/style.css' %}">
+{% endblock %}
+
+{% block content %}
+<!--- search container --->
+<div class="container">
+
+  <div class="row">
+    <div class="col-12 pt-4 mb-2">
+      <form class="form" method="post" action="{% url 'website:gallery' 'search' %}">
+        {% csrf_token %}
+        <div class="row">
+          <div class="col-sm-8">
+            <input class="form-control mt-2"
+              type="search" name="search" placeholder="Enter Search Terms"
+              aria-label="Search" style="height: 45px;">
+          </div>
+          <div class="col-sm-4">
+            <button class="btn btn-primary btn-block mt-2" type="submit"
+              style="height:45px;">Search</button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    {% if search %}
+    <div class="col-12">
+      <p class="mb-0 mt-1">Search results for: <strong>({{ search }})</strong></p>
+      <a href="{% url 'website:gallery' 'search' %}">Reset Search</a>
+      <a class="text-muted"> | Detailed Search (coming soon)</a>
+    </div>
+    {% endif %}
+
+  </div>
+
+</div>
+
+<div class="container mt-3">
+  <div class="row">
+
+    {% for image in galleryimage_list %}
+    <div class="col-12 col-md-6 col-lg-4">
+      <div class="p-2 border my-2" style="height:200px;">
+
+          <a href="{% url 'website:galleryimage' image.gallery.slug image.uuid %}">
+            <div class="h-100"
+              style="
+              background-image: url({{ image.url }});
+              background-size:cover;
+              background-repeat:no-repeat;
+              background-position:center top;">
+            </div>
+          </a>
+
+      </div>
+      <div>
+        <p>
+          {{ image.caption_text }}
+
+            {% if image.long_caption %}
+              <a href="{% url 'website:galleryimage' image.gallery.slug image.uuid %}">
+                ...read more
+              </a>
+            {% endif %}
+        </p>
+      </div>
+    </div>
+    {% endfor %}
+
+  </div>
+</div>
+
+<!--- pagination row --->
+{% if show_pagination %}
+<div class="container mt-3 mt-lg-4">
+  <div class="row">
+    <div class="col-12">
+      <h4 class="text-center mb-3">Page {{ current_page }} of {{ num_pages }} Pages</h4>
+    </div>
+    <div class="col-12 d-flex justify-content-center">
+      <nav aria-label="Page navigation example">
+        <ul class="pagination pagination-md">
+
+          {% if previous_page %}
+
+          <li class="page-item">
+            <a class="page-link"
+              href="{% url 'website:gallery' gallery_slug %}{{ first_link }}"
+              aria-label="Previous">
+                First
+
+            </a>
+          </li>
+
+          <li class="page-item">
+            <a class="page-link"
+              href="{% url 'website:gallery' gallery_slug %}{{ previous_page }}"
+              aria-label="Previous">
+                <span aria-hidden="true"><i class="fas fa-angle-double-left"></i></span>
+
+            </a>
+          </li>
+          {% else %}
+
+          <li class="page-item disabled">
+            <a class="page-link"
+              href="{% url 'website:gallery' gallery_slug %}{{ previous_page }}"
+              aria-label="Previous">
+                First
+
+            </a>
+          </li>
+          <li class="page-item disabled">
+            <a class="page-link"
+              href="{% url 'website:gallery' gallery_slug %}"
+              aria-label="Previous">
+                <span aria-hidden="true"><i class="fas fa-angle-double-left"></i></span>
+            </a>
+          </li>
+          {% endif %}
+
+          <!--- mobile pagination --->
+          <li class="page-item active d-sm-none">
+            <a class="page-link"
+              href="{% url 'website:gallery' gallery_slug %}?page={{ current_page }}">
+              {{ current_page }}
+            </a>
+          </li>
+
+          <!--- non mobile pagination --->
+          {% for page in pagination_array %}
+            <li class="page-item {{ page.status }} d-none d-sm-block">
+              <a class="page-link"
+                href="{% url 'website:gallery' gallery_slug %}{{ page.query_string }}">
+                {{ page.page_number }}
+              </a>
+            </li>
+          {% endfor %}
+
+          {% if next_page %}
+          <li class="page-item">
+            <a class="page-link"
+              href="{% url 'website:gallery' gallery_slug %}{{ next_page }}"
+              aria-label="Next">
+                <span aria-hidden="true"><i class="fas fa-angle-double-right"></i></span>
+            </a>
+          </li>
+
+          <li class="page-item">
+            <a class="page-link"
+              href="{% url 'website:gallery' gallery_slug %}{{ last_link }}"
+              aria-label="Next">
+                Last
+            </a>
+          </li>
+
+          {% else %}
+          <li class="page-item disabled">
+            <a class="page-link"
+              href="{% url 'website:gallery' gallery_slug %}"
+              aria-label="Next">
+                <span aria-hidden="true"><i class="fas fa-angle-double-right"></i></span>
+            </a>
+          </li>
+
+          <li class="page-item disabled">
+            <a class="page-link"
+              href="{% url 'website:gallery' gallery_slug %}"
+              aria-label="Next">
+                Last
+            </a>
+          </li>
+
+          {% endif %}
+
+
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+{% endif %}
+
+{% endblock %}

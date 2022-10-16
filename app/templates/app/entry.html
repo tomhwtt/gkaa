@@ -1,0 +1,26 @@
+{% extends "appbase.html" %}
+
+{% block content %}
+<div class="container" style="max-width:768px;">
+  <div class="row">
+
+    <div class="col-12">
+
+      <a href="{% url 'app:profile-detail' profile.id %}">
+        &laquo Back to Profile
+      </a>
+
+      <h1 class="h3 mt-3">
+        {{ profile }}
+      </h1>
+
+    </div>
+
+    <div class="col-12">
+      {{ entry.text }}
+    </div>
+
+
+  </div>
+</div>
+{% endblock %}

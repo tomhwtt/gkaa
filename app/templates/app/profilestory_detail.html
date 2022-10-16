@@ -1,0 +1,51 @@
+{% extends "appbase.html" %}
+
+{% block content %}
+<div class="container" style="max-width:668px;">
+
+  <div class="row">
+
+    <div class="col-12">
+
+      <a href="{% url 'app:profile-detail' profile.id %}">
+        &laquo Profile Home
+      </a>
+
+      <a class="ms-3" href="{% url 'app:profilestory-list' profile.id %}">
+        &laquo Story List
+      </a>
+
+      <hr>
+
+    </div>
+
+  </div>
+
+  <div class="row">
+
+    <div class="col-12 mb-3">
+      <a href="{% url 'app:profilestory-edit' profile.id story.id %}">
+        <i class="fas fa-edit"></i>
+        Edit Story
+      </a>
+    </div>
+
+    <div class="col-12">
+
+      <h3 class="fw-bold mb-0">
+        {{ story.title }}
+      </h3>
+
+      <p class="text-sm text-muted mt-0">
+        {{ story.date_text }}
+      </p>
+
+      <p>
+        {{ story.text|safe }}
+      </p>
+    </div>
+  </div>
+
+
+</div>
+{% endblock %}

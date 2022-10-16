@@ -1,0 +1,71 @@
+{% extends "appbase.html" %}
+
+{% block content %}
+<div class="container" style="max-width:568px;">
+
+  <div class="row">
+
+    <div class="col-12">
+
+      <a href="{% url 'app:profile-detail' profile.id %}">
+        &laquo Back to Profile Home
+      </a>
+
+      <h1 class="fw-bold h2">
+        Story List
+      </h1>
+
+      <a href="{% url 'app:profilestory-new' profile.id %}">
+        <i class="fas fa-plus"></i>
+        Add New Story
+      </a>
+
+    </div>
+
+  </div>
+
+  <div class="row">
+
+    {% if story_set %}
+    <div class="col-12">
+      <ul class="list-group my-3">
+        {% for story in story_set %}
+          <li class="list-group-item">
+            <div class="row d-flex align-items-center">
+              <div class="col-10">
+                <a href="{% url 'app:profilestory-detail' profile.id story.id %}">
+                  {{ story.the_title }} &raquo;
+                </a>
+                <br>
+                <span class="text-muted" style="font-size:1rem;">
+                  {{ story.date_text }}
+                </span>
+              </div>
+              <div class="col-2 text-center">
+                <a href="{% url 'app:profilestory-edit' profile.id story.id %}">
+                  <i class="fas fa-edit"></i>
+                </a>
+              </div>
+            </div>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+
+    {% else %}<!-- if not comment_set -->
+
+    <div class="col-12">
+      <p class="mb-0">
+        You have no stories:
+      </p>
+      <a href="">
+        + Add One Now
+      </a>
+    </div>
+
+    {% endif %}<!-- end if no comment set -->
+
+  </div>
+
+</div>
+{% endblock %}

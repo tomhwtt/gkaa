@@ -1,0 +1,30 @@
+{% extends "account_base.html" %}
+{% load static %}
+
+{% block stylesheets %}
+<link rel="stylesheet" type="text/css" href="{% static 'website/style.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container h-100">
+  <div class="row h-75">
+    <div class="col-12 d-flex align-items-center justify-content-center">
+      <div class="card w-50">
+        <div class="card-body">
+          <form method="post">{% csrf_token %}
+            <div class="form-group">
+              <label for="">Email Address</label>
+              <input class="form-control" type="text" name="username" id="id_username">
+            </div>
+            <div class="form-group">
+              <label for="">Password</label>
+              <input class="form-control" type="password" name="password" id="id_password">
+            </div>
+            <button class="btn btn-dark btn-block" type="submit">Login</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

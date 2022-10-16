@@ -1,0 +1,146 @@
+{% extends "appbase.html" %}
+
+{% block content %}
+<div class="container" style="max-width:568px;">
+  <div class="row">
+
+    <!--- updated notification column -->
+    {% if update_notice %}
+    <div class="col-12">
+      <div class="alert alert-warning text-center">
+        Profile Updated!
+      </div>
+    </div>
+    {% endif %}
+
+    <div class="col-12">
+      <a href="{% url 'app:profile-detail' profile.id %}">
+        &laquo Back to Profile
+      </a>
+      <h1>{{ profile }}</h1>
+    </div>
+
+    <div class="col-12">
+
+      <ul class="list-group mt-3">
+
+        {% for date in teamdate_set %}
+          <li class="list-group-item">
+            <div class="row">
+              <div class="col-9">
+                Team: {{ date.start_year }} - {{ date.end_year }}
+              </div>
+              <div class="col-3 text-center">
+                <a class="text-danger"
+                  href="{% url 'app:teamdate-delete' date.id %}">
+                  <i class="fas fa-trash"></i>
+                </a>
+              </div>
+            </div>
+          </li>
+        {% endfor %}
+
+        {% for date in armydate_set %}
+          <li class="list-group-item">
+            <div class="row">
+              <div class="col-9">
+                Army: {{ date.start_year }} - {{ date.end_year }}
+              </div>
+              <div class="col-3 text-center">
+                <a class="text-danger"
+                  href="{% url 'app:armydate-delete' date.id %}">
+                  <i class="fas fa-trash"></i>
+                </a>
+              </div>
+            </div>
+          </li>
+        {% endfor %}
+
+      </ul>
+
+    </div>
+
+    <div class="col-12">
+      <form method="post">{% csrf_token %}
+
+        <div class="row">
+          <div class="col-6 mt-3">
+            <div class="mb-3">
+              <label for="">Team Start Year</label>
+              <input class="form-control" type="text"
+                name="team_start_year" placeholder="YYYY">
+            </div>
+          </div>
+
+          <div class="col-6 mt-3">
+            <div class="mb-3">
+              <label for="">Team End Year</label>
+              <input class="form-control" type="text"
+                name="team_end_year" placeholder="YYYY">
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-6 mt-3">
+            <div class="mb-3">
+              <label for="">Army Start Year</label>
+              <input class="form-control" type="text"
+                name="army_start_year" placeholder="YYYY">
+            </div>
+          </div>
+
+          <div class="col-6 mt-3">
+            <div class="mb-3">
+              <label for="">Army End Year</label>
+              <input class="form-control" type="text"
+                name="army_end_year" placeholder="YYYY">
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12">
+            <div class="alert alert-info text-sm">
+              You do not need to add Deceased Year if you have the Deceased Date.
+              Deceased Date (the full date) is preferred.
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-6 mt-3">
+            <div class="mb-3">
+              <label for="">Deceased Date</label>
+              <input class="form-control" type="text" name="deceased_date"
+                value="{{ deceased_date }}" placeholder="YYYY-MM-DD">
+            </div>
+          </div>
+
+          <div class="col-6 mt-3">
+            <div class="mb-3">
+              <label for="">Deceased Year</label>
+              <input class="form-control" type="text" name="deceased_year"
+                value="{{ deceased_year }}" placeholder="YYYY">
+            </div>
+          </div>
+
+        </div>
+
+        <div class="row">
+          <div class="col-12">
+            <div class="d-grid mb-3">
+              <button class="btn btn-primary" type="submit">
+                Update the Dates
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </form>
+    </div>
+
+  </div>
+
+</div>
+{% endblock %}

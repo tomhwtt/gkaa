@@ -1,0 +1,96 @@
+<!-- navigation row-->
+<ul class="list-group profile-list-menu">
+
+  <li class="list-group-item border-top-0 d-flex flex-column">
+    {{ profile }}
+    <a href="{% url 'account:logout' %}">Logout</a>
+  </li>
+
+  <li class="list-group-item">
+
+    <a href="{% url 'account:profile-home' profile.uuid %}">
+      Main Profile &raquo;
+    </a>
+
+    {% if profile.missing_info.num_missing %}
+      <span>
+          {{ profile.missing_info.num_missing }}
+          <i class="fas fa-exclamation-triangle text-danger text-md"></i>
+      </span>
+    {% else %}
+      <i class="fas fa-check text-success text-md"></i>
+    {% endif %}
+
+  </li>
+
+  <li class="list-group-item">
+    <a href="{% url 'account:entry-list' profile.uuid '1' %}">
+      Team Jobs &raquo;
+    </a>
+    <span>{{ profile.teamjob_list.count }}</span>
+  </li>
+
+  <li class="list-group-item">
+    <a href="{% url 'account:entry-list' profile.uuid '2' %}">
+      Army Jobs & Schools &raquo;
+    </a>
+    <span>{{ profile.armyjob_list.count }}</span>
+  </li>
+
+  <li class="list-group-item">
+    <a href="{% url 'account:entry-list' profile.uuid '3' %}">
+      Awards & Badges &raquo;
+    </a>
+    <span>{{ profile.award_list.count }}</span>
+  </li>
+
+  <li class="list-group-item">
+    <a href="{% url 'account:entry-list' profile.uuid '4' %}">
+      Licenses & Ratings &raquo;
+    </a>
+    <span>{{ profile.license_list.count }}</span>
+  </li>
+
+  <li class="list-group-item">
+    <a href="{% url 'account:entry-list' profile.uuid '5' %}">
+      Highlights &raquo;
+    </a>
+    <span>{{ profile.highlight_list.count }}</span>
+  </li>
+
+  <li class="list-group-item">
+    <a href="{% url 'account:entry-list' profile.uuid '6' %}">
+      Comments & Stories &raquo;
+    </a>
+    <span>{{ profile.comment_list.count }}</span>
+  </li>
+
+  <li class="list-group-item">
+    <a href="{% url 'account:entry-list' profile.uuid '7' %}">
+      External Links &raquo;
+    </a>
+    <span>{{ profile.link_list.count }}</span>
+  </li>
+
+  <li class="list-group-item">
+    <a href="{% url 'account:profile-images' profile.uuid %}">
+      Profile Images &raquo;
+    </a>
+    <span>{{ profile.image_list.count }}</span>
+  </li>
+
+  {% if profile.oldhighlight_list.count %}
+  <li class="list-group-item">
+    <a href="{% url 'account:oldhighlight-list' profile.uuid %}">
+      Previous System Info &raquo;
+    </a>
+  </li>
+  {% endif %}
+
+  <li class="list-group-item">
+    <a href="{% url 'website:profile' profile.url_code %}" target="_blank">
+      View Profile on Website
+    </a>
+  </li>
+
+</ul>

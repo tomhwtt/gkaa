@@ -1,0 +1,119 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block stylesheets %}
+<link rel="stylesheet" type="text/css" href="{% static 'website/style.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container" style="max-width:600px;">
+  <div class="row bg-white border pt-3 mt-sm-4 pb-4">
+
+    <div class="col-12">
+      <h3>Attendees</h3>
+    </div>
+
+    <div class="col-12">
+      <hr/>
+      <p class="text-center">If you know the names of your guests, <br/>please enter them here.</p>
+      <hr/>
+    </div>
+
+    <div class="col-12">
+      <form class="form" role="form" method="post" action="{% url 'website:registration-update-veggie' registration.uuid %}">
+        {% csrf_token %}
+
+        <h4>Friday Night Attendees</h4>
+
+        {% for attendee in friday_attendees %}
+
+        <div class="row">
+          <div class="col-8">
+            <div class="form-group">
+              <input class="form-control attendee" type="text" value="{{ attendee.name }}" data-id="{{ attendee.uuid }}" placeholder="Guest Name" >
+            </div>
+          </div>
+          <div class="col-4">
+            <a class="btn btn-block btn-danger text-light" href="{% url 'website:attendee-remove' attendee.uuid %}">Remove</a>
+          </div>
+        </div>
+
+        {% endfor %}
+
+        <a href="#" class="add-attendee" data-event="1">+ Add Another Friday Night Attendee</a>
+
+        <hr/>
+
+        <h4>Saturday Night Attendees</h4>
+
+        {% for attendee in saturday_attendees %}
+
+        <div class="row">
+          <div class="col-8">
+            <div class="form-group">
+              <input class="form-control attendee" type="text" value="{{ attendee.name }}" data-id="{{ attendee.uuid }}" placeholder="Guest Name" >
+            </div>
+          </div>
+          <div class="col-4">
+            <a class="btn btn-block btn-danger text-light" href="{% url 'website:attendee-remove' attendee.uuid %}">Remove</a>
+          </div>
+        </div>
+
+        {% endfor %}
+
+        <a href="#" class="add-attendee" data-event="2">+ Add Another Saturday Night Attendee</a>
+
+      </form>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- vegetarian container -->
+<div class="container" style="max-width:600px;">
+  <div class="row bg-white border pt-3 mt-sm-4 pb-4">
+
+    <div class="col-12">
+      <h3>Vegetarian?</h3>
+      <p>The served meal will be the Embassy Stuffed Chicken.  If you prefer a vegetarian meal, enter the total number of vegetarian meals needed below.</p>
+    </div>
+
+    <div class="col-12">
+
+      <form id="veggieForm" class="form" role="form" method="post" action="{% url 'website:registration-update-veggie' registration.uuid %}">
+        {% csrf_token %}
+        <div class="alert alert-info border">
+
+          <p class="text-center">
+            Vegetarian Meals Needed
+          </p>
+
+          {% if registration.num_veggie == 0 %}
+          <div class="form-group">
+            <input class="form-control mx-auto" type="tel" name="num_veggie" style="height:50px; max-width:150px; font-size:1.75em;text-align:center" >
+          </div>
+          {% else %}
+          <div class="form-group">
+            <input class="form-control mx-auto" type="tel" name="num_veggie" value="{{ registration.num_veggie}}"  style="height:50px; max-width:150px; font-size:1.75em;text-align:center" >
+          </div>
+          {% endif %}
+
+        </div>
+
+        <a id="updateAttendeesBtn" class="btn btn-gold btn-lg btn-block text-dark" href="#">Update Registration</a>
+        <input type="hidden" id="registration" value="{{ registration.uuid }}">
+        <input type="hidden" id="url" name="url" value="">
+
+      </form>
+
+    </div>
+
+  </div>
+</div>
+
+{% endblock %}
+
+{% block pagejs %}
+<script src="{% static 'website/registration.js' %}"></script>
+{% endblock %}

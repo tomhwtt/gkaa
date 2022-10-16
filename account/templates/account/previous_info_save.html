@@ -1,0 +1,97 @@
+{% extends "admin_base.html" %}
+{% load static %}
+
+{% block stylesheets %}
+<link rel="stylesheet" type="text/css" href="{% static 'website/style.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'account/account.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container mt-3 mt-md-4 py-3 bg-white border" style="max-width:768px; margin-bottom:50px;">
+
+  {% include "account/includes/profile_nav.html" %}
+
+  <div class="row mb-3">
+    <div class="col-12">
+
+      <h3 class="mb-2">Previous Info</h3>
+      <p>
+        Below you will find all of the info that was in the previous system.
+        This info cannot be edited, but you can delete it if you choose to.
+        Please be aware that this is not reversible.  Once you delete it, it's gone for good.
+      </p>
+      <hr/>
+
+      {% if team_highlights_old %}
+      <h3 class="mb-2">
+        Team Highlights
+        <i class="fas fa-times text-danger
+          pointer ml-2 delete-oldhighlight-icon" data-type="1"
+          data-profile="{{ profile.uuid }}">
+        </i>
+      </h3>
+
+      {% for highlight in team_highlights_old %}
+        <p>{{ highlight.text }}</p>
+      {% endfor %}
+
+      <hr/>
+      {% endif %}
+
+      {% if army_highlights_old %}
+      <h3 class="mb-2">
+        Army Highlights
+        <i class="fas fa-times text-danger
+          pointer ml-2 delete-oldhighlight-icon" data-type="2"
+          data-profile="{{ profile.uuid }}">
+        </i>
+      </h3>
+
+      {% for highlight in army_highlights_old %}
+        <p>{{ highlight.text }}</p>
+      {% endfor %}
+
+      <hr/>
+      {% endif %}
+
+      {% if civilian_highlights_old %}
+      <h3 class="mb-2">
+        Civilian Highlights
+        <i class="fas fa-times text-danger
+          pointer ml-2 delete-oldhighlight-icon" data-type="3"
+          data-profile="{{ profile.uuid }}">
+        </i>
+      </h3>
+
+      {% for highlight in civilian_highlights_old %}
+        <p>{{ highlight.text }}</p>
+      {% endfor %}
+
+      <hr/>
+      {% endif %}
+
+      {% if current_status_old %}
+      <h3 class="mb-2">
+        Current Status
+        <i class="fas fa-times text-danger
+          pointer ml-2 delete-oldhighlight-icon" data-type="4"
+          data-profile="{{ profile.uuid }}">
+        </i>
+      </h3>
+
+      {% for highlight in current_status_old %}
+        <p>{{ highlight.text }}</p>
+      {% endfor %}
+
+      {% endif %}
+
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block pagejs %}
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="{% static 'account/account.js' %}"></script>
+{% endblock %}

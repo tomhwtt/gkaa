@@ -1,0 +1,188 @@
+{% extends "websitebase.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container-fluid pt-md-3">
+
+  <!-- menu link row on mobile only -->
+  <div class="row">
+    <div class="col-12 d-md-none bg-black py-2">
+      <div class="d-grid">
+        <a class="btn btn-gold text-dark"
+          href="{% url 'website:roster-menu' %}">
+          <i class="fas fa-filter mx-1"></i>
+          Filter
+          <span class="mx-3"></span>
+          <i class="fas fa-search mx-1"></i>
+          Search
+        </a>
+      </div>
+    </div>
+  </div><!-- end menu link row -->
+
+  <div class="row gx-md-3">
+
+    <!--- the menu column -->
+    <div class="order-1 order-md-0 col-md-4 col-lg-3">
+
+      <!--- mt-2 pushes the menu down so it aligns with roster -->
+      <ul class="list-group mb-3 rounded-0">
+
+        <li class="list-group-item">
+          <p class="my-0">
+            Enter at least three letters from the name you are looking for.
+          </p>
+        </li>
+
+        <li class="list-group-item">
+          <form  method="post">{% csrf_token %}
+
+            <div class="mb-2">
+              <input class="form-control" type="text" name="q"
+                placeholder="Search Profile">
+            </div>
+
+            <div class="d-grid">
+              <button class="btn btn-gold" type="submit">Search</button>
+            </div>
+          </form>
+        </li>
+
+        {% for filter in filter_set %}
+          <li class="list-group-item">
+            <a href="{% url 'website:roster' %}?f={{ filter.slug }}">
+              {{ filter.name }} &raquo;
+            </a>
+          </li>
+        {% endfor %}
+      </ul>
+
+    </div><!-- end menu column -->
+
+    <!-- the roster column -->
+    <div class="col-md-8 col-lg-9">
+
+      {% if roster_title %}
+      <div class="row">
+        <div class="col-12 pt-3 pb-2">
+          <h3 class="my-0 fw-bold">
+            {{ roster_title }}
+          </h3>
+        </div>
+      </div>
+      {% endif %}
+
+      <div class="row gx-md-3">
+
+        {% if not profile_array %}
+        <div class="col-lg-6">
+
+          <p class="my-3">
+            There were no results matching your search request.
+            Try searching a partial name instead of a whole name.
+          </p>
+
+          <p>
+            <strong>Example:</strong>
+            searching for "john" will return all members named
+            John and Johnson.
+          </p>
+
+          <p>
+            If you know at least the first three letters of the name
+            you are looking for, try that next.
+          </p>
+
+        </div>
+        {% endif %}
+
+        {% for profile in profile_array %}
+        <div class="col-lg-6">
+
+          <div class="border p-2 my-2">
+            <div class="row d-flex align-items-center">
+
+              <div class="col-4">
+                <img class="img-fluid"
+                  src="{{ profile.roster_image }}"
+                  onerror="this.onerror=null;this.src='https://gkaa.imgix.net/images/assets/roster-owls-head-sm.jpg?fit=crop&w=200&h=260';"
+                  alt="{{ profile.name }}">
+              </div>
+
+              <div class="col-8">
+
+                <h4 class="fw-bold mb-0">
+                  {{ profile.name }}
+                </h4>
+
+                {% if profile.home_origin %}
+                  <p class="my-0">
+                    {{ profile.home_origin }}
+                  </p>
+                {% endif %}
+
+                {% if profile.teamdate_string %}
+                <p class="my-0">
+                  {% if profile.teamdate_title %}
+                    <strong>
+                      <em>  {{ profile.teamdate_title }}:</em>
+                    </strong>
+                  {% endif %}
+                  {{ profile.teamdate_string }}
+                </p>
+                {% endif %}
+
+                <!-- if there is a search query, pass it along to the profile url -->
+                {% if search and profile.show_link %}
+                <a href="{% url 'website:profile' profile.profile_code %}?q={{ search }}">
+                  View Full Profile
+                </a>
+                {% elif profile.show_link %}
+                <a href="{% url 'website:profile' profile.profile_code %}">
+                  View Full Profile
+                </a>
+                {% endif %}
+
+              </div>
+
+            </div><!--- end inside card row -->
+          </div><!-- end card -->
+
+        </div><!--- col-6 (the card)--->
+        {% endfor %}<!-- endfor profile -->
+
+      </div><!--- first row inside roster column-->
+
+      <!--- paginate button row -->
+      <div class="row pt-2 pb-4">
+        <div class="col-6">
+
+          {% if prev_button %}
+          <div class="d-grid">
+            <a class="btn btn-outline-secondary"
+              href="{% url 'website:roster' %}{{ prev_button_string }}">
+              &laquo; Previous
+            </a>
+          </div>
+          {% endif %}
+
+        </div>
+        <div class="col-6">
+
+          {% if next_button %}
+          <div class="d-grid">
+            <a class="btn btn-outline-secondary"
+              href="{% url 'website:roster' %}{{ next_button_string }}">
+              Next &raquo;
+            </a>
+          </div>
+          {% endif %}
+
+        </div>
+      </div>
+
+    </div><!-- end roster column -->
+
+  </div>
+</div>
+{% endblock %}

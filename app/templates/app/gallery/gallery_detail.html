@@ -1,0 +1,28 @@
+{% extends "appbase.html" %}
+
+{% block content %}
+<div class="container">
+
+  <div class="row">
+    <div class="col-12">
+      <h1 class="mb-0">
+        {{ gallery.name }}
+      </h1>
+      <p class="mt-0">
+        {{ num_images }} Images in Gallery
+      </p>
+    </div>
+  </div>
+
+  <div class="row gx-0">
+    {% for image in image_list %}
+    <div class="col-4 p-2">
+      <a href="{% url 'app:galleryimage-detail' image.image_id %}" target="_blank">
+        <img class="img-fluid" src="{{ image.src }}">
+      </a>
+    </div>
+    {% endfor %}
+  </div>
+
+</div>
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends "appbase.html" %}
+
+{% block content %}
+<div class="container" style="max-width:568px;">
+  <div class="row">
+    <div class="col-12">
+      <ul class="list-group">
+        {% for event in event_set %}
+          <li class="list-group-item">
+            <a href="{% url 'app:event-detail' event.id %}">
+              {{ event }}
+            </a>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+</div>
+{% endblock %}

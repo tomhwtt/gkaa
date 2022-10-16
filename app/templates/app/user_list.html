@@ -1,0 +1,39 @@
+{% extends "appbase.html" %}
+
+{% block content %}
+<div class="container" style="max-width:568px;">
+
+  <div class="row">
+    <div class="col-12">
+      <form method="post">{% csrf_token %}
+        <div class="mb-3">
+          <label>Search Users</label>
+          <input class="form-control" type="text" name="q" placeholder="Search Users">
+        </div>
+      </form>
+    </div>
+  </div>
+
+
+  <div class="row">
+
+    <div class="col-12">
+      <ul class="list-group">
+        {% for user in user_set %}
+          <li class="list-group-item">
+            <a href="{% url 'app:customuser-detail' user.id %}">
+              {{ user.name }}
+            </a>
+            <br>
+            <span class="text-sm text-muted">
+              {{ user.email }}<br>
+              Set up: {{ user.text_date }}
+            </span>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+
+  </div>
+</div>
+{% endblock %}

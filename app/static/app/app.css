@@ -1,0 +1,179 @@
+
+body{
+  font-family: 'Ubuntu', sans-serif;
+  background-color: #fff;
+}
+
+body,wrapper {
+  min-height: 100vh;
+}
+
+
+@media (min-width:769px){
+
+  body{
+    background-color: #f8f9fa;
+  }
+
+  .non-mobile-border{
+    border: 1px solid #dee2e6!important;
+  }
+
+}
+
+.height-100{
+    min-height: calc(100vh - 150px);
+}
+
+@media (min-width:992px){
+
+  .height-100{
+      min-height: calc(100vh - 175px);
+  }
+
+}
+
+.navbar-dark a{
+  color:#fff!important;
+}
+
+.footer{
+  min-height: 75px;
+}
+
+.text-sm{
+  font-size:.925em;
+}
+
+.text-md{
+  font-size: 1.125em;
+}
+
+.text-lg{
+  font-size: 1.25em;
+}
+
+.text-xl{
+  font-size: 1.5em;
+}
+
+.text-xxl{
+  font-size: 1.75em;
+}
+
+.pointer{
+  cursor: pointer;
+}
+
+.bg-black{
+  background-color: #000;
+}
+
+.bg-gold{
+  background-color: #febe24;
+}
+
+.bg-medium{
+  background-color: #e9ecef!important;
+}
+
+.icon-muted{
+  color: #94a0ab!important;
+}
+
+.btn-black{
+  background-color: #000;
+  color: #FFF;
+}
+
+.btn-gold{
+  background-color: #febe24;
+  color: #000;
+}
+
+.fas,
+.far{
+  line-height: inherit;
+}
+
+/* hide the file field input */
+[hidden] {
+  display: none !important;
+}
+
+/* lighten up the placeholders */
+.form-control:-ms-input-placeholder,
+.form-control::-ms-input-placeholder {
+    color: #b1c2d9;
+    opacity: 1
+}
+
+.form-control::placeholder {
+    color: #b1c2d9;
+    opacity: 1
+}
+
+
+.striped-list li:nth-child(odd){
+  background-color: #f8f9fa;
+}
+
+
+/* profile content */
+.app-content{
+  max-width: 668px;
+  background-color: #FFF;
+  padding-top: 1rem!important;
+  padding-bottom: 1rem!important;
+}
+
+
+@media (min-width: 768px) {
+
+  .app-content{
+    border-right: 1px solid #dee2e6!important;
+  }
+
+}
+
+.app-list-menu li{
+  border-right:0!important;
+  border-left:0!important;
+  display: flex;
+  justify-content:space-between;
+}
+
+.app-list-menu li > span{
+  color: rgba(0,0,0,.5)!important;
+}
+
+@media (min-width: 768px) {
+
+  .app-list-menu li{
+    background-color: #f8f9fa!important;
+  }
+
+}
+
+
+.app-nav{
+  background-color: #f8f9fa!important;
+  border-right: 1px solid #dee2e6!important;
+  padding-left: 0;
+  padding-right:0;
+  height: 100vh;
+}
+
+
+@media (max-width: 767px) {
+
+  .mobile-btn{
+    display: block;
+    width: 100%;
+    padding: .5rem 1rem;
+    font-size: 1.25rem;
+    line-height: 1.5;
+    border-radius: .3rem;
+  }
+
+}

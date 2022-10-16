@@ -1,0 +1,85 @@
+{% extends "website_base.html" %}
+{% load static %}
+
+
+{% block content %}
+<div class="container mb-3" style="margin-top:100px;max-width:350px;">
+  <div class="row">
+
+    <div class="col-12 text-md">
+
+      <img class="img-fluid d-block mx-auto my-3"
+          src="{% static 'website/images/roster/auls_head.jpg' %}"
+          style="max-width:225px;">
+
+
+        {% if total %}
+
+        <h3 class="font-weight-bold text-center">
+          Paid!
+        </h3>
+
+        <p class="text-center">
+          Check your email for a receipt.
+        </p>
+
+        {% else %}
+
+        <h3 class="font-weight-bold text-center">
+          Registration Complete
+        </h3>
+
+        <p class="text-center">
+          See you in December!
+        </p>
+
+        {% endif %}<!-- end if no total (free w/ dues) -->
+
+        <hr/>
+
+        <p class="my-0">
+          <strong>Event:</strong> {{ registration.event.name }}
+        </p>
+
+        {% if subevent_list %}
+        <ul class="my-0">
+          {% for sub in subevent_list %}
+            <li>
+              {{ sub.name }} ({{ sub.quantity }})
+            </li>
+          {% endfor %}
+
+          {% if registration.dues_added %}
+            <li>Annual Dues ($50)</li>
+          {% endif %}
+
+        </ul>
+        {% endif %}
+
+        <p class="my-0">
+          <strong>Name:</strong> {{ registration.name }}
+        </p>
+
+        <p class="my-0">
+          <strong>Email:</strong> {{ registration.email_display }}
+        </p>
+
+        <p class="my-0">
+          <strong>Date:</strong> {{ registration.date }}
+        </p>
+
+        {% if registration.add_dues %}
+        <p class="my-0">
+          <strong>2020 Dues:</strong> $50
+        </p>
+        {% endif %}
+
+        <p class="my-0">
+          <strong>Payment Total:</strong> ${{ total }}
+        </p>
+
+    </div>
+
+  </div>
+</div>
+{% endblock %}

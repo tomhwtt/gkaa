@@ -1,0 +1,85 @@
+<ul class="list-group mt-2">
+
+  <li class="list-group-item">
+    <form class="form" method="post" action="{% url 'website:roster' %}">
+      {% csrf_token %}
+      <div class="row">
+        <div class="col-sm-12">
+          <input class="form-control mt-2" type="search"
+            name="search" placeholder="Enter Name OR 4 digit year"
+            aria-label="Search" style="height: 45px;">
+        </div>
+        <div class="col-sm-12">
+          <button class="btn btn-gold btn-block mt-2" type="submit"
+            name="button" style="height:45px;">
+            Search
+          </button>
+        </div>
+      </div>
+
+    </form>
+  </li>
+
+  <li class="list-group-item">
+    <a href="{% url 'website:roster' %}">
+      Roster Home
+    </a>
+  </li>
+
+  <li class="list-group-item">
+    <a href="{% url 'website:roster' %}?f=usapt">
+      Original USAPT
+    </a>
+  </li>
+
+  <li class="list-group-item">
+    <a href="{% url 'website:roster' %}?f=aoy">
+      Aviator of the Year
+    </a>
+  </li>
+
+  <li class="list-group-item">
+    <a href="{% url 'website:roster' %}?f=coy">
+      Civilian of the Year
+    </a>
+  </li>
+
+  <li class="list-group-item">
+    <a href="{% url 'website:roster' %}?f=goy">
+      GK of the Year
+    </a>
+  </li>
+
+  <li class="list-group-item">
+    <a href="{% url 'website:roster' %}?f=poy">
+      Photographer / Year
+    </a>
+  </li>
+
+  <li class="list-group-item">
+    <a href="{% url 'website:roster' %}?f=hon">
+      Honorary GKs
+    </a>
+  </li>
+
+  <li class="list-group-item bg-secondary text-white">
+    Coming This Week!
+  </li>
+
+  <li class="list-group-item">
+    Pioneers of the USAPT
+  </li>
+
+  <li class="list-group-item bg-light font-weight-bold">
+    Coming Soon
+  </li>
+
+  <li class="list-group-item">
+    In Memory Of
+  </li>
+
+  <li class="list-group-item">
+    Advanced Search
+  </li>
+
+</ul>

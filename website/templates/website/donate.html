@@ -1,0 +1,155 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block stylesheets %}
+<link rel="stylesheet" type="text/css" href="{% static 'website/style.css' %}">
+{% endblock %}
+
+{% block content %}
+<form action="{% url 'website:donate-charge' %}"  method="post" id="payment-form">{% csrf_token %}
+
+<div class="dues-container mt-3 mt-sm-4 mb-3">
+  <div class="container bg-gold border pt-3 pb-2" style="max-width:650px;">
+    <div class="row">
+      <div class="col-12">
+
+        <h3 class="font-weight-bold text-center">Donate to the GKAA</h3>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+{% if error %}
+<div class="declined-container mt-3 mb-0">
+  <div class="container" style="max-width:650px;">
+    <div class="row">
+      <div class="col-12">
+        <div class="alert alert-danger pt-3 pb-2">
+          <h4 class="text-center font-weight-bold">Your card was declined</h4>
+          <p class="text-center my-0">Please check your info and try again.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
+
+<div class="mt-0">
+  <div class="container bg-white border py-3" style="max-width:650px;">
+    <div class="row">
+
+      <div class="col-12">
+
+        <div class="btn-group btn-group-lg full-width">
+          <label class="btn btn-light border">
+            <input type="radio" name="donation_choice" value="25"> $25
+          </label>
+          <label class="btn btn-light border" >
+            <input type="radio" name="donation_choice" value="50"> $50
+          </label>
+          <label class="btn btn-light border">
+            <input type="radio" name="donation_choice" value="100"> $100
+          </label>
+        </div>
+
+      </div>
+
+      <div id="clearRadioLink" class="col-12 text-center pt-3 pb-2 d-none">
+        <a href="" class="btn btn-info btn-large">Clear All Selections</a>
+      </div>
+
+      <div class="col-12 mt-3">
+        <div class="alert alert-info pt-3">
+          <p>If you would prefer to write in a different donation amount, please do so here.</p>
+          <div class="form-group mx-auto" style="max-width:300px;">
+            <p class="font-weight-bold text-center mt-1 mb-2" style="font-size:1.25em;">Other Donation Amount</p>
+            <input id="donationOther" class="form-control mx-auto" type="number" name="donation_other" style="height:50px;font-size:1.75em;width:150px;text-align:center;">
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<div class="credit-card-container pt-3 mb-5">
+  <div class="container" style="max-width:650px;">
+    <div class="row bg-white border pt-4 pb-5">
+      <div class="col-12">
+
+        {% if error %}
+          <div class="alert alert-danger pt-3 pb-2">
+            <h4 class="text-center font-weight-bold">Your card was declined</h4>
+            <p class="text-center my-0">Please check your info and try again.</p>
+          </div>
+        {% endif %}
+
+          <h3>Credit Card Info</h3>
+
+          <hr/>
+
+          <div class="form-group">
+            <label for="email">Full Name</label>
+            <input class="form-control stripe-element" type="text" name="name" required >
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input class="form-control stripe-element" type="email" name="email" required >
+          </div>
+
+          <div class="form-group">
+            <label for="card-element">Credit or debit card</label>
+            <div class="" id="card-element">
+              <!-- A Stripe Element will be inserted here. -->
+            </div>
+            <div id="card-number-errors" role="alert"></div>
+          </div>
+          <div class="row">
+            <div class="col-4">
+              <div class="form-group">
+                <label for="card-expiry">EXP</label>
+                <div class="" id="card-expiry">
+                  <!-- A Stripe Element will be inserted here. -->
+                </div>
+                <div id="card-expiry-errors" role="alert"></div>
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="">
+                <label for="card-expiry">CVC</label>
+                <div class="form-control" id="card-cvc">
+                  <!-- A Stripe Element will be inserted here. -->
+                </div>
+                <div id="card-cvc-errors" role="alert"></div>
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="form-group">
+                <label for="card-expiry">Zip Code</label>
+                <div class="" id="postal-code">
+
+                </div>
+                <div id="postal-code-errors" role="alert"></div>
+              </div>
+            </div>
+          </div>
+
+          <button id="paymentBtn" class="btn btn-success btn-lg btn-block">Donate Now</button>
+          <input id="donationChoiceValue" type="hidden" name="donation_choice_value" value="0">
+          <input type="hidden" id="duesAmount" name="duesAmount" value="0">
+          <input type="hidden" id="stripePK" name="stripe_pk" value="{{ stripe_pk }}">
+      </div>
+    </div>
+  </div>
+</div>
+
+</form>
+{% endblock %}
+
+{% block pagejs %}
+<script src="https://js.stripe.com/v3/"></script>
+<script src="{% static 'website/stripe.js' %}"></script>
+{% endblock %}

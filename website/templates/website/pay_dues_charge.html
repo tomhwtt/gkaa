@@ -1,0 +1,153 @@
+{% extends "website_base.html" %}
+{% load static %}
+
+
+{% block content %}
+<div id="cover-spin" class="invisible"></div>
+<div class="container mb-3" style="margin-top:100px;max-width:450px;">
+  <div class="row">
+
+    {% if error_code %}
+    <div class="col-12">
+      <div class="alert alert-danger m2-3">
+
+        <p>
+          There was an error processing your card.
+          Please try again or contact your bank for details.
+        </p>
+
+        <p class="mb-0">
+          <span class="font-weight-bold">Error Code:</span> {{ error_code }}
+        </p>
+
+      </div>
+    </div>
+    {% endif %}
+
+    {% if profile.dues_paid %}
+    <div class="col-12">
+      <div class="alert alert-danger">
+
+        <p>
+          Our records indicate that your dues are up to date.
+          If you would like to make a donation, you can do so below.
+        </p>
+
+        <p class="mb-0">
+          Simply choose from the options below or enter a different
+          amount in the blue box.
+        </p>
+
+      </div>
+    </div>
+    {% endif %}
+
+    {% if not profile.dues_paid %}
+    <div class="col-12">
+
+      <h4 class="font-weight-bold text-center">
+        Annual Dues: $50
+      </h4>
+
+      <hr>
+
+      <p>
+        Annual dues are $50.
+        If you would like to donate an additional amount,
+        please choose from the options below or enter a different
+        amount in the blue box.
+      </p>
+
+      <p>
+        <strong>If you do not want to make a donation:</strong>
+        Enter your email address and credit card information to pay your
+        $50 annual dues.
+      </p>
+
+    </div>
+    {% endif %}
+
+    <div class="col-12">
+      <div class="btn-group btn-group-lg full-width">
+        <label class="btn btn-light border">
+          <input class="donation_radio" type="radio" name="donation_choice" value="25"> $25
+        </label>
+        <label class="btn btn-light border" >
+          <input class="donation_radio" type="radio" name="donation_choice" value="50"> $50
+        </label>
+        <label class="btn btn-light border">
+          <input class="donation_radio" type="radio" name="donation_choice" value="100"> $100
+        </label>
+      </div>
+    </div>
+
+    <div id="clearRadioContainer" class="col-12 d-none">
+      <button id="clearRadioBtn" type="button" class="btn btn-info btn-block">
+        Clear All Selections
+      </button>
+    </div>
+
+    <div class="col-12 mt-3">
+      <div class="alert alert-info pt-3">
+
+        <div class="form-group mx-auto">
+
+          <p class="font-weight-bold text-center mt-1 mb-2" style="font-size:1.25em;">
+            Donation Amount
+          </p>
+
+          <input id="donationOther" class="form-control mx-auto" type="tel"
+          name="donation_other" style="height:50px;font-size:1.75em;width:150px;text-align:center;">
+        </div>
+
+      </div>
+    </div>
+
+    <div class="col-12">
+
+      <div class="form-group">
+        <label for="">Email Address</label>
+        <input id="payment_email" class="form-control" type="text" name="payment_email" required>
+        <span id="payment_email_error"
+          class="text-sm text-danger d-none">Please enter valid email address</span>
+      </div>
+
+
+    </div>
+
+    <div class="col-12">
+      <div class="form-group">
+        <label for="card-element">Credit Card Info</label>
+        <div class="" id="card-element">
+          <!-- A Stripe Element will be inserted here. -->
+        </div>
+        <div id="card-errors" role="alert"></div>
+      </div>
+    </div>
+
+    <div class="col-12">
+
+      <div id="amount_error" class="text-sm text-danger" role="alert"></div>
+
+      <button id="paymentBtn" type="button" class="btn btn-gold btn-lg btn-block">
+        Pay w/ Credit Card
+
+        {% if payment_amount %}
+          <span id="paymentBtnAmount" class="font-weight-bold">(${{ payment_amount }})</span>
+        {% else %}
+          <span id="paymentBtnAmount" class="font-weight-bold"></span>
+        {% endif %}
+      </button>
+
+      {% csrf_token %}
+      <input type="hidden" id="stripe_pk" name="stripe_pk" value="{{ stripe_pk }}">
+      <input type="hidden" id="payment_amount" id="payment_amount" value="{{ payment_amount }}">
+      <input type="hidden" id="payment_type" name="payment_type" value="dues">
+      <input type="hidden" id="dues_paid" name="dues_paid" value="{{ dues_paid }}">
+      <input type="hidden" id="payment_type_id" name="" value="{{ profile.uuid }}">
+
+    </div>
+
+  </div>
+</div>
+{% endblock %}

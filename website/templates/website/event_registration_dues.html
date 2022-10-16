@@ -1,0 +1,43 @@
+{% extends "website_base.html" %}
+{% load static %}
+
+
+{% block content %}
+<div class="container" style="margin-top:100px;max-width:450px;">
+  <div class="row">
+
+    <div class="col-12">
+
+      <h1 class="mb-0" style="font-size:32px;">
+        {{ registration }}
+      </h1>
+
+      <span>{{ registration.email }}</span>
+
+      <hr>
+
+      <p>
+        As of 2020, the GKAA has voted on collecting dues annually.
+        Dues are $50. Do you want to add your annual dues to this
+        purchase?
+      </p>
+
+      <a class="btn btn-gold btn-lg btn-block mb-3"
+        href="{% url 'website:eventregistration-dues-set' registration.short_code %}">
+        Yes, add my dues payment
+      </a>
+
+      <a class="btn btn-dark btn-lg btn-block mb-3"
+        href="{% url 'website:eventregistration-payment' registration.short_code %}">
+        Not at this time
+      </a>
+
+      <p class="mt-3">
+        ** dues are not required to attend the party
+      </p>
+
+    </div>
+
+  </div>
+</div>
+{% endblock %}

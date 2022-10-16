@@ -1,0 +1,137 @@
+{% extends "accountbase.html" %}
+
+{% block content %}
+<div class="container" style="max-width:568px;">
+  <div class="row">
+
+    <!--- updated notification column -->
+
+    {% if update_notice %}
+    <div class="col-12">
+      <div class="alert alert-info text-center">
+        Profile Updated
+        <br>
+        <a href="{% url 'account:profile-detail' profile.uuid %}">
+          &laquo Go Back to Profile
+        </a>
+      </div>
+    </div>
+
+    {% else %}
+
+    <div class="col-12">
+      <a href="{% url 'account:profile-detail' profile.uuid %}">
+        &laquo Back to Profile
+      </a>
+    </div>
+    {% endif %}
+
+
+    <div class="col-12">
+
+      <ul class="list-group mt-3">
+
+        {% for date in teamdate_set %}
+          <li class="list-group-item">
+            <div class="row">
+              <div class="col-9">
+                Team: {{ date.start_year }} - {{ date.end_year }}
+              </div>
+              <div class="col-3 text-center">
+                <a class="text-danger"
+                  href="{% url 'account:teamdate-delete' profile.uuid date.id %}">
+                  <i class="fas fa-trash"></i>
+                </a>
+              </div>
+            </div>
+          </li>
+        {% endfor %}
+
+        {% for date in armydate_set %}
+          <li class="list-group-item">
+            <div class="row">
+              <div class="col-9">
+                Army: {{ date.start_year }} - {{ date.end_year }}
+              </div>
+              <div class="col-3 text-center">
+                <a class="text-danger"
+                  href="{% url 'account:armydate-delete' profile.uuid date.id %}">
+                  <i class="fas fa-trash"></i>
+                </a>
+              </div>
+            </div>
+          </li>
+        {% endfor %}
+
+      </ul>
+
+    </div>
+
+    <div class="col-12">
+
+      <h3 class="mt-3">
+        Add New Dates
+      </h3>
+
+      <p class="text-sm">
+        Add dates you were on the team and in the Army.
+        Add as many entries as needed
+      </p>
+
+      <hr>
+
+      <form method="post">{% csrf_token %}
+
+        <div class="row">
+          <div class="col-6 mt-3">
+            <div class="mb-3">
+              <label for="">Team Start Year</label>
+              <input class="form-control" type="text"
+                name="team_start_year" placeholder="YYYY">
+            </div>
+          </div>
+
+          <div class="col-6 mt-3">
+            <div class="mb-3">
+              <label for="">Team End Year</label>
+              <input class="form-control" type="text"
+                name="team_end_year" placeholder="YYYY">
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-6 mt-3">
+            <div class="mb-3">
+              <label for="">Army Start Year</label>
+              <input class="form-control" type="text"
+                name="army_start_year" placeholder="YYYY">
+            </div>
+          </div>
+
+          <div class="col-6 mt-3">
+            <div class="mb-3">
+              <label for="">Army End Year</label>
+              <input class="form-control" type="text"
+                name="army_end_year" placeholder="YYYY">
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12">
+            <div class="d-grid mb-3">
+              <button class="btn btn-primary" type="submit">
+                Add Dates
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </form>
+    </div>
+
+  </div>
+
+</div>
+{% endblock %}

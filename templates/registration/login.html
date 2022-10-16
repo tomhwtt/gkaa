@@ -1,0 +1,64 @@
+{% extends "accountbase.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container login-container">
+
+  <div class="row">
+
+    <div class="col-12 pb-3">
+      <a href="{% url 'website:index' %}">
+        <img class="img-fluid"
+          src="{% static 'account/gray_owls_head.png' %}" alt="Golden Knights Logo">
+      </a>
+    </div>
+
+    <div class="col-12">
+
+      {% if form.errors %}
+        <p class="text-danger">
+          Your username and password didn't match. Please try again.
+        </p>
+      {% endif %}
+
+    </div>
+
+    <div class="col-12">
+
+      <form method="post">{% csrf_token %}
+
+        <div class="mb-3">
+          <label for="">Email Address</label>
+          <input class="form-control" type="email" name="username" id="id_username" required>
+        </div>
+        <div class="mb-3">
+          <label for="">Password</label>
+          <input class="form-control" type="password" name="password" id="id_password" required>
+        </div>
+
+        <div class="d-grid">
+          <button class="btn btn-dark" type="submit">
+            Login
+          </button>
+        </div>
+
+      </form>
+    </div>
+
+    <div class="col-12">
+      <p class="text-center mt-3">
+        <a href="{% url 'account:password-reset' %}">
+          Reset Password?
+        </a>
+      </p>
+      <p class="text-center">
+        Don't have an account yet? <br>
+        <a href="{% url 'account:accountrequest-new' %}">
+          Click here to create one
+        </a>
+      </p>
+    </div>
+
+  </div>
+</div>
+{% endblock %}

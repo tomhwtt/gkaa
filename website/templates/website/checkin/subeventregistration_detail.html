@@ -1,0 +1,43 @@
+{% extends "blankbase.html" %}
+
+
+{% block content %}
+<div class="container" style="max-width:450px;">
+  <div class="row">
+
+    <div class="col-12">
+      <ul class="list-group">
+
+        <li class="list-group-item">
+            {{ name }} ({{ quantity }})
+        </li>
+
+        {% if reg.checked_in_date %}
+        <li class="list-group-item bg-success py-3">
+          <a class="text-light"
+            href="{% url 'website:checkin-subeventregistration-checkin' reg.id %}">
+            <i class="fas fa-check px-2"></i>
+            Checked In
+          </a>
+        </li>
+        {% else %}
+        <li class="list-group-item bg-danger py-3">
+          <a class="text-light"
+            href="{% url 'website:checkin-subeventregistration-checkin' reg.id %}">
+            <i class="fas fa-times px-2"></i>
+            Not Checked In
+          </a>
+        </li>
+        {% endif %}
+
+        <li class="list-group-item py-3">
+          <a href="{% url 'website:checkin-subevent-detail' event.short_code subevent.id %}">
+            &laquo; Back to Registration List
+          </a>
+        </li>
+
+      </ul>
+    </div>
+  </div>
+</div>
+{% endblock %}

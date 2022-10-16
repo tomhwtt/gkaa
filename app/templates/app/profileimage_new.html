@@ -1,0 +1,70 @@
+{% extends "appbase.html" %}
+
+{% block content %}
+<div class="container" style="max-width:568px;">
+
+  <div class="row">
+
+    <div class="col-12">
+
+      <a href="{% url 'app:profile-detail' profile.id %}">
+        &laquo Back to Profile Home
+      </a>
+
+      <hr>
+
+    </div>
+
+  </div>
+
+  <div class="row">
+
+    <div class="col-12">
+      <h1 class="fw-bold">
+        New Image
+      </h1>
+    </div>
+
+    <div class="col-12">
+      <p class="mb-1">
+        To add a new image:
+      </p>
+      <ol>
+        <li>Click Choose File</li>
+        <li>Choose Your File</li>
+        <li>Then Click Add Image</li>
+      </ol>
+    </div>
+
+  </div>
+
+
+  <div class="row">
+    <div class="col-12">
+      <form method="post" enctype="multipart/form-data">{% csrf_token %}
+
+        <div class="mb-3">
+          <input class="form-control" type="file" name="image">
+        </div>
+
+        <div class="mb-3">
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="set_profile">
+            <label class="form-check-label" for="flexCheckDefault">
+              Set as Profile Image?
+            </label>
+          </div>
+        </div>
+
+        <div class="d-grid">
+          <button class="btn btn-primary mb-5" type="submit">
+            Add Image
+          </button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+
+</div>
+{% endblock %}

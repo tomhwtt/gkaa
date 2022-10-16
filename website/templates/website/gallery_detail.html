@@ -1,0 +1,38 @@
+{% extends "websitebase.html" %}
+
+{% block content %}
+<div class="hero-gallery">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+
+        <h1 class="mb-0">
+          US ARMY
+          <span class="d-block d-md-none"></span>
+          GOLDEN KNIGHTS
+        </h1>
+
+        <h2 class="my-0">
+          {{ gallery.name }}
+        </h2>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="bg-black">
+  <div class="container py-3">
+    <div class="row gx-0">
+      {% for image in image_list %}
+      <div class="col-6 col-md-4 col-lg-3 p-2">
+        <a href="{% url 'website:galleryimage-detail' image.slug image.uuid %}">
+          <img class="img-fluid" src="{{ image.src }}">
+        </a>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,65 @@
+{% extends "accountbase.html" %}
+
+{% block content %}
+<div class="container vh-100" style="max-width:668px;">
+  <div class="vh-100 d-flex align-items-center">
+
+    <div class="row">
+
+      <div class="col-12">
+
+        <h1 class="fw-bold">
+          {{ profile }}
+        </h1>
+
+      </div>
+
+      <div class="col-12">
+
+        <p>
+          Welcome to your GKAA Profile Page.
+        </p>
+
+        <h4 class="fw-bold">
+          First time here?
+        </h4>
+
+        <p>
+          Please take a minute to read
+          how your Profile is structured.
+        </p>
+
+        <p>
+          <a href="{% url 'account:profile-example' profile.uuid %}">
+            How It Works &raquo;
+          </a>
+        </p>
+
+        <h4 class="fw-bold">
+          Not a New Guy?
+        </h4>
+
+        <p>
+          If you've here before, click the link below
+          to go to your Profile page.
+        </p>
+
+        <p>
+          <a href="{% url 'account:profile-detail' profile.uuid %}">
+            View/Update My Profile &raquo;
+          </a>
+        </p>
+
+        <p class="mt-5">
+          <a href="{% url 'account:logout' %}">
+            Logout &raquo;
+          </a>
+        </p>
+
+      </div>
+
+    </div>
+
+  </div>
+</div>
+{% endblock %}

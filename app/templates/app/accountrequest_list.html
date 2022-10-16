@@ -1,0 +1,68 @@
+{% extends "appbase.html" %}
+
+{% block content %}
+<div class="container py-3" style="max-width:568px;">
+
+  <div class="row mb-3">
+
+    <div class="col-12">
+      <div class="col-12 pb-2">
+        {{ num }} Requests Pending
+      </div>
+    </div>
+
+    <div class="col-4">
+      <a href="{% url 'app:accountrequest-list' %}">
+        List
+      </a>
+    </div>
+
+    <div class="col-4">
+      <a href="{% url 'app:accountrequest-list' %}?s=pending">
+        Vetting
+      </a>
+    </div>
+
+    <div class="col-4">
+      <a href="{% url 'app:accountrequest-list' %}?s=later">
+        Later
+      </a>
+    </div>
+
+  </div>
+
+  <div class="row">
+    <div class="col-12">
+      <ul class="list-group">
+        {% for r in request_set %}
+          <li class="list-group-item">
+
+            {{ r.name }}
+
+            <br>
+
+            <a href="{% url 'app:accountrequest-detail' r.id %}">
+              {{ r.email_address }}
+            </a>
+
+            <br>
+
+            <span class="text-sm text-muted">
+              {{ r.text_date }}
+            </span>
+
+            <br>
+
+            {% if r.has_account %}
+              <a href="#">View Account</a>
+            {% endif %}
+
+          </li>
+
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+
+</div>
+{% endblock %}

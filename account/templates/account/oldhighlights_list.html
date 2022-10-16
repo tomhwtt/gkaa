@@ -1,0 +1,75 @@
+{% extends "accountbase.html" %}
+
+{% block content %}
+<div class="container" style="max-width:668px;">
+
+  <div class="row">
+
+    <div class="col-12">
+
+      <a href="{% url 'account:profile-detail' profile.uuid %}">
+        &laquo Back to Profile Home
+      </a>
+
+      <h1 class="fw-bold">
+        Past Information
+      </h1>
+
+      <p class="text-sm">
+        This is information that was in the old system.
+        Review what you want to keep
+        and enter in the new system.
+        Let us know if we can help.
+      </p>
+
+    </div>
+
+    <div class="col-12">
+      {% if oldhighlight_set %}
+      <div class="alert alert-info">
+        These entries can be deleted, but not edited.
+      </div>
+      {% else %}
+      <div class="alert alert-warning">
+        You have no information from the old system in your account.
+      </div>
+      <a href="{% url 'account:profile-detail' profile.uuid %}">
+        &laquo Back to Profile Home
+      </a>
+      {% endif %}
+    </div>
+
+  </div>
+
+  <div class="row">
+
+    <div class="col-12">
+      <ul class="list-group">
+
+        {% for h in oldhighlight_set %}
+          <li class="list-group-item">
+            <div class="row d-flex align-items-center">
+              <div class="col-12">
+                <a class="text-danger"
+                  href="{% url 'account:oldhighlight-delete' profile.uuid h.id %}">
+                  <i class="fas fa-trash"></i>
+                </a>
+                <strong>{{ h.title }}:</strong>
+              </div>
+              <div class="col-12">
+                <hr>
+                <p>
+                  {{ h.text }}
+                </p>
+              </div>
+            </div>
+          </li>
+        {% endfor %}
+
+      </ul>
+    </div>
+
+  </div>
+
+</div>
+{% endblock %}

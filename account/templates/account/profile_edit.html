@@ -1,0 +1,150 @@
+{% extends "accountbase.html" %}
+
+{% block content %}
+<div class="container" style="max-width:668px;margin-bottom:50px;">
+
+  <div class="row">
+
+    <!--- updated notification column -->
+    {% if update_notice %}
+    <div class="col-12">
+      <div class="alert alert-info text-center">
+        Profile Updated
+        <br>
+        <a href="{% url 'account:profile-detail' profile.uuid %}">
+          &laquo Back to Profile
+        </a>
+      </div>
+    </div>
+
+    {% else %}
+
+    <div class="col-12">
+      <a href="{% url 'account:profile-detail' profile.uuid %}">
+        &laquo Back to Profile
+      </a>
+    </div>
+    {% endif %}
+
+  </div><!-- end header row -->
+
+  <div class="row">
+    <div class="col-12">
+      <h1 class="fw-bold h2">
+        {{ profile }}
+      </h1>
+      <hr>
+    </div>
+  </div>
+
+  <div class="row">
+    <form method="post">{% csrf_token %}
+
+      <div class="row gx-1 gx-md-3">
+        <div class="col-6">
+          <div class="mb-3">
+            <label for="exampleInputEmail1">First Name</label>
+            <input type="text" class="form-control" name="first_name" value="{{ profile.first_name }}">
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="mb-3">
+            <label for="exampleInputEmail1">Last Name</label>
+            <input type="text" class="form-control" name="last_name" value="{{ profile.last_name }}">
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="mb-3">
+            <label for="exampleInputEmail1">Rank</label>
+            <input type="text" class="form-control" name="rank" value="{{ profile.rank }}">
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="mb-3">
+            <label for="exampleInputEmail1">Middle Name</label>
+            <input type="text" class="form-control" name="middle_name" value="{{ profile.middle_name }}">
+          </div>
+        </div>
+      </div>
+
+      <hr>
+
+      <div class="row gx-1 gx-md-3">
+        <div class="col-lg-6">
+          <div class="mb-3">
+            <label for="exampleInputEmail1">Nicknames</label>
+            <input type="text" class="form-control" name="nickname"
+              value="{{ profile.nickname }}">
+            <small id="emailHelp" class="form-text text-black-50">
+              separate with commas
+            </small>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="mb-3">
+            <label for="exampleInputEmail1">AKA (married names, etc)</label>
+            <input type="text" class="form-control" name="aka" value="{{ profile.aka }}">
+            <small id="emailHelp" class="form-text text-black-50">
+              separate with commas
+            </small>
+          </div>
+        </div>
+      </div>
+
+      <div class="row gx-1 gx-md-3">
+        <div class="col-6">
+          <div class="mb-3">
+            <label for="exampleInputEmail1">Home City</label>
+            <input type="text" class="form-control" name="home_city" value="{{ profile.home_city }}">
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="mb-3">
+            <label for="exampleInputEmail1">Home State</label>
+            <input type="text" class="form-control" name="home_state" value="{{ profile.home_state }}">
+          </div>
+        </div>
+      </div>
+
+      <div class="row gx-1 gx-md-3">
+        <div class="col-4">
+          <div class="mb-3">
+            <label for="exampleInputEmail1">License#</label>
+            <input type="text" class="form-control"
+              name="d_number" value="{{ profile.d_number }}">
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="mb-3">
+            <label for="exampleInputEmail1">GKAS Year</label>
+            <input type="text" class="form-control"
+              name="gkas_year" value="{{ profile.gkas_year }}"
+              placeholder="YYYY">
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="mb-3">
+            <label for="exampleInputEmail1">MOS</label>
+            <input type="text" class="form-control"
+              name="mos" value="{{ profile.mos }}"
+              placeholder="11B">
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-12">
+          <div class="d-grid">
+            <button id="updateProfileBtn" type="submit"
+              class="btn btn-primary mb-3">
+              Update Profile
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </form>
+  </div><!-- end form row -->
+
+</div>
+{% endblock %}

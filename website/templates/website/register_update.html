@@ -1,0 +1,143 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block stylesheets %}
+<link rel="stylesheet" type="text/css" href="{% static 'website/style.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="contact-container mb-5">
+
+  <div class="container bg-white border pt-4 mt-sm-5" style="max-width:600px;">
+    <div class="row">
+
+      <div class="col-12 mb-4">
+        <form class="form" role="form" method="post"
+          action="{% url 'website:registration-update-form' registration.uuid %}">
+          {% csrf_token %}
+
+          <div class="row"><!-- Friday Night Party Container -->
+            <div class="col-12">
+              <h3>Friday Night Party</h3>
+              <hr/>
+              <h4 class="font-weight-bold">Ticket Pricing:</h4>
+              <ul class="pl-3 pl-sm-4">
+
+                {% if registration.type == 1 %}
+                  <li>You +1 included with annual dues</li>
+                  <li>Additional guests are $35 per person</li>
+                {% endif %}
+
+                {% if registration.type == 2 %}
+                  <li class="ml-0">Current Team Members: You +1 = FREE</li>
+                  <li>Additional guests are $35 per person</li>
+                {% endif %}
+
+                {% if registration.type == 3 or registration.type == 4 %}
+                  <li>$35 Per Person</li>
+                {% endif %}
+
+              </ul>
+
+              {% if registration.type == 1 and registration.dues_paid == False %}
+              <p class="text-danger" style="font-size:1em;">** Your annual dues will be automatically added before checkout.</p>
+              {% endif %}
+
+              <div class="alert alert-info">
+
+                <p class="text-center">
+                  Please enter the total number of people <br/>
+                  coming to the Friday Night Party <br/>
+                  <span class="font-weight-bold">(including yourself)</span>
+                </p>
+
+                <div class="form-group">
+                  <input class="form-control mx-auto" type="tel" name="num_party" style="height:50px; max-width:150px; font-size:1.75em;text-align:center" >
+                </div>
+
+              </div>
+
+            </div>
+          </div>
+
+          <div class="row"><!-- Saturday Night Container -->
+            <div class="col-12">
+              <hr/>
+              <h3>Saturday Night Event</h3>
+              <hr/>
+              <h4 class="font-weight-bold">Ticket Pricing:</h4>
+              <ul class="pl-4">
+                <li class="ml-0">${{ saturday_price }} Per Person</li>
+              </ul>
+
+              <div class="alert alert-info">
+
+                <p class="text-center">
+                  Please enter the total number of people <br/>
+                  coming to the Saturday Night Event <br/>
+                  <span class="font-weight-bold">(including yourself)</span>
+                </p>
+
+                <div class="form-group">
+                  <input class="form-control mx-auto" type="tel" name="num_event" style="height:50px; max-width:150px; font-size:1.75em;text-align:center" >
+                </div>
+
+              </div>
+
+            </div>
+          </div>
+
+          {% if registration.type == 1 or registration.type == 3 %}
+          <div class="row"><!-- Sponsorship Container -->
+            <div class="col-12">
+              <hr/>
+              <h3>Sponsor a GK</h3>
+              <hr/>
+
+              <p>If you would like to sponsor a current team member by paying half of their Saturday Night Ticket price ($50) you can do so here.</p>
+
+              <div class="alert alert-info">
+
+                <p class="text-center">
+                  Please enter the total number of <br/>
+                  current team members you would like to sponsor <br/>
+                </p>
+
+                <div class="form-group">
+                  <input class="form-control mx-auto" type="tel" name="num_sponsor" style="height:50px; max-width:150px; font-size:1.75em;text-align:center" >
+                </div>
+
+              </div>
+
+            </div>
+          </div>
+          {% else %}
+          <input type="hidden" name="num_sponsor" value="0">
+          {% endif %}
+
+
+          <button type="submit" class="btn btn-gold btn-lg btn-block">Update Your Registration</button>
+          <input type="hidden" id="url" name="url" value="">
+        </form>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+{% endblock %}
+
+{% block pagejs %}
+
+<script type="text/javascript">
+$(document).ready(function(){
+  $('.form').mousemove(function() {
+  	var url = $('#url').val();
+  		if(url == ''){
+  			$('#url').val(1);
+  			$('.form').unbind('mousemove');
+  		}
+  });
+});
+</script>
+{% endblock %}

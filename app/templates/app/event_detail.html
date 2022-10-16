@@ -1,0 +1,46 @@
+{% extends "appbase.html" %}
+
+{% block content %}
+<div class="container" style="max-width:568px;">
+
+  <div class="row">
+    <div class="col-12 py-3">
+      <a href="{% url 'app:event-list' %}">
+        &laquo; Event List
+      </a>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12">
+      <h1 class="h2">
+        {{ event }}
+      </h1>
+    </div>
+    <div class="col-12">
+      <ul class="list-group">
+        {% for subevent in subevent_set %}
+          <li class="list-group-item">
+            <a href="{% url 'app:subevent-detail' subevent.id %}">
+              {{ subevent }} ({{ subevent.num_attendees }})
+            </a>
+          </li>
+        {% endfor %}
+
+        <li class="list-group-item">
+          <a class="text-muted" href="{% url 'app:event-email' event.id %}">
+            Email All Attendees &raquo;
+          </a>
+        </li>
+
+        <li class="list-group-item">
+          <a class="text-muted" href="{% url 'app:eventregistration-new' event.id %}">
+            New Registration &raquo;
+          </a>
+        </li>
+
+      </ul>
+    </div>
+  </div>
+</div>
+{% endblock %}

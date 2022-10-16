@@ -1,0 +1,40 @@
+{% extends "appbase.html" %}
+
+{% block content %}
+<div class="container" style="max-width:450px;">
+
+  <div class="row">
+
+    <div class="col-12">
+      <div class="mb-3">
+        <ul class="list-group">
+
+          <li class="list-group-item d-flex justify-content-between">
+
+            <a href="{% url 'app:event-detail' event.id %}">
+              &laquo; {{ event }}
+            </a>
+
+            <a href="{% url 'app:eventregistration-new' event.id %}">
+              + Registration
+            </a>
+
+          </li>
+
+          <li class="list-group-item">
+            {{ reg.name }}
+          </li>
+
+          {% for sub in subevent_reg %}
+            <li class="list-group-item">
+              {{ sub.subevent.name }} ({{ sub.quantity }})
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends "websitebase.html" %}
+
+
+{% block content %}
+<div class="container pt-3" style="max-width:600px;">
+  <div class="row">
+    <div class="col-12">
+
+      <ul class="list-group">
+
+        <li class="list-group-item">
+          <p class="my-0">
+            Enter at least three letters from the name you are looking for.
+          </p>
+        </li>
+
+        <li class="list-group-item">
+          <form  method="post">{% csrf_token %}
+
+            <div class="mb-2">
+              <input class="form-control" type="text" name="q"
+                placeholder="Search Profile">
+            </div>
+
+            <div class="d-grid">
+              <button class="btn btn-gold" type="submit">Search</button>
+            </div>
+          </form>
+        </li>
+
+        {% for filter in filter_list %}
+          <li class="list-group-item">
+            <a href="{% url 'website:roster' %}?f={{ filter.slug }}">
+              {{ filter.name }} &raquo;
+            </a>
+          </li>
+        {% endfor %}
+      </ul>
+
+    </div>
+  </div>
+</div>
+{% endblock %}

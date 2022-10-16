@@ -1,0 +1,187 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block stylesheets %}
+<link rel="stylesheet" type="text/css" href="{% static 'website/style.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="contact-container">
+
+  <div class="container bg-white border pt-4 mt-3" style="max-width:600px;">
+    <div class="row">
+
+      <div class="col-12">
+
+        <h3>Summary</h3>
+
+        <table class="table table-striped table-bordered">
+          <tr>
+            <th colspan="2">{{ type_view }}</th>
+            <th>Total</th>
+          </tr>
+
+          {% if dues_owed != 0 %}
+          <tr>
+            <td colspan="2">Annual Dues 1 x $50</td>
+            <td>$50</td>
+          </tr>
+          {% endif %}
+
+          {% if free_friday_num %}
+          <tr>
+            <td colspan="2">Friday Night Party ({{ free_friday_num }} x FREE)</td>
+            <td>$0</td>
+          </tr>
+          {% endif %}
+
+          {% if paid_friday_num %}
+          <tr>
+            <td colspan="2">Friday Night Party ({{ paid_friday_num }} x $35)</td>
+            <td>${{ paid_friday_total }}</td>
+          </tr>
+          {% endif %}
+
+          {% if half_saturday_num %}
+          <tr>
+            <td colspan="2">Saturday Night Event ({{ half_saturday_num }} x $50)</td>
+            <td>${{ half_saturday_total }}</td>
+          </tr>
+          {% endif %}
+
+          {% if full_saturday_num %}
+          <tr>
+            <td colspan="2">Saturday Night Event ({{ full_saturday_num }} x $100)</td>
+            <td>${{ full_saturday_total }}</td>
+          </tr>
+          {% endif %}
+
+          {% if table_fee != 0 %}
+          <tr>
+            <td colspan="2">Table Sponsorship (1 x $100)</td>
+            <td>$100</td>
+          </tr>
+          {% endif %}
+
+          {% if sponsor_total != 0 %}
+          <tr>
+            <td colspan="2">GK Sponsorships ({{ registration.num_sponsor }} x $50)</td>
+            <td>${{ sponsor_total }}</td>
+          </tr>
+          {% endif %}
+
+          {% if registration.num_veggie != 0 %}
+          <tr>
+            <td colspan="2">Vegitarian Meals x {{ registration.num_veggie }}</td>
+            <td>$0</td>
+          </tr>
+          {% endif %}
+
+          <tr>
+            <td><a href="{% url 'website:registration-attendees' registration.uuid %}">Edit Attendees</a></td>
+            <td class="text-right mr-2 font-weight-bold">Total</td>
+            <td>${{ checkout_total }}</td>
+          </tr>
+        </table>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+{% if checkout_total %}
+<div class="credit-card-container pt-3 mb-5">
+  <div class="container" style="max-width:600px;">
+    <div class="row bg-white border pt-4 pb-5">
+      <div class="col-12">
+
+        {% if charge_error %}
+          <div class="alert alert-danger pt-3 pb-2">
+            <h4 class="text-center font-weight-bold">Your card was declined</h4>
+            <p class="text-center my-0">Please check your info and try again.</p>
+          </div>
+        {% endif %}
+
+          <h3>Credit Card Info</h3>
+
+          <hr/>
+
+          <form action="{% url 'website:registration-charge' registration.uuid %}" method="post" id="payment-form">{% csrf_token %}
+
+          <div class="form-group">
+            <label for="email">Full Name</label>
+            <input class="form-control stripe-element" type="text" name="name" value="{{ registration.name }}" required >
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input class="form-control stripe-element" type="email" name="email" value="{{ registration.email_address }}" required >
+          </div>
+
+          <div class="form-group">
+            <label for="card-element">Credit or debit card</label>
+            <div class="" id="card-element">
+              <!-- A Stripe Element will be inserted here. -->
+            </div>
+            <div id="card-number-errors" role="alert"></div>
+          </div>
+          <div class="row">
+            <div class="col-4">
+              <div class="form-group">
+                <label for="card-expiry">EXP</label>
+                <div class="" id="card-expiry">
+                  <!-- A Stripe Element will be inserted here. -->
+                </div>
+                <div id="card-expiry-errors" role="alert"></div>
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="">
+                <label for="card-expiry">CVC</label>
+                <div class="form-control" id="card-cvc">
+                  <!-- A Stripe Element will be inserted here. -->
+                </div>
+                <div id="card-cvc-errors" role="alert"></div>
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="form-group">
+                <label for="card-expiry">Zip Code</label>
+                <div class="" id="postal-code">
+
+                </div>
+                <div id="postal-code-errors" role="alert"></div>
+              </div>
+            </div>
+          </div>
+
+          <button id="paymentBtn" class="btn btn-warning btn-lg btn-block">Make Payment (${{ checkout_total }})</button>
+          <input type="hidden" id="stripePK" name="stripe_pk" value="{{ stripe_pk }}">
+
+          </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% else %}
+
+<div class="container mt-3" style="max-width:625px;">
+  <div class="row">
+    <div class="col-12">
+      <a class="btn btn-warning btn-block btn-lg"
+        href="{% url 'website:confirm-registration' registration.uuid %}">Confirm Registration</a>
+    </div>
+  </div>
+</div>
+
+{% endif %}
+
+{% endblock %}
+
+{% block pagejs %}
+
+<script src="https://js.stripe.com/v3/"></script>
+<script src="{% static 'website/registration_stripe.js' %}"></script>
+{% endblock %}

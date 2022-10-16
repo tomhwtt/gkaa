@@ -1,0 +1,63 @@
+{% extends "appbase.html" %}
+
+{% block content %}
+<div class="container" style="max-width:568px;">
+
+  <div class="row">
+    <div class="col-12">
+
+      <a href="{% url 'app:profileimage-list' profile.id %}">
+        &laquo Back to Images
+      </a>
+
+      <hr>
+
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12">
+
+      <h2 class=fw-bold>
+        Delete Image
+      </h2>
+
+      <p class="mt-0">
+        Are you sure? You cannot undo this.
+      </p>
+
+      <div class="d-grid">
+
+        <a class="btn btn-primary mb-3"
+          href="{% url 'app:profileimage-detail' profile.id image.id %}">
+          No, Take Me Back
+        </a>
+
+        <a class="btn btn-danger my-3"
+          href="{% url 'app:profileimage-delete' profile.id image.id %}?confirm=true">
+          Yes, Delete Image
+        </a>
+
+      </div>
+
+    </div>
+  </div>
+
+
+  <div class="row d-flex align-items-center">
+
+    <div class="col-md-4">
+      <img class="img-fluid" src="{{ image.profile_src }}">
+    </div>
+
+    <div class="col-md-8">
+      <p class="text-sm mt-2 mt-md-0">
+        {{ image.caption }}<br>
+        <strong>Credit:</strong> {{ image.credit }}<br>
+        <strong>Year:</strong> {{ image.year }}<br>
+      </p>
+    </div>
+  </div>
+
+</div>
+{% endblock %}

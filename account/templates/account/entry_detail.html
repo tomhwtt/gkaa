@@ -1,0 +1,78 @@
+{% extends "accountbase.html" %}
+
+{% block content %}
+<div class="container" style="max-width:568px;">
+
+  <!--- updated notification column -->
+  {% if update_notice %}
+  <div class="row">
+    <div class="col-12">
+      <div class="alert alert-info text-center">
+        Entry Updated
+        <br>
+
+        <a class="ms-3" href="{% url 'account:profile-entries' profile.uuid type.id %}">
+          &laquo; {{ type.title }}
+        </a>
+      </div>
+
+    </div>
+  </div>
+
+  {% else %}
+
+  <div class="row">
+    <div class="col-12">
+
+      <a class="ms-3" href="{% url 'account:profile-entries' profile.uuid type.id %}">
+        &laquo {{ type.title }}
+      </a>
+
+      <hr>
+    </div>
+  </div>
+  {% endif %}
+
+  <div class="row">
+    <div class="col-12">
+      <form method="post">{% csrf_token %}
+        <div class="mb-3">
+          <label for="text">{{ type.singular }}</label>
+          <textarea class="form-control" name="text" rows="2">{{ entry.text }}</textarea>
+        </div>
+        <div class="mb-3 border bg-light p-2">
+          <div class="form-check">
+            <input class="form-check-input" name="highlight" type="checkbox" {{ checked }}>
+            <label class="form-check-label" for="flexCheckDefault">
+              Set as Home Highlight?
+            </label>
+          </div>
+        </div>
+        <div class="mb-3">
+          <a href="#">
+            What is a Home Highlight? &raquo;
+          </a>
+        </div>
+        <div class="d-grid mb-3 mt-3">
+          <button class="btn btn-primary" type="submit">
+            Edit {{ type.singular }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12 my-3">
+      <div class="d-grid">
+        <a class="btn btn-danger"
+          href="{% url 'account:entry-delete' profile.uuid entry.id %}">
+          Delete {{ type.singular }}
+        </a>
+      </div>
+    </div>
+  </div>
+
+
+</div>
+{% endblock %}

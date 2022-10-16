@@ -1,0 +1,124 @@
+{% extends "accountbase.html" %}
+
+{% block content %}
+<div class="container" style="max-width:768px;">
+
+  <div class="row">
+    <div class="col-12">
+
+      <a href="{% url 'account:profile-detail' profile.uuid %}">
+        &laquo Back to Profile Home
+      </a>
+
+    </div>
+  </div>
+
+  <div class="row d-flex align-items-center py-3">
+    <div class="col-6">
+      <h1 class="fw-bold">
+        Images
+      </h1>
+    </div>
+    <div class="col-6 text-center">
+      <a class="btn btn-primary"
+        href="{% url 'account:profileimage-new' profile.uuid %}">
+        + Add Image
+      </a>
+    </div>
+  </div>
+
+</div><!-- end nav container -->
+
+{% if profile_image %}
+<div class="container p-3 bg-light border" style="max-width:768px;">
+
+  <div class="row d-flex align-items-center">
+
+    <div class="col-md-6">
+      <img class="img-fluid mx-auto d-block"
+        src="{{ profile_image.profile_src }}">
+    </div>
+
+    <div class="col-md-6">
+
+      <h3 class="fw-bold mt-3 mt-md-0 text-center">
+        Your Profile Picture
+      </h3>
+
+      <p class="text-center">
+        <a href="{% url 'account:profileimage-detail' profile.uuid profile_image.id %}">
+          Edit Image
+        </a>
+      </p>
+
+    </div>
+
+  </div>
+
+</div>
+{% endif %}<!-- endif profile_image -->
+
+{% if roster_image %}
+<div class="container p-3 bg-light border my-3" style="max-width:768px;">
+
+  <div class="row d-flex align-items-center">
+
+    <div class="col-md-6">
+      <img class="img-fluid mx-auto d-block"
+        src="{{ roster_image.profile_src }}">
+    </div>
+
+    <div class="col-md-6">
+
+      <h3 class="fw-bold mt-3 mt-md-0 text-center">
+        Your Roster Picture
+      </h3>
+
+      <p class="text-center">
+        <a href="{% url 'account:profileimage-detail' profile.uuid roster_image.id %}">
+          Edit Image
+        </a>
+      </p>
+
+    </div>
+
+  </div>
+
+</div>
+{% endif %}<!-- endif profile_image -->
+
+<!-- more images container -->
+<div class="container py-4">
+
+  {% if profile_image or roster_image %}
+  <div class="row">
+    <div class="col-12">
+      <h2 class="fw-bold text-center">
+        More Images
+      </h2>
+    </div>
+  </div>
+  {% endif %}
+
+  <div class="row mt-3">
+    {% for image in image_set %}
+    <div class="col-6 col-md-4">
+      <div class="row">
+        <div class="col-12">
+          <a href="{% url 'account:profileimage-detail' profile.uuid image.id %}">
+            <img class="img-fluid mx-auto d-block" src="{{ image.profile_src }}">
+          </a>
+        </div>
+        <div class="col-12 text-center py-2">
+          <a href="{% url 'account:profileimage-detail' profile.uuid image.id %}">
+            <i class="fas fa-edit"></i>
+            Edit Image
+          </a>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+</div>
+{% endblock %}

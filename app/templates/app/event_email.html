@@ -1,0 +1,68 @@
+{% extends "appbase.html" %}
+
+{% block content %}
+<div class="container" style="max-width:668px;">
+
+  {% if notify %}
+  <div class="row">
+    <div class="col-12">
+      <div class="alert alert-info text-center">
+        <a href="{% url 'app:event-email' event.id %}">
+          {{ num_sent }} Emails Sent
+        </a>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+
+  <div class="row">
+
+    <div class="col-12">
+
+      <a href="{% url 'app:event-detail' event.id %}">
+        &laquo {{ event }}
+      </a>
+
+    </div>
+
+  </div>
+
+  <div class="row">
+    <div class="col-12">
+      <span class="text-sm text-muted">
+        Do NOT write a salutation or closing.
+      </span>
+    </div>
+  </div>
+
+
+  <div class="row">
+
+    <form  method="post">{% csrf_token %}
+
+      <div class="col-12 my-3">
+        <label for="title">
+          Email Subject
+        </label>
+        <input class="form-control mt-1" type="text" name="subject">
+      </div>
+
+      <div class="col-12">
+        <input id="x" type="hidden" name="text">
+        <trix-editor class="trix-email-content" input="x"></trix-editor>
+      </div>
+
+      <div class="col-12">
+        <div class="d-grid my-3">
+          <button class="btn btn-primary" type="submit">
+            Send Email
+          </button>
+        </div>
+      </div>
+
+    </form>
+
+  </div>
+
+</div>
+{% endblock %}

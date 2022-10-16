@@ -1,0 +1,54 @@
+{% extends "appbase.html" %}
+
+{% block content %}
+<div class="container" style="max-width:668px;">
+
+  <div class="row">
+
+    <div class="col-12 mb-3">
+
+      <a href="{% url 'app:profile-detail' profile.id %}">
+        &laquo Profile
+      </a>
+
+      <a class="ms-3" href="">
+        &laquo Story List
+      </a>
+
+    </div>
+
+  </div>
+
+
+  <div class="row">
+
+    <form  method="post">{% csrf_token %}
+
+      <div class="col-12 mb-3">
+        <label for="title">
+          Story Title
+          <span class="text-sm text-muted">(optional)</span>
+        </label>
+        <input class="form-control mt-1" type="text" name="title"
+          placeholder="Optional Title">
+      </div>
+
+      <div class="col-12">
+        <input id="x" type="hidden" name="text" value="{{ draft_entry.text }}">
+        <trix-editor class="trix-content" input="x"></trix-editor>
+      </div>
+
+      <div class="col-12">
+        <div class="d-grid my-3">
+          <button class="btn btn-primary" type="submit">
+            Add New Story
+          </button>
+        </div>
+      </div>
+
+    </form>
+
+  </div>
+
+</div>
+{% endblock %}

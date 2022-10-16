@@ -1,0 +1,16 @@
+<h1>Pagination</h1>
+
+Count: {{ profile_count }} <br>
+Start: {{ start_record }} <br>
+End: {{ end_record }} <br>
+Pages: {{ num_pages }}<br>
+Page: {{ page }}<br>
+Next Page: {{ next_page }}<br>
+Prev Page: {{ prev_page }}<br>
+Page List: {{ page_list }}
+
+<ul>
+  {% for profile in profile_list %}
+    <li>{{ profile }}</li>
+  {% endfor %}
+</ul>

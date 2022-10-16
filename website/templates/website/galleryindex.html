@@ -1,0 +1,158 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block stylesheets %}
+<link rel="stylesheet" type="text/css" href="{% static 'website/style.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'website/lightbox.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container mt-3">
+  <div class="row">
+
+    {% for image in galleryimage_list %}
+    <div class="col-12 col-md-6 col-lg-4">
+      <div class="p-2 border my-2" style="height:200px;">
+
+          <a href="{{ image.image.url }}" data-lightbox="gallery">
+            <div class="h-100"
+              style="
+              background-image: url({{ image.image.url }});
+              background-size:cover;
+              background-repeat:no-repeat;
+              background-position:center top;">
+            </div>
+          </a>
+
+      </div>
+      <div class="">
+        <p>
+          {{ image.caption_text }}
+
+            {% if image.long_caption %}
+              <a href="{% url 'website:galleryimage' image.gallery.slug image.uuid %}">...read more</a>
+            {% endif %}
+        </p>
+      </div>
+    </div>
+    {% endfor %}
+
+  </div>
+</div>
+
+<!--- pagination row --->
+{% if show_pagination %}
+<div class="container mt-3 mt-lg-4">
+  <div class="row">
+    <div class="col-12">
+      <h4 class="text-center">Page {{ current_page }} of {{ num_pages }} Pages</h4>
+    </div>
+    <div class="col-12 d-flex justify-content-center">
+      <nav aria-label="Page navigation example">
+        <ul class="pagination pagination-md">
+
+          {% if previous_page %}
+
+          <li class="page-item">
+            <a class="page-link"
+              href="{% url 'website:gallery-index' %}"
+              aria-label="Previous">
+                First
+
+            </a>
+          </li>
+
+          <li class="page-item">
+            <a class="page-link"
+              href="{% url 'website:gallery-index' %}{{ previous_page }}"
+              aria-label="Previous">
+                <span aria-hidden="true"><i class="fas fa-angle-double-left"></i></span>
+
+            </a>
+          </li>
+          {% else %}
+
+          <li class="page-item disabled">
+            <a class="page-link"
+              href="{% url 'website:gallery-index' %}{{ previous_page }}"
+              aria-label="Previous">
+                First
+
+            </a>
+          </li>
+          <li class="page-item disabled">
+            <a class="page-link"
+              href="{% url 'website:gallery-index' %}"
+              aria-label="Previous">
+                <span aria-hidden="true"><i class="fas fa-angle-double-left"></i></span>
+            </a>
+          </li>
+          {% endif %}
+
+          <!--- mobile pagination --->
+          <li class="page-item {{ page.status }} d-sm-none">
+            <a class="page-link"
+              href="{% url 'website:gallery-index' %}?page={{ current_page }}">
+              {{ current_page }}
+            </a>
+          </li>
+
+          <!--- non mobile pagination --->
+          {% for page in pagination_array %}
+            <li class="page-item {{ page.status }} d-none d-sm-block">
+              <a class="page-link"
+                href="{% url 'website:gallery-index' %}{{ page.query_string }}">
+                {{ page.page_number }}
+              </a>
+            </li>
+          {% endfor %}
+
+          {% if next_page %}
+          <li class="page-item">
+            <a class="page-link"
+              href="{% url 'website:gallery-index' %}{{ next_page }}"
+              aria-label="Next">
+                <span aria-hidden="true"><i class="fas fa-angle-double-right"></i></span>
+            </a>
+          </li>
+
+          <li class="page-item">
+            <a class="page-link"
+              href="{% url 'website:gallery-index' %}?page={{ num_pages }}"
+              aria-label="Next">
+                Last
+            </a>
+          </li>
+
+          {% else %}
+          <li class="page-item disabled">
+            <a class="page-link"
+              href="{% url 'website:gallery-index' %}"
+              aria-label="Next">
+                <span aria-hidden="true"><i class="fas fa-angle-double-right"></i></span>
+            </a>
+          </li>
+
+          <li class="page-item disabled">
+            <a class="page-link"
+              href="{% url 'website:gallery-index' %}"
+              aria-label="Next">
+                Last
+            </a>
+          </li>
+
+          {% endif %}
+
+
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+{% endif %}
+
+{% endblock %}
+
+{% block pagejs %}
+<script src="{% static 'website/lightbox.js' %}"></script>
+{% endblock %}

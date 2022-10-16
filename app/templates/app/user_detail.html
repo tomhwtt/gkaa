@@ -1,0 +1,80 @@
+{% extends "appbase.html" %}
+
+{% block content %}
+<div class="container" style="max-width:468px;">
+
+  {% if notify %}
+  <div class="row">
+    <div class="col-12">
+      <div class="alert alert-info text-center">
+        New Account Email Sent<br>
+        <a href="{% url 'app:accountrequest-list' %}">
+          &laquo; Back to Request List
+        </a>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+
+  <div class="row">
+    <div class="col-12">
+      <div class="col-12">
+
+        <h3>{{ user.name }}</h3>
+
+        <span>
+          {{ user.email }}
+        </span>
+
+        <br>
+
+        <a href="{% url 'app:send-user-account-email' user.id %}">
+          Send New Account Email
+        </a>
+
+        <hr>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+
+    {% if profile %}
+    <div class="col-12">
+      <a href="{% url 'app:profile-detail' profile.id %}">
+        View Profile &raquo;
+      </a>
+    </div>
+
+    {% else %}<!-- if not profile -->
+
+    <div class="col-12 py-3">
+
+      <p class="mb-1 fw-bold">
+        Click checkmark to set Profile
+      </p>
+
+      <ul class="list-group">
+        {% for profile in matching_profiles %}
+          <li class="list-group-item">
+            <div class="row">
+              <div class="col-9">
+                [{{ profile.id }}] {{ profile }}
+              </div>
+              <div class="col-3 text-center">
+                <a href="{% url 'app:profile-set-user' profile.id user.id %}">
+                  <i class="fas fa-check"></i>
+                </a>
+              </div>
+            </div>
+          </li>
+        {% endfor %}
+      </ul>
+
+    </div>
+    {% endif %}<!-- end if not profile -->
+
+  </div>
+</div>
+{% endblock %}

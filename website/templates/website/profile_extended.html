@@ -1,0 +1,146 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block stylesheets %}
+<link rel="stylesheet" type="text/css" href="{% static 'website/style.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'website/lightbox.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="bg-white">
+  <div class="container p-3" style="max-width:668px;">
+    <div class="row">
+      <div class="col-sm-12">
+
+        <a href="{% url 'website:profile' profile.url_code %}">
+          <i class="fas fa-angle-double-left"></i>
+          Back to Main Profile
+        </a>
+
+        <hr/>
+
+        <h1 class="font-weight-bold">
+          {{profile.first_name }}
+
+            {% if profile.middle_name %}{{ profile.middle_name }}{% endif %}
+
+          {{ profile.last_name }}
+        </h1>
+
+        {% if profile.nickname %}
+          <p class="my-1"><strong>Nickname:</strong> {{ profile.nickname }}</p>
+        {% endif %}
+
+        {% if profile.aka %}
+          <p class="my-1"><strong>AKA:</strong> {{ profile.aka }}</p>
+        {% endif %}
+
+        {% if profile.rank %}
+          <p class="my-1"><strong>Rank on team:</strong> {{ profile.rank }}</p>
+        {% endif %}
+
+        {% if profile.home_city %}
+          <p class="my-1">
+            <strong>Hometown:</strong>
+            {{ profile.home_city }}{% if profile.home_state %}, {{ profile.home_state }}{% endif %}
+          </p>
+        {% endif %}
+
+        {% if profile.mos %}
+          <p class="my-1"><strong>MOS: </strong>{{ profile.mos }}</p>
+        {% endif %}
+
+        {% if profile.show_deceased_date %}
+          <p class="my-1"><strong>Deceased: </strong>{{ profile.show_deceased_date }}</p>
+        {% endif %}
+
+        {% if profile.teamdate_string %}
+        <p class="my-1">
+          <strong>Years on Team:</strong>
+          {{ profile.teamdate_string }}
+        </p>
+        {% endif %}
+
+        <hr/>
+
+        {% if entry_list %}
+
+          {% for e in entry_list %}
+
+          {% if e.entries %}
+          <h4 class="font-weight-bold">{{ e.title }}</h4>
+
+          <ul>
+            {% for entry in e.entries  %}
+            <li class="my-1">
+              {{ entry }}
+
+              {% if entry.details %}
+              <div class="bg-white border rounded-0 p-2 text-sm text-muted">
+                {{ entry.details }}
+              </div>
+             {% endif %}<!-- if entry has details -->
+
+            </li>
+            {% endfor %}
+          </ul>
+          {% endif %}<!-- list has entries -->
+
+          {% endfor %}<!-- end entry list -->
+
+        {% endif %}<!-- endif entry list -->
+
+        {% if comment_set %}
+        <h4 class="font-weight-bold">Comments</h4>
+
+        <ul>
+          {% for comment in comment_set %}
+          <li class="my-1">
+            {{ comment.text|safe }}
+          </li>
+          {% endfor %}
+        </ul>
+
+        {% endif %}<!-- endif comment_set -->
+
+
+        {% if profile.comments %}
+          <h4 class="font-weight-bold">Comments</h4>
+          <p>{{ profile.comments }}</p>
+          <hr>
+        {% endif %}
+
+        {% if profile.current_status %}
+          <h4 class="font-weight-bold">Current Status</h4>
+          <p>{{ profile.current_status }}</p>
+          <hr>
+        {% endif %}
+
+      </div><!--- end column --->
+    </div><!--- end row --->
+  </div><!--- end container --->
+</div><!--- end white bg --->
+
+
+<div class="bg-white">
+  {% if profileimage_list %}
+  <!-- IF after the top div so we still get the bottom border -->
+  <div class="container py-4">
+    <div class="row">
+
+      {% for image in profileimage_list %}
+      <div class="col-6 col-md-3 mb-2">
+        <img class="img-fluid" src="{{ image.profile_src }}">
+      </div>
+      {% endfor %}
+    </div>
+
+  </div>
+  {% endif %}
+</div>
+
+{% endblock %}
+
+{% block pagejs %}
+<script src="{% static 'website/lightbox.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,136 @@
+{% extends "website_base.html" %}
+
+{% block content %}
+<div id="cover-spin" class="invisible"></div>
+<div class="container" style="margin-top:100px;max-width:450px;margin-bottom:25px;">
+  <div class="row">
+
+    <div class="col-12">
+
+      {% if test_mode %}
+      <div class="alert alert-danger text-center">
+        TEST MODE
+      </div>
+      {% endif %}
+
+      <ul class="list-group">
+
+        <li class="list-group-item">
+          <strong>{{ registration.name }}</strong><br>
+          {{ registration.email_display }}
+        </li>
+
+        {% if add_dues %}
+        <li class="list-group-item bg-info text-light text-center">
+          $50 will be applied to your Annual Dues
+        </li>
+        {% endif %}
+
+        {% for item in cart_items %}
+          <li class="list-group-item">
+
+            <div class="row d-flex align-items-center">
+
+              <div class="col-8">
+                {{ item.name }} ({{ item.quantity }})
+
+                {% if item.dues_paid %}
+                <br>
+                <span class="text-sm text-muted">
+                  * 2 free with dues paid
+                </span>
+                {% endif %}
+
+                {% if item.dues_applied %}
+                <br>
+                <span class="text-sm text-muted">
+                  * $50 will be applied to dues
+                </span>
+                {% endif %}
+
+              </div>
+
+              <div class="col-4 font-weight-bold text-center">
+                ${{ item.total }}
+              </div>
+
+            </div>
+
+          </li>
+        {% endfor %}
+
+          <li class="list-group-item d-flex justify-content-end text-lg bg-light">
+            <span class="font-weight-bold">Total:</span>
+            <span>&nbsp;${{ cart_total }}</span>
+          </li>
+      </ul>
+
+    </div>
+
+    {% if error_code %}
+    <div class="col-12">
+      <div class="alert alert-danger mt-3">
+
+        <p>
+          There was an error processing your card.
+          Please try again or contact your bank for details.
+        </p>
+
+        <p class="mb-0">
+          <span class="font-weight-bold">Error Code:</span> {{ error_code }}
+        </p>
+
+      </div>
+    </div>
+    {% endif %}
+
+    <div class="col-12">
+      <hr>
+    </div>
+
+
+    <!--- Stripe Info --->
+    {% if show_new_stripe %}
+    <div class="col-12">
+      <div class="form-group">
+        <label for="card-element">Enter Credit Card Info</label>
+        <div class="" id="card-element">
+          <!-- A Stripe Element will be inserted here. -->
+        </div>
+        <div id="card-errors" role="alert"></div>
+      </div>
+    </div>
+
+    <div class="col-12">
+
+      <button onclick="getStripeToken()" type="button"
+        class="btn btn-gold btn-lg btn-block">
+        Pay Now w/ Credit Card
+      </button>
+
+      <form id="stripeForm" method="post"
+        action="{% url 'website:eventregistration-charge' registration.short_code %}">
+        {% csrf_token %}
+        <input type="hidden" id="stripe_pk" name="stripe_pk" value="{{ stripe_pk }}">
+        <input id="stripeToken" type="hidden" name="stripe_token">
+
+      </form>
+
+    </div>
+    {% endif %}
+
+    <!--- no balance due --->
+    {% if not show_new_stripe %}
+    <div class="col-12">
+
+      <a class="btn btn-gold btn-lg btn-block"
+        href="{% url 'website:eventregistration-complete' registration.short_code %}">
+          Complete Registration
+      </a>
+
+    </div>
+    {% endif %}
+
+  </div>
+</div>
+{% endblock %}

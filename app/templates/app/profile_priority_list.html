@@ -1,0 +1,42 @@
+{% extends "app_base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container-fluid bg-light non-mobile-border">
+
+  <div class="row">
+
+    <div class="d-none d-sm-block col-sm-4 col-lg-3 app-nav">
+
+    </div>
+
+    <div class="col-12 app-content">
+      <ul class="list-group">
+        {% for profile in profile_list %}
+          <li class="list-group-item">
+
+          <div class="row d-flex align-items-center">
+
+            <div class="col-8">
+              {{ profile }}
+            </div>
+
+            <div class="col-4 d-flex justify-content-around">
+              <a href="{% url 'app:profile-go' profile.id %}" target="_blank">
+                <i class="fas fa-edit text-primary text-xl"></i>
+              </a>
+              <a href="#">
+                <i class="fas fa-check text-black-50 text-xl"></i>
+              </a>
+            </div>
+          </div>
+
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+
+  </div><!--- end row --->
+
+</div><!--- end container --->
+{% endblock %}

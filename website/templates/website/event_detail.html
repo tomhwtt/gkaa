@@ -1,0 +1,53 @@
+{% extends "website_base.html" %}
+{% load static %}
+
+
+{% block content %}
+<div class="container mb-3 p-3" style="margin-top:85px;max-width:450px;">
+
+  <div class="row">
+
+    <div class="col-12">
+
+      <h1 class="mb-0" style="font-size:32px;">
+        {{ event }}
+      </h1>
+
+      <p class="my-0">
+        {{ event.date }}
+      </p>
+
+      {% if not event.is_closed %}
+
+      <a class="btn btn-gold btn-lg btn-block my-3"
+        href="{% url 'website:event-register' event.short_code %}">
+        Purchase Tickets
+      </a>
+
+      {% else %}
+
+      <div class="alert alert-danger text-center mt-3">
+        Online registration is closed.<br>
+        {{ event.closed_message }}
+      </div>
+
+      {% endif %}
+
+    </div>
+
+    <div class="col-12 text-center">
+      <a href="https://gkaa.us/reunion-schedule" target="_blank">
+        Download The Schedule &raquo;
+      </a>
+    </div>
+
+    {% if not event.is_closed %}
+    <div class="col-12">
+      {{ event.description | safe }}
+    </div>
+    {% endif %}
+
+  </div>
+
+</div>
+{% endblock %}

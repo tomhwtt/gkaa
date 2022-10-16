@@ -1,0 +1,73 @@
+{% extends "accountbase.html" %}
+
+{% block content %}
+<div class="container" style="max-width:568px;">
+
+  <div class="row">
+
+    <div class="col-12">
+
+      <a href="{% url 'account:profile-detail' profile.uuid %}">
+        &laquo Back to Profile Home
+      </a>
+
+      <h1 class="fw-bold h2">
+        My Stories
+      </h1>
+
+      <a href="{% url 'account:profilestory-new' profile.uuid %}">
+        <i class="fas fa-plus"></i>
+        Add New Story
+      </a>
+
+      <hr>
+
+    </div>
+
+  </div>
+
+  <div class="row">
+
+    {% if story_set %}
+    <div class="col-12">
+      <ul class="list-group">
+        {% for story in story_set %}
+          <li class="list-group-item">
+            <div class="row d-flex align-items-center">
+              <div class="col-10">
+                <a href="{% url 'account:profilestory-detail' profile.uuid story.id %}">
+                  {{ story.the_title }} &raquo;
+                </a>
+                <br>
+                <span class="text-muted" style="font-size:1rem;">
+                  {{ story.date_text }}
+                </span>
+              </div>
+              <div class="col-2 text-center">
+                <a href="{% url 'account:profilestory-detail' profile.uuid story.id %}">
+                  <i class="fas fa-edit"></i>
+                </a>
+              </div>
+            </div>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+
+    {% else %}<!-- if not comment_set -->
+
+    <div class="col-12">
+      <p class="mb-0">
+        You have no stories:
+      </p>
+      <a href="{% url 'account:profilestory-new' profile.uuid %}">
+        + Add One Now
+      </a>
+    </div>
+
+    {% endif %}<!-- end if no comment set -->
+
+  </div>
+
+</div>
+{% endblock %}

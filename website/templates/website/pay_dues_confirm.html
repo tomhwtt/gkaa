@@ -1,0 +1,37 @@
+{% extends "website_base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container" style="margin-top:100px;max-width:400px;">
+  <div class="row">
+    <div class="col-12">
+
+      <h3>Confirm Member</h3>
+
+      <p>
+        You are paying dues for the following GKAA Member, correct?
+      </p>
+
+      <hr/>
+
+      <p class="text-primary text-lg text-center mb-3">
+        * {{ profile }} ({{ profile.start_year }})
+      </p>
+
+      <a class="btn btn-gold btn-lg btn-block my-3" href="{% url 'website:pay-dues-charge' profile.uuid %}">
+        Yes, this is correct!
+      </a>
+
+      <a class="btn btn-dark btn-lg btn-block mb-3" href="{% url 'website:pay-dues' %}">
+        No. Go back to Member Search
+      </a>
+
+      <a class="btn btn-outline-secondary btn-lg btn-block" href="{% url 'website:contact' %}">
+        Contact us for help
+      </a>
+
+    </div>
+
+  </div>
+</div>
+{% endblock %}

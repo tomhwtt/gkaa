@@ -1,0 +1,188 @@
+@import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
+
+
+body {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.125em;
+    line-height: 1.7em;
+}
+
+
+.login-container{
+  height:100vh;
+  max-width: 468px;
+  display: flex;
+  align-items: center;
+}
+
+.login-container .img-fluid{
+  max-width: 125px;
+  display: block;
+  margin: auto;
+}
+
+@media (min-width:768px) {
+  .login-container .img-fluid{
+    max-width: 150px;
+    display: block;
+    margin: auto;
+  }
+}
+
+
+
+p {
+    font-size: 1.125rem;
+}
+
+.text-xs{
+  font-size: .75em;
+}
+
+.text-sm{
+  font-size: .925em;
+}
+.text-md{
+  font-size: 1.125em;
+}
+
+.text-lg{
+  font-size: 1.25em;
+}
+
+.text-xl{
+  font-size: 1.5em;
+}
+
+.text-xxl{
+  font-size: 2em;
+}
+
+.pointer{
+  cursor: pointer;
+}
+
+
+/* backgrounds and buttons */
+.bg-gold{
+  background-color: #febe24;
+}
+
+
+.wrapper {
+  display: relative;
+  width: 100%;
+}
+
+.overlay {
+  display: none;
+  position: fixed;
+  /* full screen */
+  width: 100vw;
+  height: 100vh;
+  /* transparent black */
+  background: rgba(0, 0, 0, 0.7);
+  /* middle layer, i.e. appears below the sidebar */
+  z-index: 998;
+  opacity: 0;
+  /* animate the transition */
+  transition: all 0.5s ease-in-out;
+}
+
+.overlay.active {
+  display: block;
+  opacity: 1;
+}
+
+
+/* asthetics */
+a, a:hover, a:focus {
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+}
+ul ul a {
+    font-size: 0.9em !important;
+    padding-left: 30px !important;
+    background: #6d7fcc;
+}
+
+
+.fas,
+.far{
+  line-height: inherit;
+}
+
+
+.date-modal-btn{
+  cursor: pointer;
+}
+
+/* lighten up the placeholders */
+.form-control:-ms-input-placeholder,
+.form-control::-ms-input-placeholder {
+    color: #b1c2d9;
+    opacity: 1
+}
+
+.form-control::placeholder {
+    color: #b1c2d9;
+    opacity: 1
+}
+
+
+.dont-break-out {
+
+  /* These are technically the same, but use both */
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+
+  -ms-word-break: break-all;
+  /* This is the dangerous one in WebKit, as it breaks things wherever */
+  word-break: break-all;
+  /* Instead use this non-standard one: */
+  word-break: break-word;
+
+  /* Adds a hyphen where the word breaks, if supported (No Blink) */
+  -ms-hyphens: auto;
+  -moz-hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphens: auto;
+
+}
+
+
+/* Loading / Waiting For */
+#cover-spin {
+    position:fixed;
+    width:100%;
+    left:0;right:0;top:0;bottom:0;
+    background-color: rgba(255,255,255,0.7);
+    z-index:9999;
+}
+
+@-webkit-keyframes spin {
+	from {-webkit-transform:rotate(0deg);}
+	to {-webkit-transform:rotate(360deg);}
+}
+
+@keyframes spin {
+	from {transform:rotate(0deg);}
+	to {transform:rotate(360deg);}
+}
+
+#cover-spin::after {
+    content:'';
+    display:block;
+    position:absolute;
+    left:48%;top:40%;
+    width:40px;height:40px;
+    border-style:solid;
+    border-color:black;
+    border-top-color:transparent;
+    border-width: 4px;
+    border-radius:50%;
+    -webkit-animation: spin .8s linear infinite;
+    animation: spin .8s linear infinite;
+}

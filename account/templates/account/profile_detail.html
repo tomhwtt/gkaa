@@ -1,0 +1,149 @@
+{% extends "accountbase.html" %}
+
+{% block content %}
+<div class="container pb-5" style="max-width:568px;">
+
+  <div class="row">
+    <div class="col-12">
+
+      <h1 class="fw-bold">
+        {{ profile }}
+      </h1>
+
+    </div>
+  </div>
+
+  <div class="row">
+
+    <div class="col-12">
+      <p>
+        Click links below to add/edit info.
+      </p>
+    </div>
+
+    <div class="col-12">
+
+      <ul class="list-group mb-3 rounded-0">
+
+        <li class="list-group-item bg-gold">
+          <p class="text-center my-0">
+            Basic Profile Info
+          </p>
+        </li>
+
+        <li class="list-group-item">
+          <a href="{% url 'account:profile-edit' profile.uuid %}">
+            Name, Rank, Hometown, etc &raquo;
+          </a>
+        </li>
+
+        <li class="list-group-item">
+          <a href="{% url 'account:profile-dates' profile.uuid %}">
+            Dates Assigned
+            <span class="text-sm text-muted">(Team & Army)</span>
+            &raquo;
+          </a>
+        </li>
+
+        {% if has_profile_image %}
+        <li class="list-group-item">
+          <a href="{% url 'account:profileimage-list' profile.uuid %}">
+            Update Your Profile Picture &raquo;
+          </a>
+        </li>
+        {% else %}
+        <li class="list-group-item">
+          <a href="{% url 'account:profileimage-new' profile.uuid %}?type=profile">
+            Add a Profile Picture &raquo;
+          </a>
+        </li>
+        {% endif %}<!-- end if has_profile_image -->
+
+      </ul>
+
+    </div><!-- end basic profile column -->
+
+    <div class="col-12">
+
+      <ul class="list-group mb-3 rounded-0">
+
+        <li class="list-group-item bg-secondary text-light">
+          <p class="text-center my-0">
+            Additional Info
+          </p>
+        </li>
+
+
+        {% for entry in entry_list %}
+          <li class="list-group-item rounded-0 text-muted">
+
+            <a class="text-muted"
+              href="{% url 'account:profile-entries' profile.uuid entry.id %}">
+              {{ entry.title }} ({{ entry.count }})
+            </a>
+
+          </li>
+        {% endfor %}<!-- end for entry list -->
+
+
+        <li class="list-group-item">
+
+          <a class="text-muted"
+            href="{% url 'account:profileimage-list' profile.uuid %}">
+            More Images ({{ image_set.count }})
+          </a>
+
+        </li>
+
+        <li class="list-group-item">
+
+          <a class="text-muted"
+            href="{% url 'account:profilestory-list' profile.uuid %}">
+            Stories ({{ story_set.count }})
+          </a>
+
+        </li>
+
+        <li class="list-group-item">
+
+          <a class="text-muted"
+            href="{% url 'account:profile-current-status' profile.uuid %}">
+            Current Status
+          </a>
+
+        </li>
+
+        <li class="list-group-item">
+
+          <a class="text-muted"
+            href="{% url 'account:profile-comments' profile.uuid %}">
+            Public Comments
+          </a>
+
+        </li>
+
+        {% if oldhighlight_set %}
+        <li class="list-group-item">
+
+          <a href="{% url 'account:oldhighlights' profile.uuid %}">
+            <i class="fas fa-edit"></i>
+            Previous Info ({{ oldhighlight_set.count }})
+          </a>
+
+        </li>
+        {% endif %}
+
+        <li class="list-group-item text-center bg-dark text-light">
+          <a class="text-light" href="{% url 'account:logout' %}">
+            Logout
+          </a>
+        </li>
+
+      </ul>
+
+    </div><!-- end additional info column -->
+
+  </div>
+
+</div>
+{% endblock %}

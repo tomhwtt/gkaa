@@ -1,0 +1,57 @@
+{% extends "appbase.html" %}
+
+{% block content %}
+<div class="container" style="max-width:468px;">
+  <div class="row">
+
+    <div class="col-12">
+      {{ r.name }}
+
+        <br>
+
+        {{ r.email_address }}<br>
+        <span class="text-sm text-muted">
+          {{ r.text_date }}
+        </span>
+
+    </div>
+
+    {% if has_account %}
+    <div class="col-12 py-3">
+      <div class="alert alert-danger">
+          User Already Exists
+      </div>
+    </div>
+
+    {% else %}
+
+    <div class="col-12">
+
+      <hr>
+
+      <form method="post">{% csrf_token %}
+
+        <div class="mb-3">
+          <label>Full Name</label>
+          <input class="form-control" type="text" name="name" value="{{ r.name }}">
+        </div>
+
+        <div class="mb-3">
+          <label>Email Address</label>
+          <input class="form-control" type="text" name="email" value="{{ r.email_address }}">
+        </div>
+
+        <div class="d-grid">
+          <button class="btn btn-primary" type="submit">
+            Create User
+          </button>
+        </div>
+
+      </form>
+
+    </div>
+    {% endif %}<!-- if has_account -->
+
+  </div>
+</div>
+{% endblock %}

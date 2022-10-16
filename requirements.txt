@@ -1,0 +1,8 @@
+django~=3.2.13
+mysqlclient
+stripe
+python-decouple
+boto3
+requests
+pillow
+uWSGI
