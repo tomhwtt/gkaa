@@ -162,12 +162,17 @@ function updateDuesPaymentBtn () {
 // Event Registration
 $('#registerBtn').on('click', function(event){
 
-  var quantity_array = []
+  let quantity_array = [];
+  let total_attendees = 0;
+  let registerType = $('#registerType').val();
+  let registerName = $('#registerName').val();
+  let registerEmail = $('#registerEmail').val();
 
   $('.qty').each(function(index, element) {
 
     if ($(this).val()) {
       qty = $(this).val();
+      total_attendees += parseInt(qty);
     }else{
       qty = 0;
     }
@@ -179,7 +184,28 @@ $('#registerBtn').on('click', function(event){
 
   });
 
-  newEventRegistration(JSON.stringify(quantity_array))
+  // form checks
+  if (registerType == 0){
+    $('#registerTypeError').html('Please choose registration type');
+  }
+
+  if (!registerName){
+    $('#registerNameError').html('Please enter your name');
+  }
+
+  if (!registerEmail){
+    $('#registerEmailError').html('Please enter your email address');
+  }
+
+  if (total_attendees == 0){
+    $('#totalError').addClass('form-error');
+  }
+
+  if (total_attendees && registerType && registerName && registerEmail){
+      newEventRegistration(JSON.stringify(quantity_array))
+  }
+
+  //
 
 });
 

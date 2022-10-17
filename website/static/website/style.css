@@ -29,7 +29,10 @@ h3{
   font-size: 1.5em;
 }
 
-
+.form-error{
+  padding-top: 5px;
+  color: red;
+}
 
 
 @media (max-width: 767px) {
