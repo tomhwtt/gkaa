@@ -256,11 +256,19 @@ def event_register_new(request):
                 pk = sub['id']
             )
 
-            # get SubEventPricing
-            pricing = SubEventPricing.objects.get(
-                subevent = subevent,
-                type = type
-            )
+            # get SubEventPricing by type (Alumnus, CurrentTeam, etc)
+            try:
+                pricing = SubEventPricing.objects.get(
+                    subevent = subevent,
+                    type = type
+                )
+
+            # if the type fails because there is only one type,
+            # get the first one. Clean this up 
+            except:
+                pricing = SubEventPricing.objects.filter(
+                    subevent = subevent
+                ).first()
 
             subregistration = SubEventRegistration(
                 eventregistration = registration,

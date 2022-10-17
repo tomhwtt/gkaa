@@ -1127,5 +1127,6 @@ class EventRegistration(models.Model):
 class SubEventRegistration(models.Model):
     eventregistration = models.ForeignKey(EventRegistration,on_delete=models.CASCADE)
     subevent = models.ForeignKey(SubEvent,on_delete=models.CASCADE)
+    each = models.DecimalField(max_digits=10, decimal_places=2,default=0.00)
     quantity = models.PositiveIntegerField()
     checked_in_date = models.DateTimeField(null=True)
