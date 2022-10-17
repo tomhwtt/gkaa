@@ -39,7 +39,6 @@ services:
       - app
     ports:
       - 80:8000
-      - 443:8000
     volumes:
       - static-data:/vol/static
 
