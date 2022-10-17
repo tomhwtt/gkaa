@@ -28,14 +28,7 @@ SECRET_KEY = config('SECRET_KEY')
 
 DEBUG = bool(int(os.environ.get('DEBUG', 0)))
 
-ALLOWED_HOSTS = []
-
-ALLOWED_HOSTS.extend(
-    filter(
-        None,
-        os.environ.get('ALLOWED_HOSTS', '').split(','),
-    )
-)
+ALLOWED_HOSTS = [] if DEBUG else os.environ.get('ALLOWED_HOSTS', '').split(',')
 
 AUTH_USER_MODEL = 'users.CustomUser'
 
