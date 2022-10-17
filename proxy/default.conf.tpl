@@ -1,6 +1,5 @@
 server {
-  listen 80;
-  server_name imagecrazy.com;
+  listen ${LISTEN_PORT};
 
   location /static {
     alias /vol/static;
