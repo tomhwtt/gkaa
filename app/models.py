@@ -1044,11 +1044,19 @@ class EventRegistration(models.Model):
             for ticket in existing_tickets:
                 num_existing_tickets += ticket.quantity
 
-            # get the SubEventPricing
-            pricing = SubEventPricing.objects.get(
-                subevent = sub.subevent,
-                type = self.type
-            )
+            # get SubEventPricing by type (Alumnus, CurrentTeam, etc)
+            try:
+                pricing = SubEventPricing.objects.get(
+                    subevent = sub.subevent,
+                    type = sub.eventregistration.type
+                )
+
+            # if the type fails because there is only one type,
+            # get the first one. Clean this up
+            except:
+                pricing = SubEventPricing.objects.filter(
+                    subevent = sub.subevent
+                ).first()
 
             # if they have already bought tickets, these are all add_on_pricing
             if sub.quantity and existing_tickets:
