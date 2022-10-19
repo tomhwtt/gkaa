@@ -45,9 +45,9 @@
     {% if not profile.dues_paid %}
     <div class="col-12">
 
-      <h4 class="font-weight-bold text-center">
+      <h1 class="fw-bold text-center">
         Annual Dues: $50
-      </h4>
+      </h1>
 
       <hr>
 
@@ -105,9 +105,10 @@
 
     <div class="col-12">
 
-      <div class="form-group">
+      <div class="mb-3">
         <label for="">Email Address</label>
-        <input id="payment_email" class="form-control" type="text" name="payment_email" required>
+        <input id="payment_email" class="form-control" type="text"
+          name="payment_email" required>
         <span id="payment_email_error"
           class="text-sm text-danger d-none">Please enter valid email address</span>
       </div>
@@ -129,15 +130,17 @@
 
       <div id="amount_error" class="text-sm text-danger" role="alert"></div>
 
-      <button id="paymentBtn" type="button" class="btn btn-gold btn-lg btn-block">
-        Pay w/ Credit Card
+      <div class="d-grid">
+        <button id="paymentBtn" type="button" class="btn btn-gold btn-lg btn-block">
+          Pay w/ Credit Card
 
-        {% if payment_amount %}
-          <span id="paymentBtnAmount" class="font-weight-bold">(${{ payment_amount }})</span>
-        {% else %}
-          <span id="paymentBtnAmount" class="font-weight-bold"></span>
-        {% endif %}
-      </button>
+          {% if payment_amount %}
+            <span id="paymentBtnAmount" class="font-weight-bold">(${{ payment_amount }})</span>
+          {% else %}
+            <span id="paymentBtnAmount" class="font-weight-bold"></span>
+          {% endif %}
+        </button>
+      </div>
 
       {% csrf_token %}
       <input type="hidden" id="stripe_pk" name="stripe_pk" value="{{ stripe_pk }}">

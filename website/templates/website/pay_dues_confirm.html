@@ -1,15 +1,15 @@
-{% extends "website_base.html" %}
+{% extends "websitebase.html" %}
 {% load static %}
 
 {% block content %}
-<div class="container" style="margin-top:100px;max-width:400px;">
+<div class="container" style="margin-top:50px;max-width:400px;">
   <div class="row">
     <div class="col-12">
 
-      <h3>Confirm Member</h3>
+      <h1 class="fw-bold">Confirm Member</h1>
 
       <p>
-        You are paying dues for the following GKAA Member, correct?
+        You are paying dues for:
       </p>
 
       <hr/>
@@ -18,17 +18,26 @@
         * {{ profile }} ({{ profile.start_year }})
       </p>
 
-      <a class="btn btn-gold btn-lg btn-block my-3" href="{% url 'website:pay-dues-charge' profile.uuid %}">
-        Yes, this is correct!
-      </a>
+      <div class="d-grid mb-3">
+        <a class="btn btn-gold btn-lg"
+        href="{% url 'website:pay-dues-charge' profile.uuid %}">
+          Yes, this is correct!
+        </a>
+      </div>
 
-      <a class="btn btn-dark btn-lg btn-block mb-3" href="{% url 'website:pay-dues' %}">
-        No. Go back to Member Search
-      </a>
+      <div class="d-grid mb-3">
+        <a class="btn btn-dark btn-lg"
+          href="{% url 'website:pay-dues' %}">
+          No. Go back to Member Search
+        </a>
+      </div>
 
-      <a class="btn btn-outline-secondary btn-lg btn-block" href="{% url 'website:contact' %}">
-        Contact us for help
-      </a>
+      <div class="d-grid mb-3">
+        <a class="btn btn-outline-secondary btn-lg"
+          href="{% url 'website:contact' %}">
+          Contact us for help
+        </a>
+      </div>
 
     </div>
 
