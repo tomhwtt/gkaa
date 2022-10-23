@@ -164,7 +164,7 @@ $('#registerBtn').on('click', function(event){
 
   let quantity_array = [];
   let total_attendees = 0;
-  let registerType = $('#registerType').val();
+  let registerType = parseInt($('#registerType').val());
   let registerName = $('#registerName').val();
   let registerEmail = $('#registerEmail').val();
 
