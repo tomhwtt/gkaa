@@ -159,6 +159,14 @@ function updateDuesPaymentBtn () {
 }
 
 
+function validateEmail(email){
+  return String(email)
+  .toLowerCase()
+  .match(
+    /^[A-Za-z0-9_!#$%&'*+\/=?`{|}~^.-]+@[A-Za-z0-9.-]+$/gm
+  )
+}
+
 // Event Registration
 $('#registerBtn').on('click', function(event){
 
@@ -167,6 +175,7 @@ $('#registerBtn').on('click', function(event){
   let registerType = parseInt($('#registerType').val());
   let registerName = $('#registerName').val();
   let registerEmail = $('#registerEmail').val();
+  let invalidForm = false;
 
   $('.qty').each(function(index, element) {
 
@@ -185,27 +194,38 @@ $('#registerBtn').on('click', function(event){
   });
 
   // form checks
+  if (!registerEmail){
+    $('#registerEmailError').html('Please enter your email address');
+    invalidForm = true;
+
+  } else if (registerEmail) {
+
+    let isValidEmail = validateEmail(registerEmail);
+
+    if (!isValidEmail) {
+      $('#registerEmailError').html('Please enter a valid email address');
+      invalidForm = true;
+    }
+  }
+
   if (registerType == 0){
     $('#registerTypeError').html('Please choose registration type');
+    invalidForm = true;
   }
 
   if (!registerName){
     $('#registerNameError').html('Please enter your name');
-  }
-
-  if (!registerEmail){
-    $('#registerEmailError').html('Please enter your email address');
+    invalidForm = true;
   }
 
   if (total_attendees == 0){
     $('#totalError').addClass('form-error');
+    invalidForm = true;
   }
 
-  if (total_attendees && registerType && registerName && registerEmail){
+  if (!invalidForm){
       newEventRegistration(JSON.stringify(quantity_array))
   }
-
-  //
 
 });
 
