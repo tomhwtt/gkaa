@@ -144,14 +144,7 @@ class EventRegistration(models.Model):
 
         subeventregistration_set = self.subeventregistration_set.all()
 
-        # set the current year so I can check if they paid dues
-        this_year = datetime.datetime.today().year
-
-        # look for a dues payment for this email address and year
-        dues_paid = DuesPayment.objects.filter(
-            email = self.email,
-            year = this_year
-        )
+        dues_paid = check_dues_by_email(email=self.email)
 
         add_dues = False # by default
         cart_items = []
@@ -251,7 +244,7 @@ class EventRegistration(models.Model):
             'items': cart_items,
             'total': cart_total,
             'add_dues': add_dues,
-            'dues_paid': dues_paid
+            'dues_paid': 'are dues paid'
         }
 
         return cart

@@ -1,14 +1,14 @@
-{% extends "website_base.html" %}
+{% extends "websitebase.html" %}
 {% load static %}
 
 {% block content %}
-<div class="container mb-3" style="margin-top:100px;max-width:450px;">
+<div class="container mb-3" style="margin-top:50px;max-width:450px;">
   <div class="row">
     <div class="col-12">
 
-      <h4 class="font-weight-bold">
+      <h1 class="fw-bold">
         Pay Your {{ year }} Dues
-      </h4>
+      </h1>
 
       <hr/>
 
@@ -20,18 +20,23 @@
       </p>
 
       <p>
-        Then click the blue Pay Dues button next to your name to proceed.
+        Then click the blue Pay Dues button next to your name.
       </p>
 
       <form class="" action="{% url 'website:pay-dues' %}" method="post">
         {% csrf_token %}
-        <div class="form-group">
-          <input class="form-control" type="text" name="dues_search" placeholder="Enter Your Last Name">
+
+        <div class="mb-3">
+          <input class="form-control" type="text" name="dues_search"
+            placeholder="Enter Your Last Name">
         </div>
 
-        <button type="submit" class="btn btn-gold btn-lg btn-block">
-          Search Member Database
-        </button>
+        <div class="d-grid">
+          <button type="submit" class="btn btn-gold btn-lg btn-block">
+            Search Member Database
+          </button>
+        </div>
+
       </form>
     </div>
 

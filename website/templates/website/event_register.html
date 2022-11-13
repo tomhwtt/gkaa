@@ -1,18 +1,14 @@
-{% extends "website_base.html" %}
+{% extends "websitebase.html" %}
 
 {% block content %}
-<div class="container" style="margin-top:100px;max-width:450px;">
+<div class="container" style="margin-top:25px;max-width:450px;">
   <div class="row">
 
     <div class="col-12">
 
-      <h1 style="font-size:32px;font-weight:bold;">
+      <h1 class="fw-bold">
         {{ event }}
       </h1>
-
-      <p>
-        {{ event.type }}
-      </p>
 
       <hr>
 
@@ -20,9 +16,9 @@
 
     <div class="col-12">
 
-      <p>
-        Enter number of attendees for each event
-      </p>
+      <div id="totalError">
+        <p>Enter number of attendees:</p>
+      </div>
 
       <ul class="list-group">
         {% for sub in subevent_list %}
@@ -32,18 +28,19 @@
                   {{ sub }}
               </div>
               <div class="col-4 col-md-3">
-                <input class="form-control text-center qty" type="text"
+                <input class="form-control text-center qty" type="tel"
                   placeholder="QTY" data-id="{{ sub.id }}">
               </div>
             </div>
           </li>
         {% endfor %}
+
       </ul>
     </div>
 
-    <div class="col-12">
+    <div class="col-12 my-3">
 
-      <label class="font-weight-bold mt-3" for="registerType">
+      <label class="font-weight-bold" for="registerType">
         Choose Your Registration Type
       </label>
 
@@ -55,6 +52,7 @@
           <option value="3">Honorary GK</option>
           <option value="4">Other</option>
         </select>
+        <div class="form-error" id="registerTypeError"></div>
       </div>
 
     </div>
@@ -65,22 +63,18 @@
         <label for="">Full Name</label>
         <input id="registerName" class="form-control"
           type="text" placeholder="Full Name">
-      </div>
-
-      <div class="alert alert-info">
-        If you have paid your dues this year,
-        use the same email address so we can apply them
-        to your ticket prices.
+        <div class="form-error" id="registerNameError"></div>
       </div>
 
       <div class="mb-3">
         <label for="">Email Address</label>
-        <input id="registerEmail" class="form-control" type="text" name="" value=""
+        <input id="registerEmail" class="form-control" type="email"
           placeholder="Email Address">
+        <div class="form-error" id="registerEmailError"></div>
       </div>
 
-      <div class="mb-3">
-        <button id="registerBtn" class="btn btn-gold btn-block">
+      <div class="mb-3 d-grid">
+        <button id="registerBtn" class="btn btn-gold btn-lg">
           Register
         </button>
         {% csrf_token %}

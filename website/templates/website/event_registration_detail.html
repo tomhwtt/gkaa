@@ -1,21 +1,16 @@
-{% extends "website_base.html" %}
+{% extends "websitebase.html" %}
 {% load static %}
 
-
 {% block content %}
-<div class="container mb-3" style="margin-top:100px;max-width:350px;">
+<div class="container mb-3" style="margin-top:25px;max-width:400px;">
   <div class="row">
 
     <div class="col-12 text-md">
 
-      <img class="img-fluid d-block mx-auto my-3"
-          src="{% static 'website/images/roster/auls_head.jpg' %}"
-          style="max-width:225px;">
-
 
         {% if total %}
 
-        <h3 class="font-weight-bold text-center">
+        <h3 class="fw-bold text-center">
           Paid!
         </h3>
 
@@ -25,17 +20,53 @@
 
         {% else %}
 
-        <h3 class="font-weight-bold text-center">
-          Registration Complete
-        </h3>
+        <h2 class="fw-bold text-center mb-0">
+          You are Registered!
+        </h2>
 
-        <p class="text-center">
-          See you in December!
+        <p class="my-0 text-center">
+          See details below.
         </p>
 
         {% endif %}<!-- end if no total (free w/ dues) -->
 
         <hr/>
+
+        <p>
+          As promised, this party is 100% free!
+        </p>
+
+        <p>
+          Because the GKAA is a non-profit organization, annual dues and
+          donations are always needed.
+        </p>
+
+        <p>
+          If you are an <strong>Alumnus</strong> and have not paid your annual dues...
+        </p>
+
+        <p>
+          ...or an Alumnus, Honorary GK, current team member or
+          friend of the team and would like to make a donation,
+          you can do so using one of the following links.
+        </p>
+
+        <div class="d-grid mb-3">
+          <a class="btn btn-gold btn-lg"
+            href="{% url 'website:pay-dues'%}">
+            Pay Annual Dues
+          </a>
+        </div>
+
+        <div class="d-grid">
+          <a class="btn btn-dark btn-lg"
+            href="{% url 'website:donate'%}">
+            Make a 501(c)(19) Donation
+          </a>
+        </div>
+
+
+        <hr>
 
         <p class="my-0">
           <strong>Event:</strong> {{ registration.event.name }}
@@ -79,6 +110,9 @@
         </p>
 
     </div>
+
+    <!-- TEMP-->
+    <div style="margin:15px;"></div>
 
   </div>
 </div>

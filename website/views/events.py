@@ -81,6 +81,12 @@ def event_registration_payment(request,short_code):
 
     # get the EventRegistration
     registration = get_object_or_404(EventRegistration,short_code=short_code)
+    cart_total = registration.cart()['total']
+
+    # if there is no balance due update stripe_charge_id
+    if not cart_total:
+        registration.stripe_charge_id = 'no-balance-due'
+        registration.save()
 
     # they can only be on this page if they have not paid yet
     if not registration.stripe_charge_id:
@@ -105,8 +111,6 @@ def event_registration_payment(request,short_code):
             error_code = None
 
         # we only need the stripe stuff if there is a cart_total
-        cart_total = registration.cart()['total']
-
         if cart_total:
             show_new_stripe = True
         else:
@@ -133,7 +137,7 @@ def event_registration_payment(request,short_code):
         # redirect to detail page
         return HttpResponseRedirect(
             reverse('website:eventregistration-detail',
-            args=(registration.short_code,)))
+                args=(registration.short_code,)))
 
 def event_registration_complete(request,short_code):
 
@@ -254,12 +258,6 @@ def event_register_new(request):
             # get the SubEvent
             subevent = SubEvent.objects.get(
                 pk = sub['id']
-            )
-
-            # get SubEventPricing
-            pricing = SubEventPricing.objects.get(
-                subevent = subevent,
-                type = type
             )
 
             subregistration = SubEventRegistration(
